@@ -55,7 +55,7 @@
     @apply font-ibm-plex-sans font-normal text-custom_5 text-white-200;
   }
   .caption-cap-10 {
-     @apply font-ibm-plex-sans font-normal text-custom_6 text-white-200;
+    @apply font-ibm-plex-sans font-normal text-custom_6 text-white-200;
   }
   .caption-cap-8 {
     @apply font-ibm-plex-sans font-normal text-custom_7 text-white-200;
