@@ -3,14 +3,16 @@ import { Inter, IBM_Plex_Sans as IBMPlexSans } from "next/font/google";
 import "./globals.css";
 import React from "react";
 
+import { ThemeProvider } from "@/context/ThemeProvider";
+
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-inter",
 });
 
-const ibmPlexSans = IBMPlexSans({ 
-  subsets: ["latin"], 
+const ibmPlexSans = IBMPlexSans({
+  subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-ibm-plex-sans",
 });
@@ -27,7 +29,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${ibmPlexSans.variable}`}>{children}</body>
+      <body className={`${inter.variable} ${ibmPlexSans.variable}`}>
+        <div className="flex size-full min-h-screen flex-col justify-between">
+          <main className="mx-auto w-full  flex-auto">
+            <ThemeProvider>{children}</ThemeProvider>
+          </main>
+        </div>
+      </body>
     </html>
   );
 }
