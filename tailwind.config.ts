@@ -75,6 +75,7 @@ const config: Config = {
       },
       fontFamily: {
         inter: ["var(--font-inter)", "sans-serif"],
+        "ibm-plex-sans": ["IBM Plex Sans", "sans-serif"],
       },
       fontSize: {
         custom: ["32px", "40px"], // The second value is for line-height
