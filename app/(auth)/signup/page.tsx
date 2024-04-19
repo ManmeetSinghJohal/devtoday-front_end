@@ -19,7 +19,7 @@ const SignUp = async () => {
     <div className="mb-24 w-full max-w-[400px] lg:mt-[100px]">
       <div className="flex flex-col items-center">
         <div className="hidden w-[1440px] lg:grid lg:grid-cols-2">
-          <div className="bg-white-100">
+          <div className="bg-white-100 dark:bg-dark-800">
             <div className="mb-[52px] ml-10 mt-11 flex">
               <Image
                 src="assets/logos/logo.svg"
@@ -41,8 +41,8 @@ const SignUp = async () => {
                 Join our developer community! Sign up now and be part of the
                 conversation.
               </div>
-              <div className="flex rounded-lg bg-white-200 p-5">
-                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-100">
+              <div className="flex rounded-lg bg-white-200 p-5 dark:bg-dark-700">
+                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-100 dark:hidden">
                   <Image
                     src="assets/icons/briefcase.svg"
                     width={20}
@@ -50,13 +50,21 @@ const SignUp = async () => {
                     alt="briefcase"
                   />
                 </div>
-                <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700">
+                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-dark-800 dark:flex">
+                  <Image
+                    src="assets/icons/briefcase-dark.svg"
+                    width={20}
+                    height={20}
+                    alt="briefcase"
+                  />
+                </div>
+                <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
                   Discover the latest trends, tools, and insights shaping the
                   developer world.
                 </div>
               </div>
-              <div className="mt-5 flex rounded-lg bg-white-200 p-5">
-                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-200">
+              <div className="mt-5 flex rounded-lg bg-white-200 p-5 dark:bg-dark-700">
+                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-200 dark:hidden">
                   <Image
                     src="assets/icons/feedback.svg"
                     width={20}
@@ -64,12 +72,20 @@ const SignUp = async () => {
                     alt="briefcase"
                   />
                 </div>
-                <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700">
+                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-dark-800 dark:flex">
+                  <Image
+                    src="assets/icons/feedback-dark.svg"
+                    width={20}
+                    height={20}
+                    alt="briefcase"
+                  />
+                </div>
+                <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
                   Forge connections, collaborate on projects, and grow together.
                 </div>
               </div>
-              <div className="mt-5 flex rounded-lg bg-white-200 p-5">
-                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-300">
+              <div className="mt-5 flex rounded-lg bg-white-200 p-5 dark:bg-dark-700">
+                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-300 dark:hidden">
                   <Image
                     src="assets/icons/inbox.svg"
                     width={20}
@@ -77,7 +93,15 @@ const SignUp = async () => {
                     alt="briefcase"
                   />
                 </div>
-                <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700">
+                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-dark-800 dark:flex">
+                  <Image
+                    src="assets/icons/inbox-dark.svg"
+                    width={20}
+                    height={20}
+                    alt="briefcase"
+                  />
+                </div>
+                <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
                   Elevate your coding with exclusive content for professional
                   growth
                 </div>
