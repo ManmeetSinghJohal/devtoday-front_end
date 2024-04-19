@@ -50,7 +50,7 @@ const SignUp = async () => {
                     alt="briefcase"
                   />
                 </div>
-                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-dark-800 dark:flex">
+                <div className="mr-5 hidden size-[60px] justify-center rounded-lg bg-dark-800 dark:flex">
                   <Image
                     src="assets/icons/briefcase-dark.svg"
                     width={20}
@@ -72,7 +72,7 @@ const SignUp = async () => {
                     alt="briefcase"
                   />
                 </div>
-                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-dark-800 dark:flex">
+                <div className="mr-5 hidden size-[60px] justify-center rounded-lg bg-dark-800 dark:flex">
                   <Image
                     src="assets/icons/feedback-dark.svg"
                     width={20}
@@ -93,7 +93,7 @@ const SignUp = async () => {
                     alt="briefcase"
                   />
                 </div>
-                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-dark-800 dark:flex">
+                <div className="mr-5 hidden size-[60px] justify-center rounded-lg bg-dark-800 dark:flex">
                   <Image
                     src="assets/icons/inbox-dark.svg"
                     width={20}
