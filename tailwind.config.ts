@@ -38,6 +38,9 @@ const config: Config = {
         },
         misc: {
           error: "#F65E5E",
+          100: "#FFECE6",
+          200: "#FDF4EA",
+          300: "#EBF2FC",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
