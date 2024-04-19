@@ -12,9 +12,9 @@ const SignUp = async () => {
   const session = await getServerSession();
   const providers = await getProviders();
 
-  if (session) {
-    redirect("/dashboard");
-  }
+  // if (session) {
+  //   redirect("/dashboard");
+  // }
   return (
     <div className="mb-24 w-full max-w-[400px] lg:mt-[100px]">
       <div className="flex flex-col items-center">
