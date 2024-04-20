@@ -1,9 +1,16 @@
+"use client"
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 import OnboardingForm from "@/components/onboarding/OnboardingForm";
 
 const Onboarding = () => {
+  const [step, setStep] = useState(0);
+
+  function incrementStep() {
+    setStep((prevStep) => prevStep + 1);
+  }
+
   return (
     <div className="mb-24 w-full max-w-[400px] lg:mt-[100px]">
       <div className="flex flex-col items-center">
@@ -38,9 +45,23 @@ const Onboarding = () => {
                     alt="rocket"
                   />
                 </div>
-                <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
-                  Highlight your skills and projects for the community.
-                </div>
+                {step === 0 && (
+                  <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
+                    Highlight your skills and projects for the community.
+                  </div>
+                )}
+                {step === 1 && (
+                  <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
+                    Outline your coding journey by setting ambitious and
+                    achievable goals.
+                  </div>
+                )}
+                {step === 2 && (
+                  <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
+                    Paint your coding canvas by selecting your favorite
+                    languages & frameworks.
+                  </div>
+                )}
               </div>
               <div className="mt-5 flex rounded-lg bg-white-200 p-5 dark:bg-dark-700">
                 <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-200 dark:bg-dark-800">
@@ -51,21 +72,35 @@ const Onboarding = () => {
                     alt="feedback"
                   />
                 </div>
-                <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
-                  Explore learning opportunities and connect with mentors.
-                </div>
+                {step === 0 && (
+                  <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
+                    Explore learning opportunities and connect with mentors.
+                  </div>
+                )}
+                {step === 1 && (
+                  <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
+                    Share your coding triumphs and achievements with the
+                    community.
+                  </div>
+                )}
+                {step === 2 && (
+                  <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
+                    Choose tools that define your coding style and shape your
+                    dev journey.
+                  </div>
+                )}
               </div>
             </div>
           </div>
           <div className="flex justify-center">
             <div className="mb-[174px] ml-[130px] mr-[169px] mt-[160px] flex w-full flex-col gap-2">
-              <OnboardingForm />
+              <OnboardingForm incrementStep={incrementStep} step={step} />
             </div>
           </div>
         </div>
       </div>
       <div className="flex flex-col gap-2 lg:hidden">
-        <OnboardingForm />
+        <OnboardingForm incrementStep={incrementStep} step={step} />
       </div>
     </div>
   );
