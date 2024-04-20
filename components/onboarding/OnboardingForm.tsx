@@ -82,7 +82,7 @@ const OnboardingForm = () => {
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>
-                    <div className="display-2-bold lg:display-1-bold mb-10 text-dark-800">
+                    <div className="display-2-bold lg:display-1-bold mb-10 text-dark-800 dark:text-white-100">
                       Which best describes your current programming journey?
                     </div>
                   </FormLabel>
@@ -93,7 +93,7 @@ const OnboardingForm = () => {
                       className="flex flex-col space-y-1"
                     >
                       <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "veteran" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700"}`}
+                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "veteran" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
                         onClick={() => setValue("journey", "veteran")}
                       >
                         <FormLabel className="cursor-pointer">
@@ -101,7 +101,7 @@ const OnboardingForm = () => {
                         </FormLabel>
                       </FormItem>
                       <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "learner" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700"}`}
+                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "learner" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
                         onClick={() => setValue("journey", "learner")}
                       >
                         <FormLabel className="cursor-pointer">
@@ -109,7 +109,7 @@ const OnboardingForm = () => {
                         </FormLabel>
                       </FormItem>
                       <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "builder" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700"}`}
+                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "builder" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
                         onClick={() => setValue("journey", "builder")}
                       >
                         <FormLabel className="cursor-pointer">
@@ -117,7 +117,7 @@ const OnboardingForm = () => {
                         </FormLabel>
                       </FormItem>
                       <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "studying" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700"}`}
+                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "studying" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
                         onClick={() => setValue("journey", "studying")}
                       >
                         <FormLabel className="cursor-pointer">
@@ -125,7 +125,7 @@ const OnboardingForm = () => {
                         </FormLabel>
                       </FormItem>
                       <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "new" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700"}`}
+                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "new" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
                         onClick={() => setValue("journey", "new")}
                       >
                         <FormLabel className="cursor-pointer">
@@ -147,7 +147,7 @@ const OnboardingForm = () => {
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>
-                    <div className="display-2-bold lg:display-1-bold mb-10 text-dark-800">
+                    <div className="display-2-bold lg:display-1-bold mb-10 text-dark-800 dark:text-white-100">
                       Define your coding ambitions
                     </div>
                   </FormLabel>
@@ -158,7 +158,7 @@ const OnboardingForm = () => {
                       className="flex flex-col space-y-1"
                     >
                       <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "build" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700"}`}
+                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "build" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
                         onClick={() => setValue("ambitions", "build")}
                       >
                         <FormLabel className="cursor-pointer">
@@ -166,7 +166,7 @@ const OnboardingForm = () => {
                         </FormLabel>
                       </FormItem>
                       <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "contributor" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700"}`}
+                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "contributor" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
                         onClick={() => setValue("ambitions", "contributor")}
                       >
                         <FormLabel className="cursor-pointer">
@@ -174,7 +174,7 @@ const OnboardingForm = () => {
                         </FormLabel>
                       </FormItem>
                       <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "master" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700"}`}
+                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "master" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
                         onClick={() => setValue("ambitions", "master")}
                       >
                         <FormLabel className="cursor-pointer">
@@ -182,7 +182,7 @@ const OnboardingForm = () => {
                         </FormLabel>
                       </FormItem>
                       <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "launch" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700"}`}
+                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "launch" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
                         onClick={() => setValue("ambitions", "launch")}
                       >
                         <FormLabel className="cursor-pointer">
@@ -190,7 +190,7 @@ const OnboardingForm = () => {
                         </FormLabel>
                       </FormItem>
                       <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "attend" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700"}`}
+                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "attend" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
                         onClick={() => setValue("ambitions", "attend")}
                       >
                         <FormLabel className="cursor-pointer">
@@ -211,7 +211,7 @@ const OnboardingForm = () => {
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>
-                    <div className="display-2-bold lg:display-1-bold mb-10 text-dark-800">
+                    <div className="display-2-bold lg:display-1-bold mb-10 text-dark-800 dark:text-white-100">
                       Select your preferred languages and frameworks for a
                       personalized experience.
                     </div>
@@ -237,8 +237,8 @@ const OnboardingForm = () => {
                         className={`flex h-11 cursor-pointer select-none rounded-lg p-3 ${
                           techFields.some((field) => field.techName === tech)
                             ? "bg-primary1-500 text-white-100"
-                            : "bg-white-100 text-dark-800"
-                        }`} 
+                            : "bg-white-100 text-dark-800 dark:bg-dark-800 dark:text-white-200"
+                        }`}
                       >
                         <FormLabel className="flex cursor-pointer items-center">
                           {tech}
