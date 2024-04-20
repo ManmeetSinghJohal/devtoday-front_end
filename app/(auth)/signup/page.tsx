@@ -18,7 +18,7 @@ const SignUp = async () => {
   // }
   return (
     <>
-      <div className="border border-red-500 pt-12 lg:hidden">
+      <div className="pt-12 lg:hidden">
         <div className="flex flex-col items-center">
           <div className="mb-[52px] flex">
             <Image
@@ -37,7 +37,7 @@ const SignUp = async () => {
             />
             <Theme />
           </div>
-          <div className="flex flex-col gap-2 border lg:hidden">
+          <div className="mx-auto w-[347px]">
             <CreateUserForm />
             <Link
               className="paragraph-3-regular mt-3 text-center text-dark-700 dark:text-white-300"
