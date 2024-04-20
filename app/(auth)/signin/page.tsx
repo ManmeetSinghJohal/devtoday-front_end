@@ -11,10 +11,10 @@ import LoginForm from "@/components/auth/LoginForm";
 const SignIn = async () => {
   const session = await getServerSession();
   const providers = await getProviders();
-
-  if (session) {
-    redirect("/dashboard");
-  }
+  console.log("session", session);
+  // if (session) {
+  //   redirect("/dashboard");
+  // }
   return (
     <div className="mb-24 w-full max-w-[400px] lg:mt-[100px]">
       <div className="flex flex-col items-center">
