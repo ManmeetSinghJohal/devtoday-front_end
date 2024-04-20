@@ -121,7 +121,7 @@ const OnboardingForm = ({ incrementStep, step }: { incrementStep: () => void, st
                         onClick={() => setValue("journey", "studying")}
                       >
                         <FormLabel className="cursor-pointer">
-                          Tech Student - Studying programming.
+                          Tech Student - Studying programming
                         </FormLabel>
                       </FormItem>
                       <FormItem
@@ -148,7 +148,7 @@ const OnboardingForm = ({ incrementStep, step }: { incrementStep: () => void, st
                 <FormItem className="space-y-3">
                   <FormLabel>
                     <div className="display-2-bold lg:display-1-bold mb-10 text-dark-800 dark:text-white-100">
-                      Define your coding ambitions
+                      Define your coding ambitions.
                     </div>
                   </FormLabel>
                   <FormControl>
