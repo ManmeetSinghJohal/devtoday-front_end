@@ -37,7 +37,7 @@ const SignIn = async () => {
             />
             <Theme />
           </div>
-          <div className="flex flex-col gap-2 lg:hidden">
+          <div className="mx-auto w-[347px]">
             <LoginForm />
             <Link
               className="paragraph-3-regular mt-3 text-center text-dark-700 dark:text-white-300"
