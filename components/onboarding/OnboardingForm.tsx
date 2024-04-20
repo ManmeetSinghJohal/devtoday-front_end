@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -47,8 +47,8 @@ const techOptions = [
   "Three.js",
 ];
 
-const OnboardingForm = () => {
-  const [step, setStep] = useState(0);
+const OnboardingForm = ({ incrementStep, step }: { incrementStep: () => void, step: number }) => {
+
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -255,7 +255,7 @@ const OnboardingForm = () => {
           {step < 2 && (
             <Button
               className="paragraph-2-bold h-11 w-full rounded-lg bg-primary1-500 dark:text-white-200"
-              onClick={() => setStep((prevStep) => prevStep + 1)}
+              onClick={incrementStep}
               type="button"
             >
               Next
