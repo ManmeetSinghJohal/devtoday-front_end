@@ -55,12 +55,12 @@ const SignIn = async () => {
                 </div>
               </div>
               <div className="mt-5 flex rounded-lg bg-white-200 p-5 dark:bg-dark-700">
-                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-500 dark:bg-dark-800">
+                <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-200 dark:bg-dark-800">
                   <Image
                     src="assets/icons/trouble.svg"
                     width={20}
                     height={20}
-                    alt="briefcase"
+                    alt="trouble"
                   />
                 </div>
                 <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
