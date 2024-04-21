@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 
@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { TSignUpSchema, signUpSchema } from "@/lib/validations";
 
 const CreateUserForm = () => {
-  const router = useRouter();
+  // const router = useRouter();
 
   const form = useForm<TSignUpSchema>({
     resolver: zodResolver(signUpSchema),

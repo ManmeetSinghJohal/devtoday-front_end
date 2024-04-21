@@ -25,7 +25,7 @@ const formSchema = z.object({
 const LoginForm = () => {
   const [error, setError] = useState("");
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const searchParams = useSearchParams();
 
