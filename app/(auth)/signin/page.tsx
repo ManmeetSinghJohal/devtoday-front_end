@@ -8,14 +8,16 @@ import React from "react";
 import LoginButton from "@/components/auth/LoginButton";
 import LoginForm from "@/components/auth/LoginForm";
 import Theme from "@/components/navbar/Theme";
+import { authOptions } from "@/lib/auth";
 
 const SignIn = async () => {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   const providers = await getProviders();
   console.log("session", session);
   // if (session) {
   //   redirect("/dashboard");
   // }
+
   return (
     <>
       <div className="pt-12 lg:hidden">
