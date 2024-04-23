@@ -67,17 +67,15 @@ export const authOptions: AuthOptions = {
     },
     async session({ session, token }) {
       if (!session.user) return session;
-       const res = await fetch("http://localhost:3005/auth/login", {
-         method: "POST",
-         mode: "cors",
-         headers: { "Content-Type": "application/json" },
-         body: JSON.stringify(token.id),
-       });
-       const userRes = await res.json();
-      if (!userRes) return session;
-      session.user.id = userRes.id.toString();
-      session.user.name = userRes?.name;
-      session.user.email = userRes?.email;
+      //  const res = await fetch("http://localhost:3005/auth/login", {
+      //    method: "POST",
+      //    mode: "cors",
+      //    headers: { "Content-Type": "application/json" },
+      //    body: JSON.stringify(token.id),
+      //  });
+      //  const userRes = await res.json();
+      // if (!userRes) return session;
+      session.user.id = token.id;
       session.user.onboardingCompleted = false;
       return session;
     },
