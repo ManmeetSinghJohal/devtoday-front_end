@@ -1,5 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,7 +24,7 @@ const FormSchema = z.object({
   ambitions: z.enum(["build", "contributor", "master", "launch", "attend"], {
     required_error: "Please select your coding ambition!",
   }),
-  techList: z.array(
+  tech: z.array(
     z.object({
       techName: z.string(),
     })
@@ -47,12 +48,18 @@ const techOptions = [
   "Three.js",
 ];
 
-const OnboardingForm = ({ incrementStep, step }: { incrementStep: () => void, step: number }) => {
-
-
+const OnboardingForm = ({
+  incrementStep,
+  step,
+}: {
+  incrementStep: () => void;
+  step: number;
+}) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
+
+  const router = useRouter();
 
   const {
     fields: techFields,
@@ -60,15 +67,29 @@ const OnboardingForm = ({ incrementStep, step }: { incrementStep: () => void, st
     remove: techRemove,
   } = useFieldArray({
     control: form.control,
-    name: "techList",
+    name: "tech",
   });
 
   const { setValue, watch } = form;
   const selectedJourney = watch("journey");
   const selectedAmbitions = watch("ambitions");
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
+    try {
+      const res = await fetch("http://localhost:3005/profile/onboarding", {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -207,7 +228,7 @@ const OnboardingForm = ({ incrementStep, step }: { incrementStep: () => void, st
           {step === 2 && (
             <FormField
               control={form.control}
-              name="techList"
+              name="tech"
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>
