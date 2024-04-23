@@ -60,7 +60,7 @@ const LoginForm = () => {
         return;
       }
 
-      // router.replace("dashboard");
+      // router.replace("onboarding");
     } catch (error) {
       console.log(error);
     }
