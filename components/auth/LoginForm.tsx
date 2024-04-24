@@ -25,7 +25,7 @@ const formSchema = z.object({
 const LoginForm = () => {
   const [error, setError] = useState("");
 
-  // const router = useRouter();
+  const router = useRouter();
 
   const searchParams = useSearchParams();
 
@@ -60,7 +60,7 @@ const LoginForm = () => {
         return;
       }
 
-      // router.replace("onboarding");
+      router.replace("onboarding");
     } catch (error) {
       console.log(error);
     }
