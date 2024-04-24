@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-// import { redirect } from "next/navigation";
-// import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 import { getProviders } from "next-auth/react";
 import React from "react";
 
@@ -10,12 +10,12 @@ import LoginButton from "@/components/auth/LoginButton";
 import Theme from "@/components/navbar/Theme";
 
 const SignUp = async () => {
-  // const session = await getServerSession();
+  const session = await getServerSession();
   const providers = await getProviders();
 
-  // if (session) {
-  //   redirect("/dashboard");
-  // }
+  if (session) {
+    redirect("/dashboard");
+  }
   return (
     <>
       <div className="pt-12 lg:hidden">
