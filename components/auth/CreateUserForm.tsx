@@ -33,7 +33,7 @@ const CreateUserForm = () => {
     console.log("sign-up values", values);
     try {
 
-      const res = await fetch("http://localhost:3005/auth/register", {
+      const res = await fetch("http://localhost:3005/api/auth/register", {
         method: "POST",
         mode: "cors",
         headers: {
