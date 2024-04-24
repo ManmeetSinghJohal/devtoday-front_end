@@ -1,6 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import React from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -60,7 +61,7 @@ const OnboardingForm = ({
   });
 
   const router = useRouter();
-
+  const session = useSession();
   const {
     fields: techFields,
     append: techAppend,
@@ -77,11 +78,11 @@ const OnboardingForm = ({
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
     try {
-      const res = await fetch("http://localhost:3005/profile/onboarding", {
+      const res = await fetch("http://localhost:3005/api/profile/onboarding", {
         method: "POST",
         mode: "cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({...data, id: session.data?.user?.id, tech: data.tech.map((tech) => tech.techName)}),
       });
 
       if (res.ok) {
