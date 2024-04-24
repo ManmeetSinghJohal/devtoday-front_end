@@ -22,9 +22,11 @@ const FormSchema = z.object({
   journey: z.enum(["veteran", "learner", "builder", "studying", "new"], {
     required_error: "Please select your current programming journey!",
   }),
-  ambitions: z.enum(["build", "contributor", "master", "launch", "attend"], {
-    required_error: "Please select your coding ambition!",
-  }),
+  ambitions: z.array(
+    z.object({
+      ambitionName: z.string(),
+    })
+  ),
   tech: z.array(
     z.object({
       techName: z.string(),
@@ -49,6 +51,34 @@ const techOptions = [
   "Three.js",
 ];
 
+const ambitionOptions = [
+  {
+    ambitionName: "build",
+    ambitionDescription: "Build Portfolio - Showcase projects",
+  },
+
+  {
+    ambitionName: "contributor",
+
+    ambitionDescription: "Open Source Contributor - Make your mark",
+  },
+
+  {
+    ambitionName: "master",
+    ambitionDescription: "Master New Language - Learn and conquer",
+  },
+
+  {
+    ambitionName: "launch",
+    ambitionDescription: "Launch Side Project - Bring ideas to life",
+  },
+
+  {
+    ambitionName: "attend",
+    ambitionDescription: "Attend Coding Events - Network and learn",
+  },
+];
+
 const OnboardingForm = ({
   incrementStep,
   step,
@@ -71,9 +101,17 @@ const OnboardingForm = ({
     name: "tech",
   });
 
+  const {
+    fields: ambitionFields,
+    append: ambitionAppend,
+    remove: ambitionRemove,
+  } = useFieldArray({
+    control: form.control,
+    name: "ambitions",
+  });
+
   const { setValue, watch } = form;
   const selectedJourney = watch("journey");
-  const selectedAmbitions = watch("ambitions");
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
@@ -82,7 +120,12 @@ const OnboardingForm = ({
         method: "POST",
         mode: "cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({...data, id: session.data?.user?.id, tech: data.tech.map((tech) => tech.techName)}),
+        body: JSON.stringify({
+          ...data,
+          id: session.data?.user?.id,
+          tech: data.tech.map((tech) => tech.techName),
+          ambitions: data.ambitions.map((ambition) => ambition.ambitionName),
+        }),
       });
 
       if (res.ok) {
@@ -173,54 +216,36 @@ const OnboardingForm = ({
                       Define your coding ambitions.
                     </div>
                   </FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      className="flex flex-col space-y-1"
-                    >
+                  <div className="space-y-5">
+                    {ambitionOptions.map((ambitions) => (
                       <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "build" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
-                        onClick={() => setValue("ambitions", "build")}
+                        key={ambitions.ambitionName}
+                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${ambitionFields.some((field) => field.ambitionName === ambitions.ambitionName) ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
+                        onClick={() => {
+                          const shouldAppend = !ambitionFields.some(
+                            (field) =>
+                              field.ambitionName === ambitions.ambitionName
+                          );
+                          if (shouldAppend) {
+                            ambitionAppend({
+                              ambitionName: ambitions.ambitionName,
+                            });
+                          } else {
+                            ambitionRemove(
+                              ambitionFields.findIndex(
+                                (field) =>
+                                  field.ambitionName === ambitions.ambitionName
+                              )
+                            );
+                          }
+                        }}
                       >
                         <FormLabel className="cursor-pointer">
-                          Build Portfolio - Showcase projects
+                          {ambitions.ambitionDescription}
                         </FormLabel>
                       </FormItem>
-                      <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "contributor" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
-                        onClick={() => setValue("ambitions", "contributor")}
-                      >
-                        <FormLabel className="cursor-pointer">
-                          Open Source Contributor - Make your mark
-                        </FormLabel>
-                      </FormItem>
-                      <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "master" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
-                        onClick={() => setValue("ambitions", "master")}
-                      >
-                        <FormLabel className="cursor-pointer">
-                          Master New Language - Learn and conquer
-                        </FormLabel>
-                      </FormItem>
-                      <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "launch" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
-                        onClick={() => setValue("ambitions", "launch")}
-                      >
-                        <FormLabel className="cursor-pointer">
-                          Launch Side Project - Bring ideas to life
-                        </FormLabel>
-                      </FormItem>
-                      <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedAmbitions === "attend" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
-                        onClick={() => setValue("ambitions", "attend")}
-                      >
-                        <FormLabel className="cursor-pointer">
-                          Attend Coding Events - Network and learn
-                        </FormLabel>
-                      </FormItem>
-                    </RadioGroup>
-                  </FormControl>
+                    ))}
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
