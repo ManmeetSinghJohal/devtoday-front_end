@@ -38,45 +38,32 @@ export const authOptions: AuthOptions = {
         if (!credentials || !credentials.email || !credentials.password)
           return null;
         console.log("credentials", credentials);
-        const res = await fetch("http://localhost:3005/auth/login", {
+        const res = await fetch("http://localhost:3005/api/auth/login", {
           method: "POST",
           mode: "cors",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(credentials),
         });
-        return await res.json();
+        if(!res.ok) {
+          return null;
+        }
+        const resultJson = await res.json();
+        return resultJson;
       },
     }),
   ],
 
   callbacks: {
-    async jwt({ token }) {
-      if (token.id) return token;
-        const res = await fetch("http://localhost:3005/auth/find", {
-          method: "POST",
-          mode: "cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({email: token.email}),
-        });
-        const userRes = await res.json();
-      if (res.ok) {
-        token.id = userRes.id;
-        token.name = userRes.name;
-      }
-      return token;
-    },
     async session({ session, token }) {
       if (!session.user) return session;
-      //  const res = await fetch("http://localhost:3005/auth/login", {
-      //    method: "POST",
-      //    mode: "cors",
-      //    headers: { "Content-Type": "application/json" },
-      //    body: JSON.stringify(token.id),
-      //  });
-      //  const userRes = await res.json();
-      // if (!userRes) return session;
-      session.user.id = token.id;
-      session.user.onboardingCompleted = false;
+      const res = await fetch("http://localhost:3005/api/auth/user", {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: session.user.email }),
+      });
+      const userRes = await res.json();
+      session.user.id = userRes.id;
       return session;
     },
     async signIn({ account, profile }) {
@@ -85,7 +72,7 @@ export const authOptions: AuthOptions = {
           if (!profile) return false;
           const { email, name } = profile;
           if (!email) return false;
-          const res = await fetch("http://localhost:3005/auth/find", {
+          const res = await fetch("http://localhost:3005/api/auth/user", {
             method: "POST",
             mode: "cors",
             headers: { "Content-Type": "application/json" },
@@ -93,7 +80,7 @@ export const authOptions: AuthOptions = {
           });
           const userRes = await res.json();
           if (!userRes) {
-              const userCreateRes = await fetch("http://localhost:3005/auth/register", {
+              const userCreateRes = await fetch("http://localhost:3005/api/auth/register", {
                 method: "POST",
                 mode: "cors",
                 headers: {
