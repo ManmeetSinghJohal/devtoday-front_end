@@ -46,6 +46,10 @@ const LoginForm = () => {
     },
   });
 
+  const handleInputChange = () => {
+    if (error) setError("");
+  };
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const res = await signIn("credentials", {
@@ -85,6 +89,10 @@ const LoginForm = () => {
                     placeholder="Enter your email address"
                     className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
                     {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleInputChange();
+                    }}
                   />
                 </FormControl>
                 <FormMessage />
@@ -105,6 +113,10 @@ const LoginForm = () => {
                     placeholder="Enter your password"
                     className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
                     {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleInputChange();
+                    }}
                   />
                 </FormControl>
                 <FormMessage />
