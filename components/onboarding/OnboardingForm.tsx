@@ -15,6 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { ambitionOptions, techOptions } from "@/constants";
 
 import { RadioGroup } from "../ui/radio-group";
 
@@ -33,51 +34,6 @@ const FormSchema = z.object({
     })
   ),
 });
-
-const techOptions = [
-  "HTML5",
-  "JavaScript (ES6+)",
-  "CSS 3",
-  "Node.js",
-  "React.js",
-  "Vue.js",
-  "Angular",
-  "Express.js",
-  "MongoDB",
-  "Next.js 14",
-  "D3.js",
-  "TypeScript",
-  "GraphQL",
-  "Three.js",
-];
-
-const ambitionOptions = [
-  {
-    ambitionName: "build",
-    ambitionDescription: "Build Portfolio - Showcase projects",
-  },
-
-  {
-    ambitionName: "contributor",
-
-    ambitionDescription: "Open Source Contributor - Make your mark",
-  },
-
-  {
-    ambitionName: "master",
-    ambitionDescription: "Master New Language - Learn and conquer",
-  },
-
-  {
-    ambitionName: "launch",
-    ambitionDescription: "Launch Side Project - Bring ideas to life",
-  },
-
-  {
-    ambitionName: "attend",
-    ambitionDescription: "Attend Coding Events - Network and learn",
-  },
-];
 
 const OnboardingForm = ({
   incrementStep,
