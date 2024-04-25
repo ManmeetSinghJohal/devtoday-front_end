@@ -15,13 +15,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { ambitionOptions, techOptions, journeyOptions } from "@/constants";
 
 import { RadioGroup } from "../ui/radio-group";
 
 const FormSchema = z.object({
-  journey: z.enum(["veteran", "learner", "builder", "studying", "new"], {
-    required_error: "Please select your current programming journey!",
-  }),
+  journey: z.string(), 
   ambitions: z.array(
     z.object({
       ambitionName: z.string(),
@@ -33,51 +32,6 @@ const FormSchema = z.object({
     })
   ),
 });
-
-const techOptions = [
-  "HTML5",
-  "JavaScript (ES6+)",
-  "CSS 3",
-  "Node.js",
-  "React.js",
-  "Vue.js",
-  "Angular",
-  "Express.js",
-  "MongoDB",
-  "Next.js 14",
-  "D3.js",
-  "TypeScript",
-  "GraphQL",
-  "Three.js",
-];
-
-const ambitionOptions = [
-  {
-    ambitionName: "build",
-    ambitionDescription: "Build Portfolio - Showcase projects",
-  },
-
-  {
-    ambitionName: "contributor",
-
-    ambitionDescription: "Open Source Contributor - Make your mark",
-  },
-
-  {
-    ambitionName: "master",
-    ambitionDescription: "Master New Language - Learn and conquer",
-  },
-
-  {
-    ambitionName: "launch",
-    ambitionDescription: "Launch Side Project - Bring ideas to life",
-  },
-
-  {
-    ambitionName: "attend",
-    ambitionDescription: "Attend Coding Events - Network and learn",
-  },
-];
 
 const OnboardingForm = ({
   incrementStep,
@@ -157,46 +111,17 @@ const OnboardingForm = ({
                       defaultValue={field.value}
                       className="flex flex-col space-y-1"
                     >
+                      {journeyOptions.map((journeyItem) => ( 
                       <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "veteran" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
-                        onClick={() => setValue("journey", "veteran")}
+                        key={journeyItem.journeyName}
+                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === journeyItem.journeyName ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
+                        onClick={() => setValue("journey", journeyItem.journeyName)}
                       >
                         <FormLabel className="cursor-pointer">
-                          Seasoned Pro - Coding veteran
+                          {journeyItem.journeyDescription}
                         </FormLabel>
                       </FormItem>
-                      <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "learner" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
-                        onClick={() => setValue("journey", "learner")}
-                      >
-                        <FormLabel className="cursor-pointer">
-                          Learning Enthusiast - Continuous learner
-                        </FormLabel>
-                      </FormItem>
-                      <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "builder" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
-                        onClick={() => setValue("journey", "builder")}
-                      >
-                        <FormLabel className="cursor-pointer">
-                          Project Explorer - Passionate builder
-                        </FormLabel>
-                      </FormItem>
-                      <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "studying" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
-                        onClick={() => setValue("journey", "studying")}
-                      >
-                        <FormLabel className="cursor-pointer">
-                          Tech Student - Studying programming
-                        </FormLabel>
-                      </FormItem>
-                      <FormItem
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === "new" ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
-                        onClick={() => setValue("journey", "new")}
-                      >
-                        <FormLabel className="cursor-pointer">
-                          Tech Explorer - New to coding, eager to learn
-                        </FormLabel>
-                      </FormItem>
+                      ))}
                     </RadioGroup>
                   </FormControl>
                   <FormMessage />
