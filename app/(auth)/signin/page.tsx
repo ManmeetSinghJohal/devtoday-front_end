@@ -14,9 +14,9 @@ const SignIn = async () => {
   const session = await getServerSession(authOptions);
   const providers = await getProviders();
   console.log("session", session);
-  // if (session) {
-  //   redirect("/dashboard");
-  // }
+  if (session) {
+    redirect("/dashboard");
+  }
 
   return (
     <>
@@ -114,7 +114,7 @@ const SignIn = async () => {
             <div className="mt-6 text-center">
               <Link
                 className="paragraph-3-regular text-dark-700 dark:text-white-300"
-                href={"/signin"}
+                href={"/signup"}
               >
                 Don&apos;t have an account yet?{" "}
                 <span className="text-primary1-500">Join the community!</span>

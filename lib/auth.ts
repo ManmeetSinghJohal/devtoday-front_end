@@ -64,6 +64,7 @@ export const authOptions: AuthOptions = {
       });
       const userRes = await res.json();
       session.user.id = userRes.id;
+      session.user.onboardingCompleted = userRes.profile.onBoardingCompleted;
       return session;
     },
     async signIn({ account, profile }) {
