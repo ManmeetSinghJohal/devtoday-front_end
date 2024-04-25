@@ -30,6 +30,29 @@ export const ambitionOptions = [
   },
 ];
 
+export const journeyOptions = [
+  {
+    journeyName: "veteran",
+    journeyDescription: "Seasoned Pro - Coding veteran",
+  },
+  {
+    journeyName: "learner",
+    journeyDescription: "Learning Enthusiast - Continuous learner",
+  },
+  {
+    journeyName: "builder",
+    journeyDescription: "Project Explorer - Passionate builder",
+  },
+  {
+    journeyName: "studying",
+    journeyDescription: "Tech Student - Studying programming",
+  },
+  {
+    journeyName: "new",
+    journeyDescription: "Tech Explorer - New to coding, eager to learn",
+  },
+];
+
 export const techOptions = [
   "HTML5",
   "JavaScript (ES6+)",
