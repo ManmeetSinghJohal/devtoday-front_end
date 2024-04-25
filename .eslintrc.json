@@ -18,13 +18,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-unused-vars": [
-      "error",
-      {
-        "varsIgnorePattern": ["**/*.d.ts"],
-        "argsIgnorePattern": ["**/*.d.ts"]
-      }
-    ],
+    "no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "warn",
     "unused-imports/no-unused-imports": "error",
     "import/order": [
