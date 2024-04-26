@@ -129,7 +129,7 @@ const OnboardingForm = ({
             <FormField
               control={form.control}
               name="ambitions"
-              render={({ field }) => (
+              render={() => (
                 <FormItem className="space-y-3">
                   <FormLabel>
                     <div className="display-2-bold lg:display-1-bold mb-10 text-dark-800 dark:text-white-100">
@@ -175,7 +175,7 @@ const OnboardingForm = ({
             <FormField
               control={form.control}
               name="tech"
-              render={({ field }) => (
+              render={() => (
                 <FormItem className="space-y-3">
                   <FormLabel>
                     <div className="display-2-bold lg:display-1-bold mb-10 text-dark-800 dark:text-white-100">
