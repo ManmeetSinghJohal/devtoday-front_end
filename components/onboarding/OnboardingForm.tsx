@@ -1,6 +1,5 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import React from "react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -20,7 +19,7 @@ import { ambitionOptions, techOptions, journeyOptions } from "@/constants";
 import { RadioGroup } from "../ui/radio-group";
 
 const FormSchema = z.object({
-  journey: z.string(), 
+  journey: z.string(),
   ambitions: z.array(
     z.object({
       ambitionName: z.string(),
@@ -44,7 +43,6 @@ const OnboardingForm = ({
     resolver: zodResolver(FormSchema),
   });
 
-  const router = useRouter();
   const session = useSession();
   const {
     fields: techFields,
@@ -68,9 +66,8 @@ const OnboardingForm = ({
   const selectedJourney = watch("journey");
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
     try {
-      const res = await fetch("http://localhost:3005/api/profile/onboarding", {
+      await fetch("http://localhost:3005/api/profile/onboarding", {
         method: "POST",
         mode: "cors",
         headers: { "Content-Type": "application/json" },
@@ -81,10 +78,6 @@ const OnboardingForm = ({
           ambitions: data.ambitions.map((ambition) => ambition.ambitionName),
         }),
       });
-
-      if (res.ok) {
-        router.push("/dashboard");
-      }
     } catch (error) {
       console.log(error);
     }
@@ -111,16 +104,18 @@ const OnboardingForm = ({
                       defaultValue={field.value}
                       className="flex flex-col space-y-1"
                     >
-                      {journeyOptions.map((journeyItem) => ( 
-                      <FormItem
-                        key={journeyItem.journeyName}
-                        className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === journeyItem.journeyName ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
-                        onClick={() => setValue("journey", journeyItem.journeyName)}
-                      >
-                        <FormLabel className="cursor-pointer">
-                          {journeyItem.journeyDescription}
-                        </FormLabel>
-                      </FormItem>
+                      {journeyOptions.map((journeyItem) => (
+                        <FormItem
+                          key={journeyItem.journeyName}
+                          className={`h-14 cursor-pointer select-none rounded-lg p-3 ${selectedJourney === journeyItem.journeyName ? "bg-primary1-500 text-white-100" : "bg-white-100 text-dark-700 dark:bg-dark-800 dark:text-white-200"}`}
+                          onClick={() =>
+                            setValue("journey", journeyItem.journeyName)
+                          }
+                        >
+                          <FormLabel className="cursor-pointer">
+                            {journeyItem.journeyDescription}
+                          </FormLabel>
+                        </FormItem>
                       ))}
                     </RadioGroup>
                   </FormControl>

@@ -54,7 +54,7 @@ export const authOptions: AuthOptions = {
   ],
 
   callbacks: {
-    async session({ session, token }) {
+    async session({ session }) {
       if (!session.user) return session;
       const res = await fetch("http://localhost:3005/api/auth/user", {
         method: "POST",
@@ -64,7 +64,7 @@ export const authOptions: AuthOptions = {
       });
       const userRes = await res.json();
       session.user.id = userRes.id;
-      session.user.username = userRes.userRes.username;
+      session.user.username = userRes.username;
       session.user.onboardingCompleted = userRes.profile.onBoardingCompleted;
       return session;
     },
