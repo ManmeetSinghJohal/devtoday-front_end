@@ -1,9 +1,12 @@
+import { useTheme } from "@/context/ThemeProvider";
+
 const ProfileIcon: React.FC<IconProps> = ({
   width = 16,
   height = 16,
-  theme = "light",
 }: IconProps) => {
-  const color = theme === "light" ? "#262935" : "#F8FAFC";
+  const { mode } = useTheme();
+
+  const color = mode === "light" ? "#262935" : "#F8FAFC";
   return (
     <>
       <svg

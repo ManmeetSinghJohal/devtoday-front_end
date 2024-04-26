@@ -1,10 +1,13 @@
+import { useTheme } from "@/context/ThemeProvider";
+
 const GroupsIcon: React.FC<IconProps> = ({
-  theme = "light",
   pending,
   isSelected = false,
 }: IconProps) => {
+  const { mode } = useTheme();
+
   const color = !isSelected
-    ? theme === "light"
+    ? mode === "light"
       ? "#808191"
       : "#C5D0E6"
     : "#ffffff";
