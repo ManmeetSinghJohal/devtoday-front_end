@@ -24,11 +24,11 @@ export const Navigation = () => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center gap-2.5">
       {NavIcons.map((icon) => (
         <Link
           href={`/dashboard`}
-          className={`${selectedIcon[icon.id] ? "bg-primary1-500" : "bg-transparent"} mr-4 flex size-12 items-center justify-center rounded-md p-0`}
+          className={`${selectedIcon[icon.id] ? "bg-primary1-500" : "bg-transparent"} flex items-center justify-center rounded-[7px] p-2.5`}
           onClick={() => handleIconClick(icon.id)}
           key={icon.id}
         >

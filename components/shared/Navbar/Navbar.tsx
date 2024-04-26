@@ -1,8 +1,7 @@
 import React from "react";
 
 import AccountDropdown from "@/components/shared/AccountDropdown";
-
-import { Navigation } from "./Navigation";
+import { Navigation } from "@/components/shared/Navbar/Navigation";
 
 const Navbar = () => {
   return (
