@@ -7,7 +7,7 @@ import React from "react";
 
 import CreateUserForm from "@/components/auth/CreateUserForm";
 import LoginButton from "@/components/auth/LoginButton";
-import Theme from "@/components/navbar/Theme";
+import Theme from "@/components/shared/navbar/Theme";
 
 const SignUp = async () => {
   const session = await getServerSession();

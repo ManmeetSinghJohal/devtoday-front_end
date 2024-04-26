@@ -67,7 +67,6 @@ const LoginForm = () => {
     } catch (error) {
       console.log(error);
     }
-    console.log("log-in values", values);
   }
 
   return (
