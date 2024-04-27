@@ -1,7 +1,7 @@
-interface SelectedIconState {
+interface NavIconsState {
   [key: string]: boolean;
 }
 
-interface Icon {
+interface NavIcon {
   id: SelectedIcon;
 }

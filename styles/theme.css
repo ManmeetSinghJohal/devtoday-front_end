@@ -34,7 +34,7 @@
     @apply font-ibm-plex-sans font-medium text-base text-white-200;
   }
   .paragraph-3-medium {
-    @apply font-ibm-plex-sans font-medium text-sm text-white-200;
+    @apply font-medium text-sm text-white-200;
   }
   .paragraph-4-medium {
     @apply font-ibm-plex-sans font-medium text-xs text-white-200;
@@ -62,5 +62,11 @@
   }
   .text-dark100_light900 {
     @apply text-dark-700 dark:text-white-400 !important;
+  }
+  .light-toggle {
+    @apply bg-primary1-100 dark:bg-transparent cursor-pointer;
+  }
+  .dark-toggle {
+    @apply dark:bg-transparent  dark:bg-dark-700 cursor-pointer;
   }
 }

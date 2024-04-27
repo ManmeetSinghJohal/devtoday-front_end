@@ -1,11 +1,14 @@
+import { useTheme } from "@/context/ThemeProvider";
+
 const CalendarIcon: React.FC<IconProps> = ({
   width = 20,
   height = 20,
-  theme = "light",
   isSelected = false,
 }: IconProps) => {
+  const { mode } = useTheme();
+
   const color = !isSelected
-    ? theme === "light"
+    ? mode === "light"
       ? "#808191"
       : "#C5D0E6"
     : "#ffffff";

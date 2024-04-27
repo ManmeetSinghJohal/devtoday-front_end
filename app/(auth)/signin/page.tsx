@@ -7,7 +7,7 @@ import React from "react";
 
 import LoginButton from "@/components/auth/LoginButton";
 import LoginForm from "@/components/auth/LoginForm";
-import Theme from "@/components/shared/navbar/Theme";
+import Theme from "@/components/shared/Navbar/Theme";
 import { authOptions } from "@/lib/auth";
 
 const SignIn = async () => {
@@ -43,7 +43,7 @@ const SignIn = async () => {
             <LoginForm />
             <Link
               className="paragraph-3-regular mt-3 text-center text-dark-700 dark:text-white-300"
-              href={"/signin"}
+              href={"/signup"}
             >
               Don&apos;t have an account yet?{" "}
               <span className="text-primary1-500">Join the community!</span>

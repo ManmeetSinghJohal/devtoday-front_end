@@ -1,9 +1,16 @@
 import { useTheme } from "@/context/ThemeProvider";
 
-const GroupsIcon: React.FC<IconProps> = ({ pending }: IconProps) => {
+const GroupsIcon: React.FC<IconProps> = ({
+  pending,
+  isSelected,
+}: IconProps) => {
   const { mode } = useTheme();
 
-  const color = mode === "light" ? "#808191" : "#C5D0E6";
+  const color = !isSelected
+    ? mode === "light"
+      ? "#808191"
+      : "#C5D0E6"
+    : "#ffffff";
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="none">

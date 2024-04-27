@@ -37,7 +37,7 @@ export const authOptions: AuthOptions = {
       async authorize(credentials) {
         if (!credentials || !credentials.email || !credentials.password)
           return null;
-        console.log("credentials", credentials);
+
         const res = await fetch("http://localhost:3005/api/auth/login", {
           method: "POST",
           mode: "cors",

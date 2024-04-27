@@ -1,4 +1,4 @@
-export const NavIcons: Icon[] = [
+export const NavIcons: NavIcon[] = [
   {
     id: "layers",
   },
@@ -13,5 +13,13 @@ export const NavIcons: Icon[] = [
   },
   {
     id: "create",
+  },
+];
+export const NavModalIcons: NavIcon[] = [
+  {
+    id: "search",
+  },
+  {
+    id: "notifications",
   },
 ];

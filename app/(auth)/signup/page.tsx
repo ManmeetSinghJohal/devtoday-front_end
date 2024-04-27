@@ -1,21 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
 import { getProviders } from "next-auth/react";
 import React from "react";
 
 import CreateUserForm from "@/components/auth/CreateUserForm";
 import LoginButton from "@/components/auth/LoginButton";
-import Theme from "@/components/shared/navbar/Theme";
+import Theme from "@/components/shared/Navbar/Theme";
 
 const SignUp = async () => {
-  const session = await getServerSession();
   const providers = await getProviders();
-
-  if (session) {
-    redirect("/dashboard");
-  }
   return (
     <>
       <div className="pt-12 lg:hidden">
