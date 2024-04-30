@@ -36,7 +36,7 @@ const SignIn = async () => {
                 src="assets/icons/inbox-green.svg"
                 width={20}
                 height={20}
-                alt="briefcase"
+                alt="inbox"
               />
             </div>
             <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
