@@ -29,14 +29,14 @@ export async function middleware(request: NextRequest) {
     session?.user.onboardingCompleted === true &&
     request.url.includes("onboarding")
   )
-    return NextResponse.redirect(new URL("/home", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
 
   if (
     session?.user &&
     session?.user.onboardingCompleted === true &&
     (request.url.includes("signin") || request.url.includes("signup"))
   ) {
-    return NextResponse.redirect(new URL("/home", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
   return NextResponse.next();
 }
