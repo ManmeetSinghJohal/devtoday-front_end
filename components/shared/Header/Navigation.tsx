@@ -10,11 +10,11 @@ export const Navigation = () => {
 
   return (
     <div className="hidden items-center gap-2.5 md:flex">
-      {NavIcons.map(({ id, href, icon: Icon }) => {
+      {NavIcons.map(({ id, href, icon: Icon, exact }) => {
         return (
           <Link
             href={href && href}
-            className={`${href === pathname ? "bg-primary1-500 text-white-100" : "bg-transparent text-white-400 dark:text-white-300"} flex items-center justify-center rounded-[7px] p-2.5`}
+            className={`${(exact ? href === pathname : pathname.startsWith(href)) ? "bg-primary1-500 text-white-100" : "bg-transparent text-white-400 dark:text-white-300"} flex items-center justify-center rounded-[7px] p-2.5`}
             key={id}
           >
             <Icon id={id} />
