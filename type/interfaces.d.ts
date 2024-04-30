@@ -12,3 +12,7 @@ interface ModalIcon {
   id: string;
   icon: ReactElement;
 }
+interface SortFiltersCard {
+  id: string;
+  label: string;
+}

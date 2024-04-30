@@ -7,7 +7,7 @@ import React from "react";
 
 import LoginButton from "@/components/auth/LoginButton";
 import LoginForm from "@/components/auth/LoginForm";
-import Theme from "@/components/shared/Navbar/Theme";
+import Theme from "@/components/shared/Header/Theme";
 import { authOptions } from "@/lib/auth";
 
 const SignIn = async () => {

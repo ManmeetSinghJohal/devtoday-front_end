@@ -5,7 +5,7 @@ import React from "react";
 
 import CreateUserForm from "@/components/auth/CreateUserForm";
 import LoginButton from "@/components/auth/LoginButton";
-import Theme from "@/components/shared/Navbar/Theme";
+import Theme from "@/components/shared/Header/Theme";
 
 const SignUp = async () => {
   const providers = await getProviders();

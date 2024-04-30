@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { NavIcons } from "@/lib/constants";
+import { NavIcons } from "@/constants/header";
 
 export const Navigation = () => {
   const pathname = usePathname();
