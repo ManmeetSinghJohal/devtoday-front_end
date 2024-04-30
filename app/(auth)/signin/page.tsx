@@ -8,6 +8,7 @@ import React from "react";
 import LoginButton from "@/components/auth/LoginButton";
 import LoginForm from "@/components/auth/LoginForm";
 import Theme from "@/components/navbar/Theme";
+import Logo from "@/components/shared/Logo";
 import { authOptions } from "@/lib/auth";
 
 const SignIn = async () => {
@@ -21,21 +22,8 @@ const SignIn = async () => {
   return (
     <div className="mx-auto lg:grid lg:grid-cols-2">
       <div className="hidden h-screen bg-white-100 dark:bg-dark-800 lg:block">
-        <div className="mb-[86px] ml-[40px] mt-[44px] flex">
-          <Image
-            src="assets/logos/logo.svg"
-            alt="logo"
-            width={147}
-            height={30}
-            className="dark:hidden"
-          />
-          <Image
-            src="assets/logos/logo-dark.svg"
-            alt="logo"
-            width={147}
-            height={30}
-            className="hidden dark:block"
-          />
+        <div className="mb-[86px] ml-[40px] mt-[44px] flex dark:text-white-100">
+          <Logo />
           <Theme />
         </div>
         <div className="mx-auto w-[442px]">
@@ -72,21 +60,8 @@ const SignIn = async () => {
         </div>
       </div>
       <div className="mx-auto w-[347px] lg:w-[421px]">
-        <div className="mx-auto mb-[52px] flex w-52 pt-11 lg:hidden">
-          <Image
-            src="assets/logos/logo.svg"
-            alt="logo"
-            width={147}
-            height={30}
-            className="dark:hidden"
-          />
-          <Image
-            src="assets/logos/logo-dark.svg"
-            alt="logo"
-            width={147}
-            height={30}
-            className="hidden dark:block"
-          />
+        <div className="mx-auto mb-[52px] flex w-52 pt-11 dark:text-white-100 lg:hidden">
+          <Logo />
           <Theme />
         </div>
         <div className="lg:mt-[160px]">
