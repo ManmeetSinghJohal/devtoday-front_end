@@ -7,10 +7,6 @@ export async function middleware(request: NextRequest) {
       cookie: request.headers.get("cookie"),
     },
   };
-  /* 
-  Showcase: 
-  I had to send the cookies because next-auth needs them to check the session, 
-  and i had to send them in the headers because the getSession function only accepts a request object */
 
   const session = await getSession({ req: requestForNextAuth });
   if (
@@ -33,14 +29,14 @@ export async function middleware(request: NextRequest) {
     session?.user.onboardingCompleted === true &&
     request.url.includes("onboarding")
   )
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/home", request.url));
 
   if (
     session?.user &&
     session?.user.onboardingCompleted === true &&
     (request.url.includes("signin") || request.url.includes("signup"))
   ) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/home", request.url));
   }
   return NextResponse.next();
 }

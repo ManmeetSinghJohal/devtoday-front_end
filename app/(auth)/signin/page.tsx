@@ -15,7 +15,7 @@ const SignIn = async () => {
   const providers = await getProviders();
   console.log("session", session);
   if (session) {
-    redirect("/dashboard");
+    redirect("/");
   }
 
   return (

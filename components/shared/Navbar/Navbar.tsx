@@ -1,11 +1,11 @@
 import React from "react";
 
+import Logo from "@/components/shared/Icons/Logo";
 import Account from "@/components/shared/Navbar/Account";
 import { Navigation } from "@/components/shared/Navbar/Navigation";
 
-import Logo from "../Icons/Logo";
-
-import ActionModals from "./ActionModals";
+import NotificationModal from "./NotificationModal";
+import SearchModal from "./SearchModal";
 
 const Navbar = () => {
   return (
@@ -13,7 +13,8 @@ const Navbar = () => {
       <Logo />
       <Navigation />
       <div className="flex gap-2.5">
-        <ActionModals />
+        <SearchModal />
+        <NotificationModal />
         <Account />
       </div>
     </header>

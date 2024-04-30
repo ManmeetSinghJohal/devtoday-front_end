@@ -6,10 +6,10 @@ interface IconProps {
   theme?: "light" | "dark";
   isSelected?: boolean;
   onClick?: () => void;
+  pending?: boolean;
 }
 
 interface NavIconProps {
   id: SelectedIcon;
-  isSelected: boolean;
   pending?: boolean;
 }
