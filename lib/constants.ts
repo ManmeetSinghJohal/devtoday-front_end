@@ -8,7 +8,7 @@ import SearchIcon from "@/components/shared/Icons/SearchIcon";
 export const NavIcons: NavIcon[] = [
   {
     id: "home",
-    href: "/home",
+    href: "/",
     icon: HomeIcon,
   },
   {
