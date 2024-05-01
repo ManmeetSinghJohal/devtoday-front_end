@@ -5,15 +5,7 @@ import { timeDifference } from "@/lib/methods";
 
 import LikeIcon from "../Icons/LikeIcon";
 import PostTags from "../Tags/PostTags";
-type PostCardProps = {
-  title: string;
-  content: string;
-  tags: any;
-  comments: any;
-  views: number;
-  createdAt: Date;
-  liked: boolean;
-};
+
 const PostCard = ({
   title,
   content,

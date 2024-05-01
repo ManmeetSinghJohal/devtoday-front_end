@@ -13,3 +13,12 @@ interface NavIconProps {
   id: SelectedIcon;
   pending?: boolean;
 }
+interface PostCardProps {
+  title: string;
+  content: string;
+  tags: any;
+  comments: any;
+  views: number;
+  createdAt: Date;
+  liked: boolean;
+}
