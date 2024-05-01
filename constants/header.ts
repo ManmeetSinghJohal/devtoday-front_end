@@ -10,6 +10,7 @@ export const NavIcons: NavIcon[] = [
     id: "home",
     href: "/",
     icon: HomeIcon,
+    exact: true,
   },
   {
     id: "meetups",

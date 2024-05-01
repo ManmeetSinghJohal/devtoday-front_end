@@ -7,8 +7,8 @@ export async function middleware(request: NextRequest) {
       cookie: request.headers.get("cookie"),
     },
   };
-
   const session = await getSession({ req: requestForNextAuth });
+
   if (
     !session?.user &&
     !request.url.includes("signin") &&
@@ -38,6 +38,7 @@ export async function middleware(request: NextRequest) {
   ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
+
   return NextResponse.next();
 }
 

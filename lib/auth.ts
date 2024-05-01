@@ -66,6 +66,7 @@ export const authOptions: AuthOptions = {
       session.user.id = userRes.id;
       session.user.username = userRes.username;
       session.user.onboardingCompleted = userRes.profile.onBoardingCompleted;
+
       return session;
     },
     async signIn({ account, profile }) {

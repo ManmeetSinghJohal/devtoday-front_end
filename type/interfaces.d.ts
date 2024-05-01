@@ -6,6 +6,7 @@ interface NavIcon {
   id: SelectedIcon;
   href: string;
   icon: ReactElement;
+  exact?: boolean;
 }
 
 interface ModalIcon {

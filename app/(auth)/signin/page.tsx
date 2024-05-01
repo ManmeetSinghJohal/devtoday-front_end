@@ -13,7 +13,7 @@ import { authOptions } from "@/lib/auth";
 const SignIn = async () => {
   const session = await getServerSession(authOptions);
   const providers = await getProviders();
-  console.log("session", session);
+
   if (session) {
     redirect("/");
   }
