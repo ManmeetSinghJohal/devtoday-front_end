@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Sans as IBMPlexSans } from "next/font/google";
 import "./globals.css";
+import Head from "next/head";
 import React from "react";
 
 import NextAuthProvider from "@/components/NextAuthProvider";
@@ -30,6 +31,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <link rel="shortcut icon" href="/next.svg" />
+      </Head>
       <body className={`${inter.className} ${ibmPlexSans.className}`}>
         <div className="flex size-full min-h-screen flex-col justify-between">
           <main className="mx-auto w-full flex-auto">
