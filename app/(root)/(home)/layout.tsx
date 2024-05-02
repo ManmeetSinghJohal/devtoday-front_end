@@ -1,23 +1,13 @@
-import SideCard from "@/components/shared/Cards/SideCard";
-import LeftNavBar from "@/components/shared/LeftSidebar/LeftSidebar";
-import RightNavBar from "@/components/shared/RightSidebar/RightNavbar";
+import LeftSidebar from "@/components/shared/LeftSidebar/LeftSidebar";
+import RightSidebar from "@/components/shared/RightSidebar/RightSidebar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex gap-5 ">
-      <LeftNavBar>
-        <SideCard />
-        <SideCard />
-        <SideCard />
-      </LeftNavBar>
-      <section className="flex min-h-screen flex-1 flex-col ">
-        {children}
-      </section>
-      <RightNavBar>
-        <SideCard />
-        <SideCard />
-      </RightNavBar>
-    </div>
+    <section className="flex size-full justify-between bg-red-100">
+      <LeftSidebar />
+      {children}
+      <RightSidebar />
+    </section>
   );
 };
 export default Layout;

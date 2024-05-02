@@ -21,4 +21,5 @@ interface PostCardProps {
   views: number;
   createdAt: Date;
   liked: boolean;
+  image: string;
 }

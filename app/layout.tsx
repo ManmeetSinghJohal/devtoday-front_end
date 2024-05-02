@@ -35,13 +35,11 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/next.svg" />
       </Head>
       <body className={`${inter.className} ${ibmPlexSans.className}`}>
-        <div className="flex size-full min-h-screen flex-col justify-between">
-          <main className="mx-auto w-full flex-auto">
-            <NextAuthProvider>
-              <ThemeProvider>{children}</ThemeProvider>
-            </NextAuthProvider>
-          </main>
-        </div>
+        <main className="mx-auto min-h-screen w-full flex-auto">
+          <NextAuthProvider>
+            <ThemeProvider>{children}</ThemeProvider>
+          </NextAuthProvider>
+        </main>
       </body>
     </html>
   );

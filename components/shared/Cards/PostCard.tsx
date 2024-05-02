@@ -14,24 +14,25 @@ const PostCard = ({
   views,
   createdAt,
   liked,
+  image,
 }: PostCardProps) => {
   return (
-    <div className="flex flex-col items-start gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
+    <div className="flex flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
       <Image
         alt="post image"
         width={165}
         height={165}
-        src="/assets/profile.jpg"
+        src={image}
         style={{ borderRadius: "10px" }}
         className="hidden lg:block"
       />
-      <div className="flex h-full flex-col gap-3 ">
+      <div className="flex size-full flex-col gap-3">
         <div className="flex gap-2">
           <Image
             alt="post image"
             width={50}
             height={50}
-            src="/assets/profile.jpg"
+            src={image}
             style={{ borderRadius: "10px" }}
             className="block lg:hidden"
           />
@@ -62,7 +63,7 @@ const PostCard = ({
             <div className="flex w-full  items-center gap-2.5 ">
               <Image
                 alt="profile image"
-                src="/assets/profile.jpg"
+                src="/assets/jsmastery.png"
                 width={40}
                 height={40}
                 className="rounded-full"
