@@ -4,7 +4,7 @@ export const mockPosts: any = [
     authorId: "user1",
     title: "10 Essential React Libraries for Modern Web Development",
     type: "PODCAST",
-    image: "/assets/meeting-img.png",
+    image: "/assets/meeting-img2.jpeg",
     createdAt: new Date("2023-09-15T10:00:00Z"),
     content:
       "Join us for a discussion on 10 essential React libraries you should know for modern web development.",
@@ -45,7 +45,7 @@ export const mockPosts: any = [
     location: "Tech Hub",
     content:
       "Join us for an introductory meetup on machine learning. Network with experts and beginners alike.",
-    image: "/assets/meeting-img.png",
+    image: "/assets/meeting-img2.jpeg",
     tags: [
       {
         id: "tag3",
@@ -82,7 +82,7 @@ export const mockPosts: any = [
     audio: "https://example.com/podcast2.mp3",
     content:
       "Join us for a discussion on health and wellness tips specifically tailored for developers.",
-    image: "/assets/meeting-img.png",
+    image: "/assets/meeting-img2.jpeg",
     tags: [
       {
         id: "tag5",
@@ -120,7 +120,7 @@ export const mockPosts: any = [
     location: "Tech Park",
     content:
       "Join us for a meetup focused on career development in the tech industry. Network with professionals and explore opportunities.",
-    image: "/assets/meeting-img.png",
+    image: "/assets/meeting-img2.jpeg",
     tags: [
       {
         id: "tag7",
@@ -157,7 +157,7 @@ export const mockPosts: any = [
     audio: "https://example.com/podcast3.mp3",
     content:
       "Join our tech study group to collaborate on projects, share resources, and learn together.",
-    image: "/assets/meeting-img.png",
+    image: "/assets/meeting-img2.jpeg",
     tags: [
       {
         id: "tag9",
@@ -193,7 +193,7 @@ export const mockPosts: any = [
     createdAt: new Date("2023-08-10T10:00:00Z"),
     content:
       "Check out the latest JavaScript trends and developments in the industry.",
-    image: "/assets/meeting-img.png",
+    image: "/assets/meeting-img2.jpeg",
     tags: [
       {
         id: "tag11",

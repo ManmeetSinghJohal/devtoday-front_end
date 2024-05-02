@@ -20,8 +20,8 @@ const Page = () => {
   return (
     <div className="flex flex-col gap-5 md:flex-row">
       <div className="flex min-h-full w-full flex-col items-center justify-start gap-6 rounded-2xl bg-white-100 px-4 py-[44px] dark:bg-dark-800 md:min-w-[210px] md:max-w-[210px] md:gap-[30px]">
-        <div className="flex flex-col gap-5 ">
-          <div className="flex flex-col gap-2.5">
+        <div className="flex w-full flex-col items-center justify-center gap-5">
+          <div className="flex flex-col justify-center gap-2.5">
             <Image
               src="/assets/jsmastery.png"
               alt="Profile"
