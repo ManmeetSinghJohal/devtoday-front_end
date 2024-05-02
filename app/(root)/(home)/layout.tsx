@@ -1,14 +1,22 @@
+import SideCard from "@/components/shared/Cards/SideCard";
 import LeftNavBar from "@/components/shared/LeftSidebar/LeftSidebar";
 import RightNavBar from "@/components/shared/RightSidebar/RightNavbar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex gap-5 ">
-      <LeftNavBar />
+      <LeftNavBar>
+        <SideCard />
+        <SideCard />
+        <SideCard />
+      </LeftNavBar>
       <section className="flex min-h-screen flex-1 flex-col ">
         {children}
       </section>
-      <RightNavBar />
+      <RightNavBar>
+        <SideCard />
+        <SideCard />
+      </RightNavBar>
     </div>
   );
 };
