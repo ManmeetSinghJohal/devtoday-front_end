@@ -3,7 +3,7 @@ import RightSidebar from "@/components/shared/RightSidebar/RightSidebar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <section className="flex size-full justify-between bg-red-100">
+    <section className="flex size-full justify-between">
       <LeftSidebar />
       {children}
       <RightSidebar />

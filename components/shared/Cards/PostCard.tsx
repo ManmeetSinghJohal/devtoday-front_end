@@ -23,19 +23,21 @@ const PostCard = ({
         width={165}
         height={165}
         src={image}
-        style={{ borderRadius: "10px" }}
+        style={{ borderRadius: "10px", width: "165px", height: "165px" }}
         className="hidden lg:block"
       />
       <div className="flex size-full flex-col gap-3">
         <div className="flex gap-2">
-          <Image
-            alt="post image"
-            width={50}
-            height={50}
-            src={image}
-            style={{ borderRadius: "10px" }}
-            className="block lg:hidden"
-          />
+          <div className="size-[50px]">
+            <Image
+              alt="post image"
+              src={image}
+              width={50}
+              height={50}
+              style={{ borderRadius: "10px", width: "50px", height: "50px" }}
+              className="block lg:hidden"
+            />
+          </div>
           <div className="flex w-full gap-5 ">
             <p className="paragraph-3-bold lg:paragraph-1-bold h-[40px] w-full overflow-hidden  text-dark-800 dark:text-white-100 lg:h-[22px]">
               {title}
