@@ -19,8 +19,8 @@ const Page = () => {
   }); */
   return (
     <div className="flex flex-col gap-5 md:flex-row">
-      <div className="flex min-h-full w-full flex-col items-center justify-start gap-[30px] rounded-2xl bg-white-100 px-4 py-[44px] dark:bg-dark-800 md:min-w-[210px] md:max-w-[210px]">
-        <div className="flex flex-col gap-5">
+      <div className="flex min-h-full w-full flex-col items-center justify-start gap-6 rounded-2xl bg-white-100 px-4 py-[44px] dark:bg-dark-800 md:min-w-[210px] md:max-w-[210px] md:gap-[30px]">
+        <div className="flex flex-col gap-5 ">
           <div className="flex flex-col gap-2.5">
             <Image
               src="/assets/jsmastery.png"
@@ -52,20 +52,42 @@ const Page = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-1.5">
+        <div className="flex w-full flex-wrap items-center justify-center gap-1.5">
           <ProfileTags label="Javascript" />
           <ProfileTags label="Javascript" />
           <ProfileTags label="Javascript" />
           <ProfileTags label="Javascript" />
         </div>
-        <Separator />
+        <Separator className="bg-white-300 dark:bg-dark-700" />
         <p className="paragraph-3-regular text-center text-white-400 dark:text-white-300">
           Tech Student, aspiring to bring ideas to life through side projects.
           Fluent in React.js, Next.js, & TS.
         </p>
-        <p className="paragraph-3-medium text-white-300 dark:text-white-400">
-          joined {timeDifference(new Date("2024-03-27T10:00:00Z"))}
-        </p>
+        <div className="flex flex-col gap-3">
+          <div className="flex gap-6">
+            <Image
+              src="/assets/icons/linkedin.svg"
+              alt="linkedin"
+              width={24}
+              height={24}
+            />
+            <Image
+              src="/assets/icons/twitter.svg"
+              alt="twitter"
+              width={24}
+              height={24}
+            />
+            <Image
+              src="/assets/icons/instagram.svg"
+              alt="instagram"
+              width={24}
+              height={24}
+            />
+          </div>
+          <p className="paragraph-3-medium text-white-300 dark:text-white-400">
+            joined {timeDifference(new Date("2024-03-27T10:00:00Z"))}
+          </p>
+        </div>
       </div>
 
       <div className="flex w-full flex-col gap-5 ">
