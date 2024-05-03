@@ -30,9 +30,7 @@ const CreateUserForm = () => {
   });
 
   async function onSubmit(values: TSignUpSchema) {
-    console.log("sign-up values", values);
     try {
-
       const res = await fetch("http://localhost:3005/api/auth/register", {
         method: "POST",
         mode: "cors",
@@ -43,7 +41,6 @@ const CreateUserForm = () => {
       });
 
       if (res.ok) {
-        console.log("User created successfully");
         router.push("/signin");
       } else {
         console.log("Error creating user");

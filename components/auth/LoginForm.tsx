@@ -58,7 +58,6 @@ const LoginForm = () => {
         redirect: false,
       });
 
-      console.log("res", res);
       if (res?.error) {
         setError("Invalid email or password");
         return;
@@ -68,7 +67,6 @@ const LoginForm = () => {
     } catch (error) {
       console.log(error);
     }
-    console.log("log-in values", values);
   }
 
   return (

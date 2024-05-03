@@ -30,9 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${ibmPlexSans.variable}`}>
+      <body className={`${inter.className} ${ibmPlexSans.className}`}>
         <div className="flex size-full min-h-screen flex-col justify-between">
-          <main className="mx-auto w-full  flex-auto">
+          <main className="mx-auto w-full flex-auto">
             <NextAuthProvider>
               <ThemeProvider>{children}</ThemeProvider>
             </NextAuthProvider>

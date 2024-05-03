@@ -1,5 +1,5 @@
 import { AuthOptions } from "next-auth";
-import  CredentialsProvider from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -37,14 +37,14 @@ export const authOptions: AuthOptions = {
       async authorize(credentials) {
         if (!credentials || !credentials.email || !credentials.password)
           return null;
-        console.log("credentials", credentials);
+
         const res = await fetch("http://localhost:3005/api/auth/login", {
           method: "POST",
           mode: "cors",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(credentials),
         });
-        if(!res.ok) {
+        if (!res.ok) {
           return null;
         }
         const resultJson = await res.json();
@@ -54,7 +54,7 @@ export const authOptions: AuthOptions = {
   ],
 
   callbacks: {
-    async session({ session, token }) {
+    async session({ session }) {
       if (!session.user) return session;
       const res = await fetch("http://localhost:3005/api/auth/user", {
         method: "POST",
@@ -64,6 +64,7 @@ export const authOptions: AuthOptions = {
       });
       const userRes = await res.json();
       session.user.id = userRes.id;
+      session.user.username = userRes.username;
       session.user.onboardingCompleted = userRes.profile.onBoardingCompleted;
       return session;
     },
@@ -81,15 +82,18 @@ export const authOptions: AuthOptions = {
           });
           const userRes = await res.json();
           if (!userRes) {
-              const userCreateRes = await fetch("http://localhost:3005/api/auth/register", {
+            const userCreateRes = await fetch(
+              "http://localhost:3005/api/auth/register",
+              {
                 method: "POST",
                 mode: "cors",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({email, name}),
-              });
-              const newUser = await userCreateRes.json();
+                body: JSON.stringify({ email, name }),
+              },
+            );
+            const newUser = await userCreateRes.json();
             if (!newUser) {
               return false;
             }

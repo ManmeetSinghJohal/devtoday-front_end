@@ -2,9 +2,9 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-import Theme from "@/components/navbar/Theme";
 import OnboardingForm from "@/components/onboarding/OnboardingForm";
 import Logo from "@/components/shared/Logo";
+import Theme from "@/components/shared/Navbar/Theme";
 
 const Onboarding = () => {
   const [step, setStep] = useState(0);
