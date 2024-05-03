@@ -8,6 +8,7 @@ import React from "react";
 import CreateUserForm from "@/components/auth/CreateUserForm";
 import LoginButton from "@/components/auth/LoginButton";
 import Theme from "@/components/navbar/Theme";
+import Logo from "@/components/shared/Logo";
 
 const SignUp = async () => {
   const session = await getServerSession();
@@ -19,21 +20,8 @@ const SignUp = async () => {
   return (
     <div className="mx-auto lg:grid lg:grid-cols-2">
       <div className="hidden h-screen bg-white-100 dark:bg-dark-800 lg:block">
-        <div className="mb-[86px] ml-[40px] mt-[44px] flex">
-          <Image
-            src="assets/logos/logo.svg"
-            alt="logo"
-            width={147}
-            height={30}
-            className="dark:hidden"
-          />
-          <Image
-            src="assets/logos/logo-dark.svg"
-            alt="logo"
-            width={147}
-            height={30}
-            className="hidden dark:block"
-          />
+        <div className="mb-[86px] ml-[40px] mt-[44px] flex dark:text-white-100">
+          <Logo />
           <Theme />
         </div>
         <div className="mx-auto w-[442px]">
@@ -42,17 +30,9 @@ const SignUp = async () => {
             conversation.
           </div>
           <div className="flex rounded-lg bg-white-200 p-5 dark:bg-dark-700">
-            <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-100 dark:hidden">
+            <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-100 dark:bg-dark-800">
               <Image
                 src="assets/icons/briefcase.svg"
-                width={20}
-                height={20}
-                alt="briefcase"
-              />
-            </div>
-            <div className="mr-5 hidden size-[60px] justify-center rounded-lg bg-dark-800 dark:flex">
-              <Image
-                src="assets/icons/briefcase-dark.svg"
                 width={20}
                 height={20}
                 alt="briefcase"
@@ -64,20 +44,12 @@ const SignUp = async () => {
             </div>
           </div>
           <div className="mt-5 flex rounded-lg bg-white-200 p-5 dark:bg-dark-700">
-            <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-200 dark:hidden">
+            <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-200 dark:bg-dark-800">
               <Image
                 src="assets/icons/feedback.svg"
                 width={20}
                 height={20}
-                alt="briefcase"
-              />
-            </div>
-            <div className="mr-5 hidden size-[60px] justify-center rounded-lg bg-dark-800 dark:flex">
-              <Image
-                src="assets/icons/feedback-dark.svg"
-                width={20}
-                height={20}
-                alt="briefcase"
+                alt="feedback"
               />
             </div>
             <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
@@ -85,20 +57,12 @@ const SignUp = async () => {
             </div>
           </div>
           <div className="mt-5 flex rounded-lg bg-white-200 p-5 dark:bg-dark-700">
-            <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-300 dark:hidden">
+            <div className="mr-5 flex size-[60px] justify-center rounded-lg bg-misc-300 dark:bg-dark-800">
               <Image
                 src="assets/icons/inbox.svg"
                 width={20}
                 height={20}
-                alt="briefcase"
-              />
-            </div>
-            <div className="mr-5 hidden size-[60px] justify-center rounded-lg bg-dark-800 dark:flex">
-              <Image
-                src="assets/icons/inbox-dark.svg"
-                width={20}
-                height={20}
-                alt="briefcase"
+                alt="inbox"
               />
             </div>
             <div className="paragraph-1-medium w-[322px] pt-2 text-dark-700 dark:text-white-200">
@@ -108,21 +72,8 @@ const SignUp = async () => {
         </div>
       </div>
       <div className="mx-auto w-[347px] lg:w-[421px]">
-        <div className="mx-auto mb-[86px] flex  w-52 pt-11 lg:hidden">
-          <Image
-            src="assets/logos/logo.svg"
-            alt="logo"
-            width={147}
-            height={30}
-            className="dark:hidden"
-          />
-          <Image
-            src="assets/logos/logo-dark.svg"
-            alt="logo"
-            width={147}
-            height={30}
-            className="hidden dark:block"
-          />
+        <div className="mx-auto mb-[86px] flex  w-52 pt-11 dark:text-white-100 lg:hidden">
+          <Logo />
           <Theme />
         </div>
         <div className="lg:mt-[160px]">
