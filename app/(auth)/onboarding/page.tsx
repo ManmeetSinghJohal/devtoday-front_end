@@ -13,34 +13,8 @@ const Onboarding = () => {
   }
 
   return (
-    <>
-      <div className="pt-12 lg:hidden">
-        <div className="flex flex-col items-center">
-          <div className="mb-[52px] flex">
-            <Image
-              src="assets/logos/logo.svg"
-              alt="logo"
-              width={147}
-              height={30}
-              className="dark:hidden"
-            />
-            <Image
-              src="assets/logos/logo-dark.svg"
-              alt="logo"
-              width={147}
-              height={30}
-              className="hidden dark:block"
-            />
-            <Theme />
-          </div>
-          <div className="mx-auto w-[347px]">
-            <OnboardingForm incrementStep={incrementStep} step={step} />
-          </div>
-        </div>
-      </div>
-
-      <div className="mx-auto hidden lg:grid lg:grid-cols-2">
-        <div className="h-screen bg-white-100 dark:bg-dark-800">
+      <div className="mx-auto lg:grid lg:grid-cols-2">
+        <div className="hidden h-screen bg-white-100 dark:bg-dark-800 lg:block">
           <div className="mb-[86px] ml-[40px] mt-[44px] flex">
             <Image
               src="assets/logos/logo.svg"
@@ -118,13 +92,29 @@ const Onboarding = () => {
             </div>
           </div>
         </div>
-        <div className="mx-auto w-[421px]">
-          <div className="mt-[160px]">
+        <div className="mx-auto w-[347px] lg:w-[460px]">
+          <div className="mx-auto mb-[52px] flex w-52 pt-11 lg:hidden">
+            <Image
+              src="assets/logos/logo.svg"
+              alt="logo"
+              width={147}
+              height={30}
+              className="dark:hidden"
+            />
+            <Image
+              src="assets/logos/logo-dark.svg"
+              alt="logo"
+              width={147}
+              height={30}
+              className="hidden dark:block"
+            />
+            <Theme />
+          </div>
+          <div className="lg:mt-[160px]">
             <OnboardingForm incrementStep={incrementStep} step={step} />
           </div>
         </div>
       </div>
-    </>
   );
 };
 
