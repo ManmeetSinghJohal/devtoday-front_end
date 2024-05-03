@@ -5,7 +5,7 @@ import Head from "next/head";
 import React from "react";
 
 import NextAuthProvider from "@/components/NextAuthProvider";
-import { ThemeProvider } from "@/context/ThemeProvider";
+import { ThemeLoader } from "@/context/ThemeLoader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,10 +34,13 @@ export default function RootLayout({
       <Head>
         <link rel="shortcut icon" href="/next.svg" />
       </Head>
-      <body className={`${inter.className} ${ibmPlexSans.className}`}>
+      <body
+        className={`${inter.className} ${ibmPlexSans.className} bg-white-200 dark:bg-dark-900`}
+      >
         <main className="mx-auto min-h-screen w-full flex-auto">
           <NextAuthProvider>
-            <ThemeProvider>{children}</ThemeProvider>
+            <ThemeLoader />
+            {children}
           </NextAuthProvider>
         </main>
       </body>

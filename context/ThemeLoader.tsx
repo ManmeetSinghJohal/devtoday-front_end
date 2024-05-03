@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
-export function ThemeLoader({ children }: { children: React.ReactNode }) {
+export function ThemeLoader() {
   useEffect(() => {
     if (
       localStorage.theme === "dark" ||
@@ -15,5 +15,5 @@ export function ThemeLoader({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  return { children };
+  return null;
 }

@@ -46,7 +46,7 @@
     @apply font-normal text-base text-white-200;
   }
   .paragraph-3-regular {
-    @apply font-normal text-sm text-white-200;
+    @apply font-normal text-sm text-white-400 dark:text-white-300;
   }
   .paragraph-4-regular {
     @apply font-normal text-xs text-white-200;
@@ -61,7 +61,7 @@
     @apply font-normal text-custom_7 text-white-200;
   }
   .text-dark100_light900 {
-    @apply text-dark-700 dark:text-white-400 !important;
+    @apply text-dark-700 dark:text-white-400;
   }
   .light-toggle {
     @apply bg-primary1-100 dark:bg-transparent cursor-pointer;

@@ -1,6 +1,4 @@
 "use client";
-
-import Image from "next/image";
 import React from "react";
 
 import {
@@ -10,70 +8,57 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { themes } from "@/constants";
-import { useTheme } from "@/context/ThemeProvider";
+import { toggleDarkMode } from "@/utils/theme";
+
+import MoonIconNav from "../Icons/MoonIconNav";
+import SunIconNav from "../Icons/SunIconNav";
 
 const Theme = () => {
-  const { mode, setMode } = useTheme();
-
   return (
-    <Menubar className="relative border-none bg-transparent shadow-none">
-      <MenubarMenu>
-        <MenubarTrigger className="focus:bg-white-400 data-[state-open]:bg-white-400 dark:focus:bg-dark-800 dark:data-[state-open]:bg-dark-800">
-          {mode === "light" ? (
-            <Image
-              src="/assets/icons/sun.svg"
-              alt="sun"
-              width={20}
-              height={20}
-              className="active-theme"
-            />
-          ) : (
-            <Image
-              src="/assets/icons/moon.svg"
-              alt="moon"
-              width={20}
-              height={20}
-              className="active-theme"
-            />
-          )}
-        </MenubarTrigger>
-        <MenubarContent className="absolute -right-12 mt-3 min-w-[120px] rounded border py-2 dark:border-dark-700 dark:bg-dark-700">
-          {themes.map((item) => (
+    <>
+      <Menubar className="relative border-none bg-transparent shadow-none">
+        <MenubarMenu>
+          <MenubarTrigger className="focus:bg-transparent data-[state-open]:bg-white-400 dark:focus:bg-dark-800 dark:data-[state-open]:bg-dark-800">
+            <div className="flex gap-3 p-2">
+              <span className="text-[#FF5C00] dark:text-white-400">
+                <SunIconNav />
+              </span>
+              <span className="text-white-400 dark:text-[#FF5C00]">
+                <MoonIconNav />
+              </span>
+            </div>
+          </MenubarTrigger>
+          <MenubarContent className="absolute -right-12 mt-3 min-w-[140px] rounded border py-2 dark:border-dark-700 dark:bg-dark-700">
             <MenubarItem
-              key={item.value}
               className="flex items-center gap-4 px-2.5 py-2 dark:focus:bg-dark-700"
               onClick={() => {
-                setMode(item.value);
-
-                if (item.value !== "system") {
-                  localStorage.theme = item.value;
-                } else {
-                  localStorage.removeItem("theme");
-                }
+                toggleDarkMode();
               }}
             >
-              <Image
-                src={item.icon}
-                alt={item.value}
-                width={16}
-                height={16}
-                className={`${mode === item.value && "active-theme"}`}
-              />
-              <p
-                className={`text-white-400 ${
-                  mode === item.value
-                    ? "text-primary1-500"
-                    : "text-dark100_light900"
-                }`}
-              >
-                {item.label}
+              <span className="text-[#FF5C00] dark:text-white-400">
+                <SunIconNav />
+              </span>
+              <p className="dark:text-dark100_light900 text-primary1-500">
+                Light Mode
               </p>
             </MenubarItem>
-          ))}
-        </MenubarContent>
-      </MenubarMenu>
-    </Menubar>
+            <MenubarItem
+              className="flex items-center gap-4 px-2.5 py-2 dark:focus:bg-dark-700"
+              onClick={() => {
+                toggleDarkMode();
+              }}
+            >
+              <span className="text-white-400 dark:text-[#FF5C00]">
+                <MoonIconNav />
+              </span>
+              <p className="text-dark100_light900 dark:text-primary1-500">
+                Dark Mode
+              </p>
+            </MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+      </Menubar>
+    </>
   );
 };
 

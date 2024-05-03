@@ -14,10 +14,11 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { Separator } from "@/components/ui/separator";
-import { useTheme } from "@/context/ThemeProvider";
+import { toggleDarkMode } from "@/utils/theme";
+
+import DropdownIcon from "../Icons/DropdownIcon";
 
 const Account = () => {
-  const { setMode } = useTheme();
   const { data } = useSession();
 
   return (
@@ -34,14 +35,11 @@ const Account = () => {
                 src="assets/icons/profilepic.svg"
               />
 
-              <div className="hidden md:flex">
-                {data?.user && data.user.username}
-                <Image
-                  src="assets/icons/down.svg"
-                  width={10}
-                  height={10}
-                  alt="arrow down icon"
-                />
+              <div className="hidden text-white-400 dark:text-white-400 md:flex">
+                <p className="text-dark-900 dark:text-white-200">
+                  {data?.user && data.user.username}
+                </p>
+                <DropdownIcon />
               </div>
             </div>
           </MenubarTrigger>
@@ -49,7 +47,7 @@ const Account = () => {
             <MenubarItem className="cursor-pointer gap-2.5 px-0">
               <Link href="/profile" className="flex gap-2.5">
                 <ProfileIcon />
-                Profile
+                <p>Profile</p>
               </Link>
             </MenubarItem>
 
@@ -71,25 +69,17 @@ const Account = () => {
               <div className="flex items-center justify-center gap-1.5 rounded-2xl bg-white-200 p-1 dark:bg-transparent">
                 <div
                   onClick={() => {
-                    if (localStorage.theme !== "light")
-                      localStorage.removeItem("theme");
-                    localStorage.theme = "light";
-
-                    setMode("light");
+                    toggleDarkMode();
                   }}
-                  className="light-toggle rounded-full p-1.5"
+                  className="light-toggle rounded-full p-1.5 dark:text-dark-700"
                 >
                   <SunIconNav />
                 </div>
                 <div
                   onClick={() => {
-                    if (localStorage.theme !== "dark")
-                      localStorage.removeItem("theme");
-                    localStorage.theme = "dark";
-
-                    setMode("dark");
+                    toggleDarkMode();
                   }}
-                  className="dark-toggle rounded-full p-1.5"
+                  className="dark-toggle rounded-full p-1.5 text-white-300 dark:text-white-100"
                 >
                   <MoonIconNav />
                 </div>
