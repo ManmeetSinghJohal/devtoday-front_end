@@ -98,6 +98,7 @@ const SignUp = async () => {
               Elevate your coding with exclusive content for professional growth
             </div>
           </div>
+          {providers && <LoginButton providers={providers} />}
         </div>
       </div>
       <div className="mx-auto w-[347px] lg:w-[421px]">
