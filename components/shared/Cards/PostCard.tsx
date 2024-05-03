@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-import { timeDifference } from "@/lib/methods";
+import { timeDifference } from "@/utils/methods";
 
 import LikeIcon from "../Icons/LikeIcon";
 import PostTags from "../Tags/PostTags";

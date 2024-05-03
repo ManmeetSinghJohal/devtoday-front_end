@@ -10,7 +10,7 @@ import ProfileTags from "@/components/shared/Tags/ProfileTags";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { mockPosts } from "@/constants/mockposts";
-import { timeDifference } from "@/lib/methods";
+import { timeDifference } from "@/utils/methods";
 
 const Page = () => {
   // const session = getSession();
