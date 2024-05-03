@@ -1,4 +1,4 @@
-import ArrowRightIcon from "@/components/shared/Icons/ArrowRightIcon";
+import ArrowRightIcon from "@/components/shared/Iconss/ArrowRightIcon";
 import { Skeleton } from "@/components/ui/skeleton";
 import { mockPosts } from "@/constants/mockposts";
 

@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 import OnboardingForm from "@/components/onboarding/OnboardingForm";
-import Theme from "@/components/shared/Header/Theme";
+import Theme from "@/components/shared/Headerr/Theme";
 import Logo from "@/components/shared/Logo";
 
 const Onboarding = () => {

@@ -1,4 +1,4 @@
-import SideCard from "../Cards/SideCard";
+import SideCard from "../Cardss/SideCard";
 
 const LeftSidebar = () => {
   return (

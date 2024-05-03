@@ -1,8 +1,8 @@
 import React from "react";
 
-import Account from "@/components/shared/Header/Account";
-import { Navigation } from "@/components/shared/Header/Navigation";
-import Logo from "@/components/shared/Icons/Logo";
+import Account from "@/components/shared/Headerr/Account";
+import { Navigation } from "@/components/shared/Headerr/Navigation";
+import Logo from "@/components/shared/Iconss/Logo";
 
 import NotificationModal from "./NotificationModal";
 import SearchModal from "./SearchModal";

@@ -3,8 +3,8 @@ import React from "react";
 
 import { timeDifference } from "@/utils/methods";
 
-import LikeIcon from "../Icons/LikeIcon";
-import PostTags from "../Tags/PostTags";
+import LikeIcon from "../Iconss/LikeIcon";
+import PostTags from "../Tagss/PostTags";
 
 const PostCard = ({
   title,

@@ -1,10 +1,10 @@
-import CalendarIcon from "@/components/shared/Icons/CalendarIcon";
-import CreateIcon from "@/components/shared/Icons/CreateIcon";
-import GroupsIcon from "@/components/shared/Icons/GroupsIcon";
-import HeadphonesIcon from "@/components/shared/Icons/HeadphonesIcon";
-import HomeIcon from "@/components/shared/Icons/HomeIcon";
-import NotificationIcon from "@/components/shared/Icons/NotificationIcon";
-import SearchIcon from "@/components/shared/Icons/SearchIcon";
+import CalendarIcon from "@/components/shared/Iconss/CalendarIcon";
+import CreateIcon from "@/components/shared/Iconss/CreateIcon";
+import GroupsIcon from "@/components/shared/Iconss/GroupsIcon";
+import HeadphonesIcon from "@/components/shared/Iconss/HeadphonesIcon";
+import HomeIcon from "@/components/shared/Iconss/HomeIcon";
+import NotificationIcon from "@/components/shared/Iconss/NotificationIcon";
+import SearchIcon from "@/components/shared/Iconss/SearchIcon";
 export const NavIcons: NavIcon[] = [
   {
     id: "home",

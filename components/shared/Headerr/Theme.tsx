@@ -10,8 +10,8 @@ import {
 } from "@/components/ui/menubar";
 import { toggleDarkMode } from "@/utils/theme";
 
-import MoonIconNav from "../Icons/MoonIconNav";
-import SunIconNav from "../Icons/SunIconNav";
+import MoonIconNav from "../Iconss/MoonIconNav";
+import SunIconNav from "../Iconss/SunIconNav";
 
 const Theme = () => {
   return (

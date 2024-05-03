@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 
-import NotificationIcon from "@/components/shared/Icons/NotificationIcon";
+import SearchIcon from "@/components/shared/Iconss/SearchIcon";
 import { Button } from "@/components/ui/button";
 
-const NotificationModal = () => {
+const SearchModal = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -16,10 +16,10 @@ const NotificationModal = () => {
           setOpen((prev) => !prev);
         }}
       >
-        <NotificationIcon pending />
+        <SearchIcon pending />
       </Button>
     </div>
   );
 };
 
-export default NotificationModal;
+export default SearchModal;
