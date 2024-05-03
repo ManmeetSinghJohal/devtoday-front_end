@@ -2,11 +2,11 @@ import Image from "next/image";
 import React from "react";
 
 import ProfileNavbar from "@/components/profile/ProfileNavbar";
-import PerformanceCard from "@/components/shared/Cardss/PerformanceCard";
-import PostCard from "@/components/shared/Cardss/PostCard";
-import RecentPosts from "@/components/shared/Cardss/RecentsCard";
-import RightNavBar from "@/components/shared/RightSidebarr/RightSidebar";
-import ProfileTags from "@/components/shared/Tagss/ProfileTags";
+import PerformanceCard from "@/components/shared/cards/PerformanceCard";
+import PostCard from "@/components/shared/cards/PostCard";
+import RecentPosts from "@/components/shared/cards/RecentsCard";
+import RightNavBar from "@/components/shared/rightsidebar/RightSidebar";
+import ProfileTags from "@/components/shared/tags/ProfileTags";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { mockPosts } from "@/constants/mockposts";

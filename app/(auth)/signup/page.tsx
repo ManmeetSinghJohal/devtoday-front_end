@@ -5,7 +5,7 @@ import React from "react";
 
 import CreateUserForm from "@/components/auth/CreateUserForm";
 import LoginButton from "@/components/auth/LoginButton";
-import Theme from "@/components/shared/Headerr/Theme";
+import Theme from "@/components/shared/header/Theme";
 import Logo from "@/components/shared/Logo";
 
 const SignUp = async () => {

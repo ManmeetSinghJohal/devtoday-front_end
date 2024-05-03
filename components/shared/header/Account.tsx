@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 
-import MoonIconNav from "@/components/shared/Iconss/MoonIconNav";
-import ProfileIcon from "@/components/shared/Iconss/ProfileIcon";
-import SunIconNav from "@/components/shared/Iconss/SunIconNav";
+import MoonIconNav from "@/components/shared/icons/MoonIconNav";
+import ProfileIcon from "@/components/shared/icons/ProfileIcon";
+import SunIconNav from "@/components/shared/icons/SunIconNav";
 import {
   Menubar,
   MenubarContent,
@@ -16,7 +16,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { toggleDarkMode } from "@/utils/theme";
 
-import DropdownIcon from "../Iconss/DropdownIcon";
+import DropdownIcon from "../icons/DropdownIcon";
 
 const Account = () => {
   const { data } = useSession();

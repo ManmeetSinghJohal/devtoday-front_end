@@ -5,7 +5,7 @@ import React from "react";
 
 import LoginButton from "@/components/auth/LoginButton";
 import LoginForm from "@/components/auth/LoginForm";
-import Theme from "@/components/shared/Headerr/Theme";
+import Theme from "@/components/shared/header/Theme";
 import Logo from "@/components/shared/Logo";
 
 const SignIn = async () => {
