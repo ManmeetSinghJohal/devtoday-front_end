@@ -23,3 +23,6 @@ interface PostCardProps {
   liked: boolean;
   image: string;
 }
+interface ProfileProps {
+  user: UserProfile;
+}

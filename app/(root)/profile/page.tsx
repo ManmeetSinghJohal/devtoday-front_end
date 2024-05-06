@@ -1,3 +1,4 @@
+import { getServerSession } from "next-auth";
 import React from "react";
 
 import ProfileCard from "@/components/profile/ProfileCard";
@@ -7,18 +8,24 @@ import PostCard from "@/components/shared/cards/PostCard";
 import RecentPosts from "@/components/shared/cards/RecentsCard";
 import RightNavBar from "@/components/shared/rightsidebar/RightSidebar";
 import { mockPosts } from "@/constants/mockposts";
+import { authOptions } from "@/lib/auth";
 
-const Page = () => {
-  // const session = getSession();
+const Page = async () => {
+  const session = await getServerSession(authOptions);
+  const res = await fetch(
+    `http://localhost:3005/api/auth/${session?.user.id}`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  const user = await res.json();
 
-  /*   const userInfo = await fetch(`http://localhost:3005/api/user/${session.id}`, {
-    method: "POST",
-    mode: "cors",
-    headers: { "Content-Type": "application/json" },
-  }); */
+  // i also need the id from the session to get the users posts
   return (
     <div className="flex flex-col gap-5 md:flex-row">
-      <ProfileCard />
+      <ProfileCard user={user} />
       <div className="flex w-full flex-col gap-5 ">
         <ProfileNavbar />
         {mockPosts.map((post: any) => {

@@ -6,7 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { timeDifference } from "@/utils/methods";
 
-const ProfileCard = () => {
+const ProfileCard = ({ user }: ProfileProps) => {
+  const { username, createdAt, profile } = user;
+
+  if (!user) return null;
   return (
     <div className="flex min-h-full w-full flex-col items-center justify-start gap-6 rounded-2xl bg-white-100 pb-[44px] dark:bg-dark-800 md:w-[210px] md:shrink-0 md:gap-[30px]">
       <div className="flex w-full flex-col items-center justify-center gap-5">
@@ -23,10 +26,10 @@ const ProfileCard = () => {
             />
             <div className="flex flex-col">
               <p className="heading-1-medium text-center text-dark-900 dark:text-white-100">
-                Js Mastery
+                Name
               </p>
               <p className="paragraph-3-regular text-center text-white-400">
-                @jsmastery
+                @{username}
               </p>
             </div>
           </div>
@@ -43,10 +46,9 @@ const ProfileCard = () => {
             </p>
           </div>
           <div className="flex w-full flex-wrap items-center justify-center gap-1.5">
-            <ProfileTags label="Javascript" />
-            <ProfileTags label="Javascript" />
-            <ProfileTags label="Javascript" />
-            <ProfileTags label="Javascript" />
+            {profile.tech.map((tag) => (
+              <ProfileTags key={tag} label={tag} />
+            ))}
           </div>
           <Separator className="bg-white-300 dark:bg-dark-700" />
           <p className="paragraph-3-regular text-center text-white-400 dark:text-white-300">
@@ -75,7 +77,7 @@ const ProfileCard = () => {
               />
             </div>
             <p className="paragraph-3-medium text-white-300 dark:text-white-400">
-              joined {timeDifference(new Date("2024-03-27T10:00:00Z"))}
+              joined {timeDifference(new Date(createdAt))}
             </p>
           </div>
         </div>
