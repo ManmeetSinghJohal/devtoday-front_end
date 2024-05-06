@@ -21,8 +21,7 @@ const Page = async () => {
     }
   );
   const user = await res.json();
-
-  // i also need the id from the session to get the users posts
+  // posts from user, how to orginize that??
   return (
     <div className="flex flex-col gap-5 md:flex-row">
       <ProfileCard user={user} />
