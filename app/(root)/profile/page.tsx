@@ -20,11 +20,11 @@ const Page = async () => {
       headers: { "Content-Type": "application/json" },
     }
   );
-  const user = await res.json();
+  const userData = await res.json();
   // posts from user, how to orginize that??
   return (
     <div className="flex flex-col gap-5 md:flex-row">
-      <ProfileCard user={user} />
+      <ProfileCard user={userData} />
       <div className="flex w-full flex-col gap-5 ">
         <ProfileNavbar />
         {mockPosts.map((post: any) => {
