@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { timeDifference } from "@/utils/methods";
 
-const ProfileCard = ({ user }: ProfileProps) => {
+const ProfileCard = ({ user }: ProfilePageProps) => {
   const { username, createdAt, profile } = user;
 
   if (!user) return null;
@@ -46,7 +46,7 @@ const ProfileCard = ({ user }: ProfileProps) => {
             </p>
           </div>
           <div className="flex w-full flex-wrap items-center justify-center gap-1.5">
-            {profile.tech.map((tag) => (
+            {profile.tech.map((tag: any) => (
               <ProfileTags key={tag} label={tag} />
             ))}
           </div>

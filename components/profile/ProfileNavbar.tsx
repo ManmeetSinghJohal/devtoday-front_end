@@ -4,6 +4,7 @@ import { useState } from "react";
 const buttons = ["Posts", "Meetups", "Podcasts", "Groups"];
 const ProfileNavbar = () => {
   const [active, setActive] = useState("Posts");
+  // add query params to fetch data
   return (
     <div className="paragraph-1-medium flex w-full justify-center rounded-xl bg-white-100 px-3.5 py-5 text-white-400 dark:bg-dark-800 dark:text-white-300 sm:justify-between lg:justify-between lg:px-6 ">
       {buttons.map((button) => (
