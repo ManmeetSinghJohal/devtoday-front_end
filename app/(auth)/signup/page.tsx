@@ -5,8 +5,8 @@ import React from "react";
 
 import CreateUserForm from "@/components/auth/CreateUserForm";
 import LoginButton from "@/components/auth/LoginButton";
+import Theme from "@/components/shared/header/Theme";
 import Logo from "@/components/shared/Logo";
-import Theme from "@/components/shared/Navbar/Theme";
 
 const SignUp = async () => {
   const providers = await getProviders();
@@ -62,6 +62,7 @@ const SignUp = async () => {
               Elevate your coding with exclusive content for professional growth
             </div>
           </div>
+          {providers && <LoginButton providers={providers} />}
         </div>
       </div>
       <div className="mx-auto w-[347px] lg:w-[421px]">

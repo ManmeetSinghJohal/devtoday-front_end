@@ -1,23 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
 import { getProviders } from "next-auth/react";
 import React from "react";
 
 import LoginButton from "@/components/auth/LoginButton";
 import LoginForm from "@/components/auth/LoginForm";
+import Theme from "@/components/shared/header/Theme";
 import Logo from "@/components/shared/Logo";
-import Theme from "@/components/shared/Navbar/Theme";
-import { authOptions } from "@/lib/auth";
 
 const SignIn = async () => {
-  const session = await getServerSession(authOptions);
   const providers = await getProviders();
-  console.log("session", session);
-  if (session) {
-    redirect("/dashboard");
-  }
 
   return (
     <div className="mx-auto lg:grid lg:grid-cols-2">
