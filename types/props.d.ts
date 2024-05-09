@@ -27,3 +27,19 @@ interface ProfilePageProps {
   user: UserProfile;
   posts: PostCardProps[];
 }
+interface MeetupCardProps extends PostCardProps {
+  meetDay: Date;
+}
+interface PodcastCardProps extends PostCardProps {
+  podcastLength?: string;
+}
+
+interface GroupCardProps extends PostCardProps {
+  members?: [
+    {
+      id: string;
+      username: string;
+      image: string;
+    },
+  ];
+}

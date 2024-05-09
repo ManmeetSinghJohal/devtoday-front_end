@@ -34,6 +34,7 @@ export const mockPosts: any = [
     ],
     views: 150,
     liked: false,
+    meetDay: new Date("2023-09-15T10:00:00Z"),
   },
   {
     id: "2",
@@ -72,6 +73,8 @@ export const mockPosts: any = [
     ],
     views: 200,
     liked: true,
+
+    meetDay: new Date("2023-09-15T10:00:00Z"),
   },
   {
     id: "3",
@@ -109,6 +112,8 @@ export const mockPosts: any = [
     ],
     views: 400,
     liked: true,
+
+    meetDay: new Date("2023-09-15T10:00:00Z"),
   },
   {
     id: "4",
@@ -147,6 +152,8 @@ export const mockPosts: any = [
     ],
     views: 500,
     liked: true,
+
+    meetDay: new Date("2023-09-15T10:00:00Z"),
   },
   {
     id: "5",
@@ -184,6 +191,8 @@ export const mockPosts: any = [
     ],
     views: 600,
     liked: true,
+
+    meetDay: new Date("2023-09-15T10:00:00Z"),
   },
   {
     id: "6",
@@ -220,5 +229,7 @@ export const mockPosts: any = [
     ],
     views: 700,
     liked: true,
+
+    meetDay: new Date("2023-09-15T10:00:00Z"),
   },
 ];

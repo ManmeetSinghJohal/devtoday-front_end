@@ -34,3 +34,27 @@ export function timeDifference(dateValue: Date): string {
 
   return "just now";
 }
+
+export function getMeetDayInfo(meetDay: Date): { month: string; day: number } {
+  // Array of month names
+  const monthNames: string[] = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const monthIndex: number = meetDay.getMonth();
+  const day: number = meetDay.getDate();
+
+  const month: string = monthNames[monthIndex];
+
+  return { month, day };
+}

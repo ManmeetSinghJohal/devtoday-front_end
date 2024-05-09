@@ -7,7 +7,10 @@ const Page = async ({
   searchParams,
 }: {
   params: { id: string };
-  searchParams: string | string[];
+  searchParams: { postType: string | string[] | undefined };
+  // /profile/Victoria POSTTYPE: undefined
+  // /profile/Victoria?postType=cat POSTTYHPE: standard STRING
+  // /profile/Victoria?postType=standard&postType=meetup POSTYPE: ["standard", "meetup"]
 }) => {
   const resUser = await fetch(
     `http://localhost:3005/api/user/${params?.id}`, // /api/user/id/info
@@ -18,9 +21,13 @@ const Page = async ({
     }
   );
   const userData = await resUser.json();
-  console.log(userData);
+  let type = searchParams.postType ?? "standard";
+  if (type instanceof Array) type = type[0];
+  if (!["standard", "meetup", "podcast"].some((t) => t === type))
+    type = "standard";
+
   const resPosts = await fetch(
-    `http://localhost:3005/api/user/${session?.user.id}/posts?postType=${searchParams}`, // /api/user/id/info
+    `http://localhost:3005/api/user/${params?.id}/posts?postType=${type}`, // /api/user/id/info
     {
       method: "GET",
       mode: "cors",
