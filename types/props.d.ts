@@ -26,7 +26,9 @@ interface PostCardProps {
 interface ProfilePageProps {
   user: UserProfile;
   posts: PostCardProps[];
+  type: string;
 }
+
 interface MeetupCardProps extends PostCardProps {
   meetDay: Date;
 }

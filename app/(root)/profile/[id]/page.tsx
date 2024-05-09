@@ -8,9 +8,6 @@ const Page = async ({
 }: {
   params: { id: string };
   searchParams: { postType: string | string[] | undefined };
-  // /profile/Victoria POSTTYPE: undefined
-  // /profile/Victoria?postType=cat POSTTYHPE: standard STRING
-  // /profile/Victoria?postType=standard&postType=meetup POSTYPE: ["standard", "meetup"]
 }) => {
   const resUser = await fetch(
     `http://localhost:3005/api/user/${params?.id}`, // /api/user/id/info
@@ -35,7 +32,7 @@ const Page = async ({
     }
   );
   const postsData = await resPosts.json();
-  return <ProfilePage user={userData} posts={postsData} />;
+  return <ProfilePage user={userData} posts={postsData} type={type} />;
 };
 
 export default Page;

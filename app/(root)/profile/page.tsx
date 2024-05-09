@@ -15,21 +15,21 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
     }
   );
   const userData = await resUser.json();
-  console.log(userData);
+  let type = searchParams.postType ?? "standard";
+  if (type instanceof Array) type = type[0];
+  if (!["standard", "meetup", "podcast"].some((t) => t === type))
+    type = "standard";
+
   const resPosts = await fetch(
-    `http://localhost:3005/api/user/${session?.user.id}/posts?postType=${searchParams}`, // /api/user/id/info
+    `http://localhost:3005/api/user/${session?.user.id}/posts?postType=${type}`, // /api/user/id/info
     {
       method: "GET",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
     }
   );
-
-  // back:
-  // posts from user, fetch them, query params (different body depending on query params) api/user/id/posts?postype=meetups
   const postsData = await resPosts.json();
-  console.log("postsData", postsData);
-  return <ProfilePage user={userData} posts={postsData} />;
+  return <ProfilePage user={userData} posts={postsData} type={type} />;
 };
 
 export default Page;

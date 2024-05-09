@@ -3,6 +3,7 @@ type NavModalIcons = "notifications" | "search";
 type Sort = "newest" | "popular" | "following";
 type UserProfile = {
   id: string;
+  name?: string;
   createdAt: string;
   email: string;
   password: string;

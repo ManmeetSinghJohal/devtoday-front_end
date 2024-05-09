@@ -6,10 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { timeDifference } from "@/utils/methods";
 
-const ProfileCard = ({ user }: ProfilePageProps) => {
-  const { username, createdAt, profile } = user;
-
+const ProfileCard = ({ user }: { user: UserProfile }) => {
   if (!user) return null;
+  const { username, createdAt, profile } = user;
   return (
     <div className="flex min-h-full w-full flex-col items-center justify-start gap-6 rounded-2xl bg-white-100 pb-[44px] dark:bg-dark-800 md:w-[210px] md:shrink-0 md:gap-[30px]">
       <div className="flex w-full flex-col items-center justify-center gap-5">
@@ -26,7 +25,7 @@ const ProfileCard = ({ user }: ProfilePageProps) => {
             />
             <div className="flex flex-col">
               <p className="heading-1-medium text-center text-dark-900 dark:text-white-100">
-                Name
+                {user.name ?? "John Doe"}
               </p>
               <p className="paragraph-3-regular text-center text-white-400">
                 @{username}
