@@ -3,7 +3,7 @@ import React from "react";
 
 import ShareIcon from "@/components/shared/icons/ShareIcon";
 
-const GroupCard = ({ title, content, liked }: GroupCardProps) => {
+const GroupCard = ({ title, content }: GroupCardProps) => {
   return (
     <div className="flex flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
       <div className="flex size-full flex-col  gap-[18px]">
@@ -67,9 +67,7 @@ const GroupCard = ({ title, content, liked }: GroupCardProps) => {
               </div>
             </div>
           </div>
-          <div
-            className={`flex size-[30px] items-center justify-center rounded-full bg-primary1-100 p-1 ${liked ? "text-primary1-500" : "text-white-300"} dark:bg-dark-700`}
-          >
+          <div className="flex size-[30px] items-center justify-center rounded-full bg-primary1-100 p-1  text-white-300 dark:bg-dark-700">
             <ShareIcon />
           </div>
         </div>

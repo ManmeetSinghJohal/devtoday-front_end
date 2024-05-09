@@ -13,15 +13,19 @@ interface NavIconProps {
   id: SelectedIcon;
   pending?: boolean;
 }
-interface PostCardProps {
+interface PostProps {
+  key: string;
   title: string;
   content: string;
   tags: any;
+  createdAt: Date;
+  image: string;
+}
+interface PostCardProps extends PostProps {
   comments: any;
   views: number;
   createdAt: Date;
   liked: boolean;
-  image: string;
 }
 interface ProfilePageProps {
   user: UserProfile;
@@ -29,14 +33,14 @@ interface ProfilePageProps {
   type: string;
 }
 
-interface MeetupCardProps extends PostCardProps {
+interface MeetupCardProps extends PostProps {
   meetDay: Date;
 }
-interface PodcastCardProps extends PostCardProps {
+interface PodcastCardProps extends PostProps {
   podcastLength?: string;
 }
 
-interface GroupCardProps extends PostCardProps {
+interface GroupCardProps extends PostProps {
   members?: [
     {
       id: string;

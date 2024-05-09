@@ -19,7 +19,7 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
   if (type instanceof Array) type = type[0];
   if (!["standard", "meetup", "podcast"].some((t) => t === type))
     type = "standard";
-
+  // what to do if type is "group"?
   const resPosts = await fetch(
     `http://localhost:3005/api/user/${session?.user.id}/posts?postType=${type}`, // /api/user/id/info
     {

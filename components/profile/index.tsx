@@ -5,6 +5,7 @@ import { mockPosts } from "@/constants/mockposts";
 import GroupCard from "../shared/cards/GroupCard";
 import MeetUpCard from "../shared/cards/MeetupCard";
 import PerformanceCard from "../shared/cards/PerformancesCard";
+import PodcastCard from "../shared/cards/PodcastCard";
 import PostCard from "../shared/cards/PostCard";
 import RecentPosts from "../shared/cards/RecentsCard";
 import RightSidebar from "../shared/rightsidebar/RightSidebar";
@@ -39,8 +40,7 @@ const ProfilePage = ({ user, posts, type }: ProfilePageProps) => {
             })}
           </div>
         )}
-        {type === "meetup" && <div className="grid grid-cols-1 gap-3.5"></div>}
-        {type === "podcast" && (
+        {type === "meetup" && (
           <div className="grid grid-cols-1 gap-3.5">
             {mockPosts.map((post: any) => {
               return (
@@ -49,12 +49,25 @@ const ProfilePage = ({ user, posts, type }: ProfilePageProps) => {
                   title={post.title}
                   content={post.content}
                   tags={post.tags}
-                  comments={post.comments}
-                  views={post.views}
                   createdAt={post.createdAt}
-                  liked={post.liked}
                   meetDay={post.meetDay}
                   image={post.image}
+                />
+              );
+            })}
+          </div>
+        )}
+        {type === "podcast" && (
+          <div className="grid grid-cols-1 gap-3.5">
+            {mockPosts.map((post: any) => {
+              return (
+                <PodcastCard
+                  key={post.id}
+                  title={post.title}
+                  content={post.content}
+                  tags={post.tags}
+                  image={post.image}
+                  createdAt={post.createdAt}
                 />
               );
             })}
@@ -68,15 +81,13 @@ const ProfilePage = ({ user, posts, type }: ProfilePageProps) => {
                   key={post.id}
                   title={post.title}
                   content={post.content}
+                  image="/assets/group.png"
                   tags={post.tags}
-                  comments={post.comments}
-                  views={post.views}
                   createdAt={post.createdAt}
-                  liked={post.liked}
-                  image={post.image}
                 />
               );
             })}
+            hola;
           </div>
         )}
       </div>
