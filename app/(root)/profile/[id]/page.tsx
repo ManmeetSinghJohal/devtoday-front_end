@@ -18,7 +18,7 @@ const Page = async ({
     }
   );
   const userData = await resUser.json();
-  console.log(searchParams.postType, "searchParams.postType");
+
   let type = searchParams.postType ?? "standard";
   if (type instanceof Array) type = type[0];
   if (!["standard", "meetup", "podcast"].some((t) => t === type))
@@ -33,7 +33,14 @@ const Page = async ({
     }
   );
   const postsData = await resPosts.json();
-  return <ProfilePage user={userData} posts={postsData} type={type} />;
+  return (
+    <ProfilePage
+      user={userData}
+      posts={postsData}
+      type={type}
+      isOwner={false}
+    />
+  );
 };
 
 export default Page;

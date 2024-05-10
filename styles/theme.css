@@ -69,4 +69,13 @@
   .dark-toggle {
     @apply dark:bg-transparent  dark:bg-dark-700 cursor-pointer;
   }
+  .input-form {
+    @apply bg-white-100 text-dark-800 dark:bg-dark-800 dark:text-white-100 border dark:border-dark-border border-white-border;
+  }
+  .secondary-button {
+    @apply bg-white-100 text-dark-700 dark:bg-dark-700 dark:text-white-200;
+  }
+  .link-button {
+    @apply paragraph-3-bold flex h-[36px] w-full items-center justify-center rounded-md px-2 py-1;
+  }
 }

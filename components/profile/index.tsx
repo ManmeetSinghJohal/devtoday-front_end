@@ -13,12 +13,11 @@ import RightSidebar from "../shared/rightsidebar/RightSidebar";
 import ProfileCard from "./ProfileCard";
 import ProfileNavbar from "./ProfileNavbar";
 
-const ProfilePage = ({ user, posts, type }: ProfilePageProps) => {
-  console.log(posts, "posts");
-  console.log(type, "type"); // ask mateo how to get the type from the query params
+const ProfilePage = ({ user, type, isOwner }: ProfilePageProps) => {
+  // state pages
   return (
     <div className="flex flex-col gap-5 md:flex-row">
-      <ProfileCard user={user} />
+      <ProfileCard user={user} isOwner={isOwner} />
       <div className="flex w-full flex-col gap-5 ">
         <ProfileNavbar />
         {type === "standard" && (

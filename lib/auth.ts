@@ -62,6 +62,7 @@ export const authOptions: AuthOptions = {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: session.user.email }),
       });
+      if (!res.ok) throw new Error("Failed to fetch user on session callback");
       const userRes = await res.json();
       session.user.id = userRes.id;
       session.user.username = userRes.username;

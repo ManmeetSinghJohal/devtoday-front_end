@@ -11,6 +11,7 @@ const buttons = [
 const ProfileNavbar = () => {
   const [active, setActive] = useState("posts");
   // add query params to fetch data
+  // router replace was an option
   return (
     <div className="paragraph-1-medium flex w-full justify-center rounded-xl bg-white-100 px-3.5 py-5 text-white-400 dark:bg-dark-800 dark:text-white-300 sm:justify-between lg:justify-between lg:px-6 ">
       {buttons.map((button) => (

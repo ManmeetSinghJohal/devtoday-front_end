@@ -32,7 +32,7 @@ const Account = () => {
                 height={34}
                 className="cursor-pointer rounded-[6px]  border border-primary1-500 p-0.5"
                 alt="profile image"
-                src="assets/icons/profilepic.svg"
+                src="/assets/icons/profilepic.svg"
               />
 
               <div className="hidden text-white-400 dark:text-white-400 md:flex">
@@ -60,7 +60,7 @@ const Account = () => {
             >
               <Image
                 alt="Log out"
-                src="assets/icons/logout.svg"
+                src="/assets/icons/logout.svg"
                 width={18}
                 height={18}
               />

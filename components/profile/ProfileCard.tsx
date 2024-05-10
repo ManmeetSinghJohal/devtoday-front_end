@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import ProfileTags from "@/components/shared/tags/ProfileTags";
@@ -6,8 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { timeDifference } from "@/utils/methods";
 
-const ProfileCard = ({ user }: { user: UserProfile }) => {
+const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
   if (!user) return null;
+
   const { username, createdAt, profile } = user;
   return (
     <div className="flex min-h-full w-full flex-col items-center justify-start gap-6 rounded-2xl bg-white-100 pb-[44px] dark:bg-dark-800 md:w-[210px] md:shrink-0 md:gap-[30px]">
@@ -32,9 +34,18 @@ const ProfileCard = ({ user }: { user: UserProfile }) => {
               </p>
             </div>
           </div>
-          <Button className="w-full bg-primary1-500 text-white-100">
-            Follow
-          </Button>
+          {isOwner ? (
+            <Link
+              href="/profile/edit"
+              className="link-button bg-primary1-500  text-white-100 "
+            >
+              Edit Profile
+            </Link>
+          ) : (
+            <Button className="w-full bg-primary1-500 text-white-100">
+              Follow
+            </Button>
+          )}
 
           <div className="flex flex-col ">
             <p className="paragraph-3-medium text-center text-white-400 dark:text-white-300">

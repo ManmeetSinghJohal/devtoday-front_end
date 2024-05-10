@@ -13,6 +13,10 @@ interface NavIconProps {
   id: SelectedIcon;
   pending?: boolean;
 }
+interface UserProfileProps {
+  user: UserProfile;
+  isOwner: boolean;
+}
 interface PostProps {
   key: string;
   title: string;
@@ -31,6 +35,7 @@ interface ProfilePageProps {
   user: UserProfile;
   posts: PostCardProps[];
   type: string;
+  isOwner: boolean;
 }
 
 interface MeetupCardProps extends PostProps {

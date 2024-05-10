@@ -17,19 +17,37 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
   const userData = await resUser.json();
   let type = searchParams.postType ?? "standard";
   if (type instanceof Array) type = type[0];
-  if (!["standard", "meetup", "podcast"].some((t) => t === type))
+
+  if (!["standard", "meetup", "podcast", "group"].some((t) => t === type))
     type = "standard";
+
   // what to do if type is "group"?
-  const resPosts = await fetch(
-    `http://localhost:3005/api/user/${session?.user.id}/posts?postType=${type}`, // /api/user/id/info
-    {
-      method: "GET",
-      mode: "cors",
-      headers: { "Content-Type": "application/json" },
-    }
-  );
+  let resPosts;
+  if (type !== "group") {
+    resPosts = await fetch(
+      `http://localhost:3005/api/user/${session?.user.id}/posts?postType=${type}`,
+      {
+        method: "GET",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  } else {
+    resPosts = await fetch(
+      `http://localhost:3005/api/user/${session?.user.id}/groups`,
+      {
+        method: "GET",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+
+  // user/id/groups
+
   const postsData = await resPosts.json();
-  return <ProfilePage user={userData} posts={postsData} type={type} />;
+  console.log(userData);
+  return <ProfilePage user={userData} posts={postsData} type={type} isOwner />;
 };
 
 export default Page;
