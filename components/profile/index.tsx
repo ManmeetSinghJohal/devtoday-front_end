@@ -15,6 +15,7 @@ import ProfileNavbar from "./ProfileNavbar";
 
 const ProfilePage = ({ user, type, isOwner }: ProfilePageProps) => {
   // state pages
+
   return (
     <div className="flex flex-col gap-5 md:flex-row">
       <ProfileCard user={user} isOwner={isOwner} />

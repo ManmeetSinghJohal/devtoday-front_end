@@ -9,7 +9,18 @@ import { timeDifference } from "@/utils/methods";
 
 const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
   if (!user) return null;
-
+  const handleFollow = async () => {
+    const res = await fetch(
+      `http://localhost:3005/api/user/${user.id}/follow`,
+      {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    console.log(res);
+  };
+  // check following or not? and change button , need a route for checking follow?
   const { username, createdAt, profile } = user;
   return (
     <div className="flex min-h-full w-full flex-col items-center justify-start gap-6 rounded-2xl bg-white-100 pb-[44px] dark:bg-dark-800 md:w-[210px] md:shrink-0 md:gap-[30px]">
@@ -42,7 +53,10 @@ const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
               Edit Profile
             </Link>
           ) : (
-            <Button className="w-full bg-primary1-500 text-white-100">
+            <Button
+              className="w-full bg-primary1-500 text-white-100"
+              onClick={handleFollow}
+            >
               Follow
             </Button>
           )}
