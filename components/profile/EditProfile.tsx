@@ -1,7 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import Link from "next/link";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -20,19 +21,17 @@ import {
 import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
-  firstName: z.string().min(2, {
-    message: "First name must be at least 2 characters.",
+  name: z.string().min(4, {
+    message: "name must be at least 4 characters.",
   }),
-  lastName: z.string().min(2, {
-    message: "Last name must be at least 2 characters.",
-  }),
+
   username: z.string().min(6, {
     message: "Username must be at least 6 characters.",
   }),
   bio: z.string().min(10, {
     message: "Bio must be at least 10 characters.",
   }),
-  interestTech: z.array(z.string()),
+  interestTech: z.string(),
   linkedinUrl: z.string().url(),
   linkedinHandle: z.string(),
 });
@@ -42,19 +41,22 @@ const EditProfile = () => {
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
+      name: "",
       username: "",
       bio: "Tech mentor, aspiring to bring ideas to life through side projects. Fluent in React.js, Next.js, & TS.",
-      interestTech: [],
+      interestTech: "",
     },
   });
 
-  const tech = ["React.js", "Next.js", "TypeScript", "Node.js", "GraphQL"];
-  // 2. Define a submit handler.
+  const [tags, setTags] = useState<string[]>([]);
+  const handleAddTag = (tag: string) => {
+    console.log(tag);
+    setTags([...tags, tag]);
+  };
+  const handleDeleteTag = (i: number) => {
+    setTags(tags.filter((tag, index) => index !== i));
+  };
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
   }
 
@@ -71,48 +73,26 @@ const EditProfile = () => {
               <span>Set a profile photo</span>
             </Button>
           </div>
-          <div className="grid grid-cols-2 gap-8 ">
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="dark:text-white-200">
-                    First Name
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      className="input-form"
-                      placeholder="Your first name"
-                      {...field}
-                    />
-                  </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="dark:text-white-200">
-                    Last Name
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      className="input-form"
-                      placeholder="Your last name"
-                      {...field}
-                    />
-                  </FormControl>
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="dark:text-white-200">Name</FormLabel>
+                <FormControl>
+                  <Input
+                    className="input-form"
+                    placeholder="Your first name"
+                    {...field}
+                  />
+                </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="username"
@@ -154,8 +134,8 @@ const EditProfile = () => {
               Interested Technologies
             </FormLabel>
             <div className="input-form flex h-10 flex-row gap-2 rounded-md p-1">
-              {tech.length > 0 &&
-                tech.map((tag, index) => (
+              {tags.length > 0 &&
+                tags.map((tag, index) => (
                   <div key={index} className="">
                     <div className="caption-cap-10 flex items-center gap-1 rounded-xl px-2 py-1 dark:bg-dark-700 dark:text-white-300">
                       <p className="uppercase">{tag}</p>
@@ -163,7 +143,7 @@ const EditProfile = () => {
                         className="cursor-pointer"
                         onClick={() => {
                           console.log("delete");
-                          tech.pop();
+                          handleDeleteTag(index);
                         }}
                       >
                         <CrossIcon />
@@ -171,6 +151,7 @@ const EditProfile = () => {
                     </div>
                   </div>
                 ))}
+              {/* or use field array and use read only property for the Input */}
               <FormField
                 control={form.control}
                 name="interestTech"
@@ -183,9 +164,13 @@ const EditProfile = () => {
                         placeholder="Add a tag ..."
                         {...field}
                         onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            const value = form.getValues("interestTech");
-                            tech.push(value);
+                          if (e.key === "Enter" && field.value !== "") {
+                            e.preventDefault();
+                            if (!tags.includes(field.value)) {
+                              console.log(field); // show console log, state is not the best way???
+                              handleAddTag(field.value); // i need to figure out validation
+                            }
+                            field.onChange("");
                           }
                         }}
                       />
@@ -217,9 +202,9 @@ const EditProfile = () => {
             )}
           />
           <div className="grid grid-cols-2 gap-5">
-            <Button className="secondary-button" type="button">
+            <Link className="link-button secondary-button" href="/profile">
               Cancel
-            </Button>
+            </Link>
             <Button type="submit" className="bg-primary1-500">
               Update Profile
             </Button>
