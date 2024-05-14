@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -24,40 +24,71 @@ const formSchema = z.object({
   name: z.string().min(4, {
     message: "name must be at least 4 characters.",
   }),
-
-  username: z.string().min(6, {
-    message: "Username must be at least 6 characters.",
-  }),
+  username: z.string(),
   bio: z.string().min(10, {
     message: "Bio must be at least 10 characters.",
   }),
-  interestTech: z.string(),
-  linkedinUrl: z.string().url(),
-  linkedinHandle: z.string(),
+  interestTech: z.array(z.string()),
+  linkedinLink: z.string().url().optional(),
+  linkedinHandle: z.string().optional(),
+  instagramLink: z.string().url().optional(),
+  instagramHandle: z.string().optional(),
+  githubLink: z.string().url().optional(),
+  githubHandle: z.string().optional(),
+  xProfileLink: z.string().url().optional(),
+  xProfileHandle: z.string().optional(),
 });
 
 type FormFields = z.infer<typeof formSchema>;
-const EditProfile = () => {
+const EditProfile = ({ user }: EditProfileProps) => {
+  const {
+    username,
+    id,
+    profile: {
+      name,
+      bio,
+      tech,
+      linkedinHandle,
+      linkedinLink,
+      instagramHandle,
+      instagramLink,
+      githubLink,
+      githubHandle,
+      xProfileLink,
+      xProfileHandle,
+    },
+  } = user;
+
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      username: "",
-      bio: "Tech mentor, aspiring to bring ideas to life through side projects. Fluent in React.js, Next.js, & TS.",
-      interestTech: "",
+      name,
+      username: `@${username}`,
+      bio,
+      interestTech: tech,
+      linkedinHandle,
+      linkedinLink,
+      instagramHandle,
+      instagramLink,
+      githubLink,
+      githubHandle,
+      xProfileLink,
+      xProfileHandle,
     },
   });
 
-  const [tags, setTags] = useState<string[]>([]);
-  const handleAddTag = (tag: string) => {
-    console.log(tag);
-    setTags([...tags, tag]);
-  };
-  const handleDeleteTag = (i: number) => {
-    setTags(tags.filter((tag, index) => index !== i));
-  };
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const editResponse = await fetch(
+      `http://localhost:3005/api/profile/${id}`,
+      {
+        method: "PATCH",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      }
+    );
+    const edit = await editResponse.json();
+    console.log(edit);
   }
 
   return (
@@ -73,7 +104,6 @@ const EditProfile = () => {
               <span>Set a profile photo</span>
             </Button>
           </div>
-
           <FormField
             control={form.control}
             name="name"
@@ -82,9 +112,10 @@ const EditProfile = () => {
                 <FormLabel className="dark:text-white-200">Name</FormLabel>
                 <FormControl>
                   <Input
-                    className="input-form"
+                    className="input-form border-white-border dark:border-dark-border"
                     placeholder="Your first name"
                     {...field}
+                    value={field.value}
                   />
                 </FormControl>
 
@@ -92,7 +123,6 @@ const EditProfile = () => {
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="username"
@@ -101,7 +131,8 @@ const EditProfile = () => {
                 <FormLabel className="dark:text-white-200">Username</FormLabel>
                 <FormControl>
                   <Input
-                    className="input-form "
+                    disabled
+                    className="input-form border-white-border dark:border-dark-border"
                     placeholder="Your username"
                     {...field}
                   />
@@ -119,7 +150,7 @@ const EditProfile = () => {
                 <FormLabel className="dark:text-white-200">Bio</FormLabel>
                 <FormControl>
                   <Input
-                    className="input-form"
+                    className="input-form border-white-border dark:border-dark-border"
                     placeholder="Your bio"
                     {...field}
                   />
@@ -129,78 +160,221 @@ const EditProfile = () => {
               </FormItem>
             )}
           />
-          <div className="flex flex-col gap-3">
-            <FormLabel className="dark:text-white-200">
-              Interested Technologies
-            </FormLabel>
-            <div className="input-form flex h-10 flex-row gap-2 rounded-md p-1">
-              {tags.length > 0 &&
-                tags.map((tag, index) => (
-                  <div key={index} className="">
-                    <div className="caption-cap-10 flex items-center gap-1 rounded-xl px-2 py-1 dark:bg-dark-700 dark:text-white-300">
-                      <p className="uppercase">{tag}</p>
-                      <span
-                        className="cursor-pointer"
-                        onClick={() => {
-                          console.log("delete");
-                          handleDeleteTag(index);
-                        }}
-                      >
-                        <CrossIcon />
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              {/* or use field array and use read only property for the Input */}
-              <FormField
-                control={form.control}
-                name="interestTech"
-                render={({ field }) => (
-                  <FormItem className="size-full focus-visible:ring-transparent">
-                    <FormControl>
-                      <Input
-                        className=" m-0  size-full border-none
-                       bg-transparent p-0 focus-visible:ring-transparent focus-visible:ring-offset-transparent"
-                        placeholder="Add a tag ..."
-                        {...field}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter" && field.value !== "") {
-                            e.preventDefault();
-                            if (!tags.includes(field.value)) {
-                              console.log(field); // show console log, state is not the best way???
-                              handleAddTag(field.value); // i need to figure out validation
-                            }
-                            field.onChange("");
-                          }
-                        }}
-                      />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </div>
           <FormField
             control={form.control}
-            name="linkedinHandle"
+            name="interestTech"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="dark:text-white-200">LinkedIn</FormLabel>
+                <FormLabel className="dark:text-white-200">Interest</FormLabel>
                 <FormControl>
-                  <Input
-                    className="input-form"
-                    placeholder="Your LinkedIn URL"
-                    {...field}
-                    onChange={field.onChange}
-                  />
+                  <div className="input-form flex min-h-10 flex-col gap-2 rounded-md border border-white-border p-1 dark:border-dark-border">
+                    <div className="input-form flex flex-row gap-2 rounded-md border-white-border p-1 dark:border-dark-border">
+                      {field.value.map((tag, index) => (
+                        <div key={index} className="">
+                          <div className="caption-cap-10 flex items-center gap-1 rounded-xl px-2 py-1 dark:bg-dark-700 dark:text-white-300">
+                            <p className="uppercase">{tag}</p>
+                            <span
+                              className="cursor-pointer"
+                              onClick={() =>
+                                field.onChange(
+                                  field.value.filter(
+                                    (tagName) => tagName !== tag
+                                  )
+                                )
+                              }
+                            >
+                              <CrossIcon />
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <Input
+                      className="m-0 size-full  border border-none
+                       bg-transparent p-1 focus-visible:ring-transparent focus-visible:ring-offset-transparent"
+                      placeholder="Add a tag ..."
+                      onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                        const target = e.target as HTMLInputElement;
+                        const inputValue = target.value;
+                        if (e.key === "Enter" && inputValue !== "") {
+                          e.preventDefault();
+                          if (!field.value.includes(inputValue)) {
+                            field.onChange([...field.value, inputValue]);
+                            target.value = "";
+                          }
+                        }
+                      }}
+                    />
+                  </div>
                 </FormControl>
 
                 <FormMessage />
               </FormItem>
             )}
           />
+          <div className="grid grid-cols-2 gap-5">
+            <FormField
+              control={form.control}
+              name="linkedinHandle"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="dark:text-white-200">
+                    LinkedIn
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      className="input-form border-white-border dark:border-dark-border"
+                      placeholder="Your LinkedIn URL"
+                      {...field}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="linkedinLink"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="dark:text-white-200">Link</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="input-form border-white-border dark:border-dark-border"
+                      placeholder="Your LinkedIn URL"
+                      {...field}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-5">
+            <FormField
+              control={form.control}
+              name="githubHandle"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="dark:text-white-200">Github</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="input-form border-white-border dark:border-dark-border"
+                      placeholder="Your LinkedIn URL"
+                      {...field}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="githubLink"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="dark:text-white-200">Link</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="input-form border-white-border dark:border-dark-border"
+                      placeholder="Your LinkedIn URL"
+                      {...field}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-5">
+            <FormField
+              control={form.control}
+              name="instagramHandle"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="dark:text-white-200">
+                    Instagram
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      className="input-form border-white-border dark:border-dark-border"
+                      placeholder="Your LinkedIn URL"
+                      {...field}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="instagramLink"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="dark:text-white-200">Link</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="input-form border-white-border dark:border-dark-border"
+                      placeholder="Your LinkedIn URL"
+                      {...field}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-5">
+            <FormField
+              control={form.control}
+              name="xProfileHandle"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="dark:text-white-200">
+                    Twitter/X
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      className="input-form border-white-border dark:border-dark-border"
+                      placeholder="Your LinkedIn URL"
+                      {...field}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="xProfileLink"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="dark:text-white-200">Link</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="input-form border-white-border dark:border-dark-border"
+                      placeholder="Your LinkedIn URL"
+                      {...field}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <div className="grid grid-cols-2 gap-5">
             <Link className="link-button secondary-button" href="/profile">
               Cancel
