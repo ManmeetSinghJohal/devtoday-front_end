@@ -37,7 +37,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} ${ibmPlexSans.className} bg-white-200 dark:bg-dark-900`}
       >
-        <main className="mx-auto min-h-screen w-full flex-auto">
+        <main className="custom-scrollbar mx-auto min-h-screen w-full flex-auto">
           <NextAuthProvider>
             <ThemeLoader />
             {children}

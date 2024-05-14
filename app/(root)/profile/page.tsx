@@ -20,12 +20,12 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
 
   if (!["standard", "meetup", "podcast", "group"].some((t) => t === type))
     type = "standard";
-
+  console.log(type.toUpperCase());
   // what to do if type is "group"?
   let resPosts;
   if (type !== "group") {
     resPosts = await fetch(
-      `http://localhost:3005/api/user/${session?.user.id}/posts?postType=${type}`,
+      `http://localhost:3005/api/user/${session?.user.id}/posts?postType=${type.toUpperCase()}`,
       {
         method: "GET",
         mode: "cors",
@@ -46,7 +46,7 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
   // user/id/groups
 
   const postsData = await resPosts.json();
-  console.log(userData);
+
   return <ProfilePage user={userData} posts={postsData} type={type} isOwner />;
 };
 
