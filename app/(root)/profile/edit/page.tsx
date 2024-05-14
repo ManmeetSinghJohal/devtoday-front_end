@@ -1,9 +1,23 @@
-import EditProfile from "@/components/profile/EditProfile";
+import { getServerSession } from "next-auth";
 
-const Page = () => {
+import EditProfile from "@/components/profile/EditProfile";
+import { authOptions } from "@/lib/auth";
+
+const Page = async () => {
+  const session = await getServerSession(authOptions);
+  const resUser = await fetch(
+    `http://localhost:3005/api/user/${session?.user.id}`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  const userData = await resUser.json();
+
   return (
     <section className="flex items-center justify-center">
-      <EditProfile />
+      <EditProfile user={userData} />
     </section>
   );
 };
