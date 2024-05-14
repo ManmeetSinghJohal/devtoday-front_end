@@ -6,31 +6,23 @@ import { timeDifference } from "@/utils/methods";
 import LikeIcon from "../icons/LikeIcon";
 import PostTags from "../tags/PostTags";
 
-const PostCard = ({
-  title,
-  content,
-  tags,
-  comments,
-  views,
-  createdAt,
-  liked,
-  image,
-}: PostCardProps) => {
+const PostCard = ({ post, user }: PostProps) => {
+  const { title, content, tags, comments, views, createdAt, liked } = post;
   return (
     <div className="flex flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
       <Image
         alt="post image"
         width={165}
         height={165}
-        src={image}
+        src="/assets/meeting-img2.jpeg"
         style={{ borderRadius: "10px", width: "165px", height: "165px" }}
         className="hidden lg:block"
       />
-      <div className="flex size-full flex-col gap-3 lg:gap-2">
+      <div className="flex size-full flex-col justify-between gap-3 lg:gap-2">
         <div className="flex gap-2">
           <Image
             alt="post image"
-            src={image}
+            src="/assets/jsmastery.png"
             width={50}
             height={50}
             style={{ borderRadius: "10px", width: "50px", height: "50px" }}
@@ -60,7 +52,7 @@ const PostCard = ({
             </div>
           </div>
 
-          <div className="flex w-full flex-col-reverse items-center justify-between gap-4 self-end lg:flex-row">
+          <div className="flex w-full flex-col-reverse items-center justify-between gap-4 self-end xl:flex-row">
             <div className="flex w-full  items-center gap-2.5 ">
               <Image
                 alt="profile image"
@@ -70,7 +62,7 @@ const PostCard = ({
                 className="rounded-full"
               />
               <div className="paragraph-4-bold md:paragraph-3-bold text-dark-700 dark:text-white-300">
-                JS Mastery
+                {user.username}
                 <p className="subtitle-small text-dark-700 dark:text-white-300">
                   {timeDifference(createdAt)}
                 </p>

@@ -17,32 +17,31 @@ interface UserProfileProps {
   user: UserProfile;
   isOwner: boolean;
 }
-interface PostProps {
-  key: string;
-  title: string;
-  content: string;
-  tags: any;
-  createdAt: Date;
-  image: string;
-}
-interface PostCardProps extends PostProps {
-  comments: any;
-  views: number;
-  createdAt: Date;
-  liked: boolean;
-}
-interface ProfilePageProps {
+interface EditProfileProps {
   user: UserProfile;
-  posts: PostCardProps[];
-  type: string;
-  isOwner: boolean;
+}
+interface PostProps {
+  user: UserProfile;
+  key: string;
+  post: Post;
+  /*  title: string;
+  content: string;
+  tags: string[];
+  createdAt: string;
+  image: string; */
 }
 
-interface MeetupCardProps extends PostProps {
-  meetDay: Date;
+/* interface PostCardProps extends PostProps {
+
+user: UserProfile;
+} */
+
+/* interface MeetupCardProps extends PostProps {
+  meetDay: string;
 }
 interface PodcastCardProps extends PostProps {
   podcastLength?: string;
+  liked: boolean;
 }
 
 interface GroupCardProps extends PostProps {
@@ -53,4 +52,23 @@ interface GroupCardProps extends PostProps {
       image: string;
     },
   ];
+} */
+interface ProfilePageProps {
+  user: UserProfile;
+  posts: Post[];
+  type: string;
+  isOwner: boolean;
+}
+
+interface RecentPostsProps {
+  posts: Post[];
+  user: UserProfile;
+}
+interface PerformancesCardProps {
+  posts: Post[];
+}
+interface InfiniteScrollProps {
+  user: UserProfile;
+  type: string;
+  initialPosts: Post[];
 }

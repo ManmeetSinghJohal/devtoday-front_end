@@ -1,8 +1,9 @@
 import ArrowRightIcon from "@/components/shared/icons/ArrowRightIcon";
 import { Skeleton } from "@/components/ui/skeleton";
-import { mockPosts } from "@/constants/mockposts";
 
-const RecentPosts = () => {
+const RecentPosts = ({ posts, user }: RecentPostsProps) => {
+  const recentPosts = posts.slice(0, 3);
+
   return (
     <section className="w-full">
       <div className="rounded-2xl bg-white-100 p-5 dark:bg-dark-800 ">
@@ -10,7 +11,7 @@ const RecentPosts = () => {
           <p>Recent Posts</p>
           <ArrowRightIcon />
         </div>
-        {mockPosts.slice(3).map((post: any) => (
+        {recentPosts.map((post: any) => (
           <div key={post.id} className="mt-5 flex items-center gap-3">
             <Skeleton className="size-[58px] shrink-0 rounded-lg bg-white-200 dark:bg-dark-700" />
 
@@ -20,7 +21,7 @@ const RecentPosts = () => {
               </p>
 
               <p className="subtitle-small w-full text-white-400">
-                by Mac Adams
+                by {user.username}
               </p>
             </div>
             <div className="text-white-400">

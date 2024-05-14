@@ -6,14 +6,8 @@ import { timeDifference } from "@/utils/methods";
 import LikeIcon from "../icons/LikeIcon";
 import PostTags from "../tags/PostTags";
 
-const PodcastCard = ({
-  title,
-  content,
-  tags,
-
-  createdAt,
-  liked,
-}: PodcastCardProps) => {
+const PodcastCard = ({ post, user }: PostProps) => {
+  const { title, content, tags, createdAt, liked } = post;
   return (
     <div className="flex flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
       <div className="flex size-full flex-col  gap-[18px]">
@@ -45,7 +39,7 @@ const PodcastCard = ({
                 className="rounded-full"
               />
               <div>
-                JS Mastery
+                {user.profile.name}
                 <p className="subtitle-small text-dark-700 dark:text-white-300">
                   {timeDifference(createdAt)}
                 </p>
