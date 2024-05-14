@@ -44,15 +44,12 @@ const Account = () => {
             </div>
           </MenubarTrigger>
           <MenubarContent className="paragraph-3-medium mr-5 mt-3.5 flex w-[174px] flex-col gap-3.5 border-white-border p-5 shadow-none dark:border-dark-700 dark:bg-dark-800 md:rounded-t-none md:border-t-0">
-            <MenubarItem className="cursor-pointer gap-2.5 px-0">
-              <Link
-                href="/profile"
-                className="flex gap-2.5 dark:text-white-200"
-              >
+            <Link href="http://localhost:3000/profile?postType=standard">
+              <MenubarItem className="flex cursor-pointer gap-2.5 px-0 dark:text-white-200">
                 <ProfileIcon />
                 <p>Profile</p>
-              </Link>
-            </MenubarItem>
+              </MenubarItem>
+            </Link>
 
             <MenubarItem
               className="flex cursor-pointer gap-2.5 px-0 text-primary1-500 hover:text-primary1-500  dark:hover:text-primary1-500"
