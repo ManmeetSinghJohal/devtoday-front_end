@@ -24,35 +24,8 @@ interface PostProps {
   user: UserProfile;
   key: string;
   post: Post;
-  /*  title: string;
-  content: string;
-  tags: string[];
-  createdAt: string;
-  image: string; */
 }
 
-/* interface PostCardProps extends PostProps {
-
-user: UserProfile;
-} */
-
-/* interface MeetupCardProps extends PostProps {
-  meetDay: string;
-}
-interface PodcastCardProps extends PostProps {
-  podcastLength?: string;
-  liked: boolean;
-}
-
-interface GroupCardProps extends PostProps {
-  members?: [
-    {
-      id: string;
-      username: string;
-      image: string;
-    },
-  ];
-} */
 interface ProfilePageProps {
   user: UserProfile;
   posts: Post[];

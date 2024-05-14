@@ -5,37 +5,23 @@ import { getMeetDayInfo } from "@/utils/methods";
 
 import PostTags from "../tags/PostTags";
 
-const MeetUpCard = ({
-  title,
-  content,
-  tags,
-
-  meetDay,
-  image,
-}: MeetupCardProps) => {
-  const { day, month } = getMeetDayInfo(meetDay);
+const MeetUpCard = ({ post }: PostProps) => {
+  const { title, content, tags, meetDay } = post;
+  const { day, month } = meetDay ? getMeetDayInfo(meetDay) : getMeetDayInfo("");
   return (
     <div className="flex flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
-      <Image
-        alt="post image"
-        width={165}
-        height={165}
-        src={image}
-        style={{ borderRadius: "10px", width: "165px", height: "165px" }}
-        className="hidden lg:block"
-      />
       <div className="flex size-full flex-col gap-3 lg:gap-2">
         <div className="flex gap-2">
           <Image
             alt="post image"
-            src={image}
+            src="/assets/meeting-img2.jpeg"
             width={50}
             height={50}
             style={{ borderRadius: "10px", width: "50px", height: "50px" }}
-            className="block lg:hidden"
+            className=""
           />
 
-          <div className="flex w-full lg:items-center lg:gap-5">
+          <div className="flex w-full  lg:gap-5">
             <p className="paragraph-3-bold lg:paragraph-1-bold h-[40px] w-full overflow-hidden  text-dark-800 dark:text-white-100 lg:h-[22px]">
               {title}
             </p>
