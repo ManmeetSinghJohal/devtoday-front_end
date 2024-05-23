@@ -21,7 +21,6 @@ const InfiniteScroll = ({ user, type, initialPosts }: InfiniteScrollProps) => {
       }
     );
     const data = await response.json();
-    console.log(data);
     if (response.ok && data.length > 0) {
       setPosts([...posts, ...data]);
       setCurrentPage(currentPage + 1);
@@ -85,7 +84,7 @@ const InfiniteScroll = ({ user, type, initialPosts }: InfiniteScrollProps) => {
           })}
         </div>
       )}
-      <div className="h-10 bg-transparent" ref={observerRef}></div>
+      <div className="h-1 bg-transparent" ref={observerRef}></div>
     </div>
   );
 };

@@ -37,7 +37,7 @@ interface GroupCardProps {
 
 interface ProfilePageProps {
   user: UserProfile;
-  posts: Post[];
+  posts: Post[] | null;
   type: string;
   isOwner: boolean;
 }

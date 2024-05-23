@@ -45,7 +45,14 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
 
   const postsData = await resPosts.json();
 
-  return <ProfilePage user={userData} posts={postsData} type={type} isOwner />;
+  return (
+    <ProfilePage
+      user={userData}
+      posts={resPosts.ok ? postsData : null}
+      type={type}
+      isOwner
+    />
+  );
 };
 
 export default Page;

@@ -16,7 +16,7 @@ const PerformanceCard = () => {
             The best posts from the last 30 days
           </p>
         </div>
-        {performances.map((post: any) => (
+        {performances.map((post: Post) => (
           <div key={post.id} className="mt-5 flex w-full items-center gap-3">
             <Skeleton className="size-[58px] shrink-0 rounded-lg bg-white-200 dark:bg-dark-700" />
 

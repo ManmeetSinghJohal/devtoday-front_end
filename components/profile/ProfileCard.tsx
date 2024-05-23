@@ -28,10 +28,10 @@ const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
     userIsFollowed,
   } = user;
   return (
-    <div className="flex  w-full flex-col items-center justify-start gap-6 rounded-2xl bg-white-100 pb-[111px] dark:bg-dark-800 lg:w-[210px] lg:shrink-0 lg:gap-[30px]">
+    <div className="flex w-full flex-col items-center justify-start gap-5 rounded-2xl bg-white-100 pb-[40px] dark:bg-dark-800 lg:w-[210px] lg:shrink-0  lg:pb-[111px]">
       <div className="flex w-full flex-col items-center justify-center gap-5">
         <div className="flex h-[106px] w-full rounded-t-2xl bg-gradient-to-b from-fuchsia-500 to-violet-500 "></div>
-        <div className="flex w-full flex-col items-center gap-5 px-6">
+        <div className="flex w-full flex-col items-center gap-5 px-6 ">
           <div className="mt-[-50px] flex w-full flex-col items-center justify-center gap-2.5 ">
             <Image
               src="/assets/jsmastery.png"
@@ -40,6 +40,7 @@ const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
               height={110}
               className="w-[110px] shrink-0
         rounded-full border border-primary1-500"
+              style={{ height: "110px", width: "110px" }}
             />
             <div className="flex flex-col">
               <p className="heading-1-medium text-center text-dark-900 dark:text-white-100">
@@ -61,23 +62,25 @@ const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
             <FollowButton id={id} userIsFollowed={userIsFollowed} />
           )}
 
-          <div className="flex flex-col ">
-            <p className="paragraph-3-medium text-center text-white-400 dark:text-white-300">
-              {followers} Followers
-            </p>
-            <p className="paragraph-3-medium text-center text-white-400 dark:text-white-300">
-              {following} Following
+          <div className="flex flex-col gap-[30px]">
+            <div className="flex flex-col ">
+              <p className="paragraph-3-medium text-center text-white-400 dark:text-white-300">
+                {followers} Followers
+              </p>
+              <p className="paragraph-3-medium text-center text-white-400 dark:text-white-300">
+                {following} Following
+              </p>
+            </div>
+            <div className="flex w-full flex-wrap items-center justify-center gap-1.5">
+              {profile.tech.map((tag: any) => (
+                <ProfileTags key={tag} label={tag} />
+              ))}
+            </div>
+            <Separator className="bg-white-300 dark:bg-dark-700" />
+            <p className="paragraph-3-regular min-h-[60px] text-center text-white-400 dark:text-white-300">
+              {bio}
             </p>
           </div>
-          <div className="flex w-full flex-wrap items-center justify-center gap-1.5">
-            {profile.tech.map((tag: any) => (
-              <ProfileTags key={tag} label={tag} />
-            ))}
-          </div>
-          <Separator className="bg-white-300 dark:bg-dark-700" />
-          <p className="paragraph-3-regular text-center text-white-400 dark:text-white-300">
-            {bio}
-          </p>
           <div className="flex flex-col gap-3">
             <div className="flex gap-6">
               <Link className="size-[24px]" href={linkedinLink ?? "/profile"}>

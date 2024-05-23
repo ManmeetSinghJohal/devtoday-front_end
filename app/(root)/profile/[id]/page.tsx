@@ -20,6 +20,7 @@ const Page = async ({
     }
   );
   const userData = await resUser.json();
+  if (!resUser.ok) throw new Error("Failed to fetch user data");
   let type = searchParams.postType ?? "standard";
   if (type instanceof Array) type = type[0];
 
@@ -52,7 +53,7 @@ const Page = async ({
   return (
     <ProfilePage
       user={userData}
-      posts={postsData}
+      posts={resPosts.ok ? postsData : null}
       type={type}
       isOwner={false}
     />

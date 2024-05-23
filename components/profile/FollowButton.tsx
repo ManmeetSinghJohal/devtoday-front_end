@@ -12,12 +12,9 @@ const FollowButton = ({
   id: string;
   userIsFollowed: boolean;
 }) => {
-  console.log("user follows <followButton>", userIsFollowed);
   const [isFollowing, setIsFollowing] = useState<boolean>(userIsFollowed);
   const [isLoading, setIsLoading] = useState(false);
   const session = useSession();
-  console.log("viewer id: <followButton>", `${session?.data?.user.id}`);
-  console.log("follow id: <followButton>", `${id}`);
 
   async function handleFollow() {
     const url = `http://localhost:3005/api/user/${id}/follow?viewerId=${session?.data?.user.id}`;
@@ -35,14 +32,16 @@ const FollowButton = ({
         return;
       }
       if (response.ok) {
-        setIsFollowing(true);
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsFollowing(true);
+          setIsLoading(false);
+        }, 3000);
       }
     } catch (error) {
       console.error("Request failed:", error);
     }
   }
-  // ??
+  // ?? wait for the route!!!
   const handleUnfollow = async () => {
     setIsLoading(true);
     const unfollowRes = await fetch(
@@ -67,7 +66,7 @@ const FollowButton = ({
         >
           Unfollow
           {isLoading && (
-            <div className="loader size-3 rounded-full border-2 border-t-primary1-500 ease-linear"></div>
+            <div className="size-3 animate-spin rounded-full border-2 border-white-100 border-t-primary1-500 ease-linear"></div>
           )}
         </Button>
       ) : (
@@ -77,7 +76,7 @@ const FollowButton = ({
         >
           Follow
           {isLoading && (
-            <div className="loader size-3 rounded-full border-2 border-t-primary1-500 ease-linear"></div>
+            <div className="size-3 animate-spin rounded-full border-2 border-white-100 border-t-primary1-500 ease-linear"></div>
           )}
         </Button>
       )}

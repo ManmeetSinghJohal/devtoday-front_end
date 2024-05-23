@@ -20,7 +20,7 @@ const GroupCard = ({ group }: GroupCardProps) => {
           <p className="paragraph-3-bold lg:paragraph-1-bold w-full overflow-hidden  text-dark-800 dark:text-white-100 ">
             {name}
           </p>
-          <p className="paragraph-3-regular flex w-full overflow-hidden truncate text-wrap text-white-400 dark:text-white-200">
+          <p className="paragraph-3-regular line-clamp-3 w-full overflow-hidden truncate text-wrap break-all text-white-400 dark:text-white-200">
             {bio && bio}
           </p>
         </div>
@@ -38,7 +38,8 @@ const GroupCard = ({ group }: GroupCardProps) => {
                     <Image
                       width={30}
                       height={30}
-                      src="/assets/jsmastery.png"
+                      src="/assets/emoji.png
+            "
                       alt="user avatar"
                       className="size-[30px] rounded-full"
                     />

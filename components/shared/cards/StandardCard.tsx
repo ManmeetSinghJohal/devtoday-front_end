@@ -8,18 +8,18 @@ import PostTags from "../tags/PostTags";
 
 const PostCard = ({ post, user }: StandardCardProps) => {
   const { title, content, tags, comments, views, createdAt, liked } = post;
-  console.log(post);
+
   return (
     <div className="flex flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
       <Image
         alt="post image"
         width={165}
         height={165}
-        src="/assets/meeting-img2.jpeg"
+        src="/assets/meeting-img2.png"
         style={{ borderRadius: "10px", width: "165px", height: "165px" }}
         className="hidden lg:block"
       />
-      <div className="flex size-full flex-col justify-between gap-3 lg:gap-2">
+      <div className=" flex  size-full flex-col justify-between gap-3 overflow-hidden lg:gap-2">
         <div className="flex gap-2">
           <Image
             alt="post image"
@@ -30,8 +30,8 @@ const PostCard = ({ post, user }: StandardCardProps) => {
             className="block lg:hidden"
           />
 
-          <div className="flex w-full lg:items-center lg:gap-5">
-            <p className="paragraph-3-bold lg:paragraph-1-bold h-[40px] w-full truncate text-dark-800 dark:text-white-100 lg:h-[22px]">
+          <div className="flex w-full lg:items-center lg:gap-5 ">
+            <p className="paragraph-3-bold lg:paragraph-1-bold truncate text-dark-800 dark:text-white-100 lg:h-[22px]">
               {title}
             </p>
             <p
@@ -41,15 +41,15 @@ const PostCard = ({ post, user }: StandardCardProps) => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col justify-between gap-4 lg:gap-6 ">
-          <div className="flex flex-col items-start gap-3 lg:gap-4">
-            <p className="paragraph-3-regular flex max-w-full overflow-hidden truncate text-wrap text-white-400 dark:text-white-200">
+        <div className="flex flex-col justify-between gap-4 md:gap-6 ">
+          <div className="flex flex-col items-start gap-3 overflow-hidden md:gap-4">
+            <p className="paragraph-3-regular line-clamp-2 max-w-full break-all text-white-400 dark:text-white-200">
               {content}
             </p>
             <div className="flex w-full flex-wrap gap-2.5">
               {tags &&
                 tags.map((tag: Tag) => {
-                  return <PostTags key={tag.id} name={tag.name} />;
+                  return <PostTags key={tag.name} name={tag.name} />;
                 })}
             </div>
           </div>

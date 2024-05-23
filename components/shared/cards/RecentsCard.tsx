@@ -6,17 +6,17 @@ const RecentPosts = ({ user }: RecentPostsProps) => {
 
   return (
     <section className="w-full">
-      <div className="rounded-2xl bg-white-100 p-5 dark:bg-dark-800 ">
+      <div className="w-[325px] rounded-2xl bg-white-100 p-5 dark:bg-dark-800">
         <div className="paragraph-2-bold flex items-center gap-0.5 text-dark-800  dark:text-white-200">
           <p>Recent Posts</p>
           <ArrowRightIcon />
         </div>
-        {recentPosts.map((post: any) => (
+        {recentPosts.map((post: Post) => (
           <div key={post.id} className="mt-5 flex items-center gap-3">
             <Skeleton className="size-[58px] shrink-0 rounded-lg bg-white-200 dark:bg-dark-700" />
 
-            <div className="flex w-full flex-col gap-1">
-              <p className="paragraph-3-bold w-full text-dark-800 dark:text-white-200">
+            <div className="flex w-full flex-col gap-1 overflow-hidden">
+              <p className="paragraph-3-bold w-full truncate text-dark-800 dark:text-white-200">
                 {post.title}
               </p>
 

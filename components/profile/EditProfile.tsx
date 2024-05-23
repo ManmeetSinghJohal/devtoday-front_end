@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -32,13 +31,13 @@ const formSchema = z.object({
   interestTech: z
     .array(z.string())
     .max(7, { message: "You can only add 7 tags" }),
-  linkedinLink: z.string().url().optional(),
+  linkedinLink: z.string().url().optional().or(z.literal("")),
   linkedinHandle: z.string().optional(),
-  instagramLink: z.string().url().optional(),
+  instagramLink: z.string().url().optional().or(z.literal("")),
   instagramHandle: z.string().optional(),
-  githubLink: z.string().url().optional(),
+  githubLink: z.string().url().optional().or(z.literal("")),
   githubHandle: z.string().optional(),
-  xProfileLink: z.string().url().optional(),
+  xProfileLink: z.string().url().optional().or(z.literal("")),
   xProfileHandle: z.string().optional(),
 });
 
@@ -180,7 +179,7 @@ const EditProfile = ({ user }: EditProfileProps) => {
                 <FormLabel className="dark:text-white-200">Interest</FormLabel>
                 <FormControl>
                   <div className="input-form flex min-h-10 flex-col gap-2 rounded-md border border-white-border p-1 dark:border-dark-border">
-                    <div className="input-form flex flex-row gap-2 rounded-md border-white-border p-1 dark:border-dark-border">
+                    <div className="input-form flex flex-row flex-wrap gap-2 rounded-md border-white-border p-1 dark:border-dark-border">
                       {field.value.map((tag, index) => (
                         <div key={index} className="">
                           <div className="caption-cap-10 flex items-center gap-1 rounded-xl bg-white-200 px-2 py-1 text-dark-700 dark:bg-dark-700 dark:text-white-300">
@@ -205,16 +204,17 @@ const EditProfile = ({ user }: EditProfileProps) => {
                       className="m-0 size-full  border border-none
                        bg-transparent p-1 focus-visible:ring-transparent focus-visible:ring-offset-transparent"
                       placeholder="Add a tag ..."
-                      onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                      onKeyDown={async (
+                        e: React.KeyboardEvent<HTMLInputElement>
+                      ) => {
                         const target = e.target as HTMLInputElement;
                         const inputValue = target.value;
                         if (e.key === "Enter" && inputValue !== "") {
                           e.preventDefault();
-                          form.trigger("interestTech");
                           if (!field.value.includes(inputValue)) {
-                            if (field.value.length <= 6)
-                              field.onChange([...field.value, inputValue]);
+                            field.onChange([...field.value, inputValue]);
                             target.value = "";
+                            await form.trigger("interestTech");
                           }
                         }
                       }}
