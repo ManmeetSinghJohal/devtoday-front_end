@@ -6,11 +6,12 @@ import { timeDifference } from "@/utils/methods";
 import LikeIcon from "../icons/LikeIcon";
 import PostTags from "../tags/PostTags";
 
-const PodcastCard = ({ post, user }: PostProps) => {
+const PodcastCard = ({ post, user }: StandardCardProps) => {
   const { title, content, tags, createdAt, liked } = post;
+
   return (
-    <div className="flex flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
-      <div className="flex size-full flex-col  gap-[18px]">
+    <div className="flex min-h-[205px] flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
+      <div className="flex size-full flex-col justify-between gap-[18px]">
         <div className="flex w-full flex-col gap-2.5">
           <p className="paragraph-3-bold lg:paragraph-1-bold w-full overflow-hidden  text-dark-800 dark:text-white-100 lg:h-[22px]">
             {title}
@@ -22,10 +23,11 @@ const PodcastCard = ({ post, user }: PostProps) => {
 
         <div className="flex flex-col justify-between gap-[18px]">
           <div className="flex flex-col items-start gap-[18px]">
-            <div className="flex w-full gap-2.5">
-              {tags.map((tag: any) => {
-                return <PostTags key={tag.id} label={tag.label} />;
-              })}
+            <div className="flex w-full  flex-wrap gap-2.5">
+              {tags &&
+                tags.map((tag: any) => {
+                  return <PostTags key={tag.id} name={tag.name} />;
+                })}
             </div>
           </div>
 

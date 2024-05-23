@@ -37,7 +37,7 @@ const Account = () => {
 
               <div className="hidden text-white-400 dark:text-white-400 md:flex">
                 <p className="text-dark-900 dark:text-white-200">
-                  {data?.user && data.user.username}
+                  {data && data.user.username}
                 </p>
                 <DropdownIcon />
               </div>

@@ -1,28 +1,9 @@
 type NavIcons = "layers" | "calendar" | "headphones" | "groups" | "create";
 type NavModalIcons = "notifications" | "search";
 type Sort = "newest" | "popular" | "following";
-type Post = {
+type Tag = {
   id: string;
-  key: string;
-  title: string;
-  content: string;
-  tags: string[];
-  createdAt: string;
-  image: string;
-  comments: any;
-  views: number;
-  createdAt: string;
-  liked: boolean;
-  meetDay?: string;
-  podcastLength?: string;
-  liked: boolean;
-  members?: [
-    {
-      id: string;
-      username: string;
-      image: string;
-    },
-  ];
+  name: string;
 };
 
 type UserProfile = {
@@ -35,21 +16,36 @@ type UserProfile = {
   followers: { followerId: string; followingId: string }[];
   following: { followerId: string; followingId: string }[];
   profile: {
-    name: string;
+    name: string | null;
     onBoardingCompleted: boolean;
     userId: string;
     bio: string;
     journey: string;
-    ambitions: string[];
+    ambitions: string;
     tech: string[];
-    githubLink: string;
-    githubHandle: string;
-    linkedinLink: string;
-    linkedinHandle: string;
-    xProfileLink: string;
-    xProfileHandle: string;
-    instagramLink: string;
-    instagramHandle: string;
+    githubLink: string | null;
+    githubHandle: string | null;
+    linkedinLink: string | null;
+    linkedinHandle: string | null;
+    xProfileLink: string | null;
+    xProfileHandle: string | null;
+    instagramLink: string | null;
+    instagramHandle: string | null;
+  };
+  _count: {
+    following: number;
+    followers: number;
   };
   posts: Post[];
+  userIsFollowed: boolean;
+};
+
+type GroupUser = {
+  id: string;
+  userId: string;
+  groupId: string;
+  isAdmin: boolean;
+  active: boolean;
+  isCreator: boolean;
+  user: UserProfile;
 };

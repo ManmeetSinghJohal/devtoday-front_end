@@ -20,10 +20,19 @@ interface UserProfileProps {
 interface EditProfileProps {
   user: UserProfile;
 }
-interface PostProps {
+interface StandardCardProps {
   user: UserProfile;
   key: string;
   post: Post;
+}
+interface TagProps {
+  key: string;
+  name: string;
+}
+interface GroupCardProps {
+  user: UserProfile;
+  key: string;
+  group: Post;
 }
 
 interface ProfilePageProps {
@@ -34,7 +43,6 @@ interface ProfilePageProps {
 }
 
 interface RecentPostsProps {
-  posts: Post[];
   user: UserProfile;
 }
 interface PerformancesCardProps {

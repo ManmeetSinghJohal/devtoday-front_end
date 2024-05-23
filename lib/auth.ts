@@ -37,7 +37,6 @@ export const authOptions: AuthOptions = {
       async authorize(credentials) {
         if (!credentials || !credentials.email || !credentials.password)
           return null;
-
         const res = await fetch("http://localhost:3005/api/auth/login", {
           method: "POST",
           mode: "cors",
@@ -56,6 +55,7 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async session({ session }) {
       if (!session.user) return session;
+
       const res = await fetch("http://localhost:3005/api/auth/user", {
         method: "POST",
         mode: "cors",
@@ -66,6 +66,7 @@ export const authOptions: AuthOptions = {
       const userRes = await res.json();
       session.user.id = userRes.id;
       session.user.username = userRes.username;
+      session.user.name = userRes.profile.name;
       session.user.onboardingCompleted = userRes.profile.onBoardingCompleted;
 
       return session;

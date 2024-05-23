@@ -7,7 +7,7 @@ import { authOptions } from "@/lib/auth";
 const Page = async ({ searchParams }: { searchParams: any }) => {
   const session = await getServerSession(authOptions);
   const resUser = await fetch(
-    `http://localhost:3005/api/user/${session?.user.id}`, // /api/user/id/info
+    `http://localhost:3005/api/user/${session?.user.id}`,
     {
       method: "GET",
       mode: "cors",
@@ -15,13 +15,13 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
     }
   );
   const userData = await resUser.json();
+
   let type = searchParams.postType ?? "standard";
   if (type instanceof Array) type = type[0];
 
   if (!["standard", "meetup", "podcast", "group"].some((t) => t === type))
     type = "standard";
-  console.log(type.toUpperCase());
-  // what to do if type is "group"?
+
   let resPosts;
   if (type !== "group") {
     resPosts = await fetch(
@@ -42,8 +42,6 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
       }
     );
   }
-
-  // user/id/groups
 
   const postsData = await resPosts.json();
 

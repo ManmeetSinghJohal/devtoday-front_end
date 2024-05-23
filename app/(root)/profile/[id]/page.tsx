@@ -12,7 +12,7 @@ const Page = async ({
 }) => {
   const session = await getServerSession(authOptions);
   const resUser = await fetch(
-    `http://localhost:3005/api/user/${params?.id}`, // /api/user/id/info
+    `http://localhost:3005/api/user/${params?.id}?viewerId=${session?.user.id}`,
     {
       method: "GET",
       mode: "cors",
@@ -29,7 +29,7 @@ const Page = async ({
   let resPosts;
   if (type !== "group") {
     resPosts = await fetch(
-      `http://localhost:3005/api/user/${session?.user.id}/posts?postType=${type.toUpperCase()}`,
+      `http://localhost:3005/api/user/${params?.id}/posts?postType=${type.toUpperCase()}`,
       {
         method: "GET",
         mode: "cors",
@@ -38,7 +38,7 @@ const Page = async ({
     );
   } else {
     resPosts = await fetch(
-      `http://localhost:3005/api/user/${session?.user.id}/groups`,
+      `http://localhost:3005/api/user/${params?.id}/groups`,
       {
         method: "GET",
         mode: "cors",
@@ -49,7 +49,14 @@ const Page = async ({
 
   const postsData = await resPosts.json();
 
-  return <ProfilePage user={userData} posts={postsData} type={type} isOwner />;
+  return (
+    <ProfilePage
+      user={userData}
+      posts={postsData}
+      type={type}
+      isOwner={false}
+    />
+  );
 };
 
 export default Page;

@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -28,7 +29,9 @@ const formSchema = z.object({
   bio: z.string().min(10, {
     message: "Bio must be at least 10 characters.",
   }),
-  interestTech: z.array(z.string()),
+  interestTech: z
+    .array(z.string())
+    .max(7, { message: "You can only add 7 tags" }),
   linkedinLink: z.string().url().optional(),
   linkedinHandle: z.string().optional(),
   instagramLink: z.string().url().optional(),
@@ -62,33 +65,39 @@ const EditProfile = ({ user }: EditProfileProps) => {
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name,
+      name: name ?? "",
       username: `@${username}`,
       bio,
       interestTech: tech,
-      linkedinHandle,
-      linkedinLink,
-      instagramHandle,
-      instagramLink,
-      githubLink,
-      githubHandle,
-      xProfileLink,
-      xProfileHandle,
+      linkedinHandle: linkedinHandle ?? "",
+      linkedinLink: linkedinLink ?? "",
+      instagramHandle: instagramHandle ?? "",
+      instagramLink: instagramLink ?? "",
+      githubLink: githubLink ?? "",
+      githubHandle: githubHandle ?? "",
+      xProfileLink: xProfileLink ?? "",
+      xProfileHandle: xProfileHandle ?? "",
     },
   });
 
+  const router = useRouter();
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const editResponse = await fetch(
-      `http://localhost:3005/api/profile/${id}`,
-      {
-        method: "PATCH",
-        mode: "cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+    try {
+      const editResponse = await fetch(
+        `http://localhost:3005/api/profile/${id}`,
+        {
+          method: "PATCH",
+          mode: "cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values),
+        }
+      );
+      if (editResponse.ok) {
+        router.push("/profile");
       }
-    );
-    const edit = await editResponse.json();
-    console.log(edit);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -99,7 +108,10 @@ const EditProfile = ({ user }: EditProfileProps) => {
             <div className="flex size-[60px] items-center justify-center rounded-full bg-white-100 text-white-400 dark:bg-dark-800 dark:text-white-300">
               <ImageIcon />
             </div>
-            <Button className="flex gap-2 bg-white-100 text-white-400 dark:bg-dark-800 dark:text-white-300">
+            <Button
+              className="flex gap-2 bg-white-100 text-white-400
+             hover:bg-white-100 dark:bg-dark-800 dark:text-white-300 dark:hover:bg-dark-700"
+            >
               <UploadFileIcon />
               <span>Set a profile photo</span>
             </Button>
@@ -171,7 +183,7 @@ const EditProfile = ({ user }: EditProfileProps) => {
                     <div className="input-form flex flex-row gap-2 rounded-md border-white-border p-1 dark:border-dark-border">
                       {field.value.map((tag, index) => (
                         <div key={index} className="">
-                          <div className="caption-cap-10 flex items-center gap-1 rounded-xl px-2 py-1 dark:bg-dark-700 dark:text-white-300">
+                          <div className="caption-cap-10 flex items-center gap-1 rounded-xl bg-white-200 px-2 py-1 text-dark-700 dark:bg-dark-700 dark:text-white-300">
                             <p className="uppercase">{tag}</p>
                             <span
                               className="cursor-pointer"
@@ -198,8 +210,10 @@ const EditProfile = ({ user }: EditProfileProps) => {
                         const inputValue = target.value;
                         if (e.key === "Enter" && inputValue !== "") {
                           e.preventDefault();
+                          form.trigger("interestTech");
                           if (!field.value.includes(inputValue)) {
-                            field.onChange([...field.value, inputValue]);
+                            if (field.value.length <= 6)
+                              field.onChange([...field.value, inputValue]);
                             target.value = "";
                           }
                         }

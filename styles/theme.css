@@ -4,61 +4,61 @@
 
 @layer utilities {
   .display-1-bold {
-    @apply font-bold text-custom tracking-custom text-white-200;
+    @apply font-bold text-custom tracking-custom;
   }
   .display-2-bold {
-    @apply font-bold text-custom_1 tracking-custom text-white-200;
+    @apply font-bold text-custom_1 tracking-custom;
   }
   .heading-1-medium {
-    @apply font-medium text-custom_2 text-white-200;
+    @apply font-medium text-custom_2;
   }
   .heading-2-medium {
-    @apply font-medium text-base text-white-200;
+    @apply font-medium text-base;
   }
   .paragraph-1-bold {
-    @apply font-bold text-custom_4 text-white-200;
+    @apply font-bold text-custom_4;
   }
   .paragraph-2-bold {
-    @apply font-bold text-base text-white-200;
+    @apply font-bold text-base;
   }
   .paragraph-3-bold {
-    @apply font-bold text-sm text-white-200;
+    @apply font-bold text-sm;
   }
   .paragraph-4-bold {
-    @apply font-bold text-xs text-white-200;
+    @apply font-bold text-xs;
   }
   .paragraph-1-medium {
-    @apply font-medium text-custom_4 text-white-200;
+    @apply font-medium text-custom_4;
   }
   .paragraph-2-medium {
-    @apply font-medium text-base text-white-200;
+    @apply font-medium text-base;
   }
   .paragraph-3-medium {
-    @apply font-medium text-sm text-white-200;
+    @apply font-medium text-sm;
   }
   .paragraph-4-medium {
-    @apply font-medium text-xs text-white-200;
+    @apply font-medium text-xs;
   }
   .paragraph-1-regular {
-    @apply font-normal text-lg text-white-200;
+    @apply font-normal text-lg;
   }
   .paragraph-2-regular {
-    @apply font-normal text-base text-white-200;
+    @apply font-normal text-base;
   }
   .paragraph-3-regular {
     @apply font-normal text-sm text-white-400 dark:text-white-300;
   }
   .paragraph-4-regular {
-    @apply font-normal text-xs text-white-200;
+    @apply font-normal text-xs;
   }
   .subtitle-small {
-    @apply font-normal text-custom_5 text-white-200;
+    @apply font-normal text-custom_5;
   }
   .caption-cap-10 {
-    @apply font-normal text-custom_6 text-white-200;
+    @apply font-normal text-custom_6 text-white-400 dark:text-white-300;
   }
   .caption-cap-8 {
-    @apply font-normal text-custom_7 text-white-200;
+    @apply font-normal text-custom_7 text-white-400 dark:text-white-300;
   }
   .text-dark100_light900 {
     @apply text-dark-700 dark:text-white-400;
@@ -67,16 +67,16 @@
     @apply bg-primary1-100 dark:bg-transparent cursor-pointer;
   }
   .dark-toggle {
-    @apply dark:bg-transparent  dark:bg-dark-700 cursor-pointer;
+    @apply dark:bg-transparent dark:bg-dark-700 cursor-pointer;
   }
   .input-form {
     @apply bg-white-100 text-dark-800 dark:bg-dark-800 dark:text-white-100;
   }
   .secondary-button {
-    @apply bg-white-100 text-dark-700 dark:bg-dark-700 dark:text-white-200;
+    @apply bg-white-100 text-dark-800 dark:bg-dark-700 dark:text-white-200 hover:bg-white-200 dark:hover:bg-dark-700;
   }
   .link-button {
-    @apply paragraph-3-bold flex h-[36px] w-full items-center justify-center rounded-md px-2 py-1;
+    @apply paragraph-3-bold flex h-[36px] w-full items-center justify-center rounded-md px-2 py-1 hover:opacity-70;
   }
   .custom-scrollbar::-webkit-scrollbar {
     width: 1px;
@@ -95,5 +95,27 @@
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #555;
+  }
+
+  @-webkit-keyframes spinner {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .loader {
+    border-color: #ffffff;
+    -webkit-animation: spinner 1.5s linear infinite;
+    animation: spinner 1.5s linear infinite;
   }
 }

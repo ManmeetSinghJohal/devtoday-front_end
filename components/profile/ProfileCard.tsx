@@ -11,14 +11,10 @@ import FollowButton from "./FollowButton";
 
 const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
   if (!user) return null;
-
-  // check following or not? and change button , need a route for checking follow?
   const {
     username,
     createdAt,
     profile,
-    followers,
-    following,
     id,
     profile: {
       name,
@@ -28,8 +24,9 @@ const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
       instagramLink,
       bio,
     },
+    _count: { following, followers },
+    userIsFollowed,
   } = user;
-
   return (
     <div className="flex  w-full flex-col items-center justify-start gap-6 rounded-2xl bg-white-100 pb-[111px] dark:bg-dark-800 lg:w-[210px] lg:shrink-0 lg:gap-[30px]">
       <div className="flex w-full flex-col items-center justify-center gap-5">
@@ -61,15 +58,15 @@ const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
               Edit Profile
             </Link>
           ) : (
-            <FollowButton id={id} />
+            <FollowButton id={id} userIsFollowed={userIsFollowed} />
           )}
 
           <div className="flex flex-col ">
             <p className="paragraph-3-medium text-center text-white-400 dark:text-white-300">
-              {followers.length} Followers
+              {followers} Followers
             </p>
             <p className="paragraph-3-medium text-center text-white-400 dark:text-white-300">
-              {following.length} Following
+              {following} Following
             </p>
           </div>
           <div className="flex w-full flex-wrap items-center justify-center gap-1.5">

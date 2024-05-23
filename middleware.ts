@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getSession } from "next-auth/react";
 
 export async function middleware(request: NextRequest) {
+  // return NextResponse.next();
   const requestForNextAuth: any = {
     headers: {
       cookie: request.headers.get("cookie"),

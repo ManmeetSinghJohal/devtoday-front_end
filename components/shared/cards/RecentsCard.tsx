@@ -1,8 +1,8 @@
 import ArrowRightIcon from "@/components/shared/icons/ArrowRightIcon";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const RecentPosts = ({ posts, user }: RecentPostsProps) => {
-  const recentPosts = posts.slice(0, 3);
+const RecentPosts = ({ user }: RecentPostsProps) => {
+  const recentPosts = user.posts;
 
   return (
     <section className="w-full">

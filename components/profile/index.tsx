@@ -19,7 +19,7 @@ const ProfilePage = ({ user, type, isOwner, posts }: ProfilePageProps) => {
       </div>
 
       <aside className="relative flex flex-col items-end gap-5 dark:bg-dark-900 lg:sticky lg:right-0 lg:top-0 lg:min-w-[325px]">
-        <RecentPosts posts={posts} user={user} />
+        <RecentPosts user={user} />
         <PerformanceCard />
       </aside>
     </div>
