@@ -6,32 +6,28 @@ import { timeDifference } from "@/utils/methods";
 import LikeIcon from "../icons/LikeIcon";
 import PostTags from "../tags/PostTags";
 
-const PodcastCard = ({
-  title,
-  content,
-  tags,
+const PodcastCard = ({ post, user }: StandardCardProps) => {
+  const { title, content, tags, createdAt, liked } = post;
 
-  createdAt,
-  liked,
-}: PodcastCardProps) => {
   return (
-    <div className="flex flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
-      <div className="flex size-full flex-col  gap-[18px]">
-        <div className="flex w-full flex-col gap-2.5">
-          <p className="paragraph-3-bold lg:paragraph-1-bold w-full overflow-hidden  text-dark-800 dark:text-white-100 lg:h-[22px]">
+    <div className="flex min-h-[205px] flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
+      <div className="flex size-full flex-col justify-between gap-[18px]">
+        <div className="flex w-full flex-col gap-2.5 overflow-hidden">
+          <p className="paragraph-3-bold lg:paragraph-1-bold w-full truncate  text-dark-800 dark:text-white-100 lg:h-[22px]">
             {title}
           </p>
-          <p className="paragraph-3-regular flex h-4 w-full overflow-hidden truncate text-wrap text-white-400 dark:text-white-200">
+          <p className="paragraph-3-regular line-clamp-5 w-full break-all text-white-400 dark:text-white-200">
             {content}
           </p>
         </div>
 
         <div className="flex flex-col justify-between gap-[18px]">
           <div className="flex flex-col items-start gap-[18px]">
-            <div className="flex w-full gap-2.5">
-              {tags.map((tag: any) => {
-                return <PostTags key={tag.id} label={tag.label} />;
-              })}
+            <div className="flex w-full  flex-wrap gap-2.5">
+              {tags &&
+                tags.map((tag: Tag) => {
+                  return <PostTags key={tag.name} name={tag.name} />;
+                })}
             </div>
           </div>
 
@@ -45,7 +41,7 @@ const PodcastCard = ({
                 className="rounded-full"
               />
               <div>
-                JS Mastery
+                {user.profile.name}
                 <p className="subtitle-small text-dark-700 dark:text-white-300">
                   {timeDifference(createdAt)}
                 </p>

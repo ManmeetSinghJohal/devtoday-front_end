@@ -4,6 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { mockPosts } from "@/constants/mockposts";
 
 const PerformanceCard = () => {
+  const performances = mockPosts.slice(0, 5);
   return (
     <section className="w-full">
       <div className="gap-5 rounded-2xl bg-white-100 p-5 dark:bg-dark-800">
@@ -15,7 +16,7 @@ const PerformanceCard = () => {
             The best posts from the last 30 days
           </p>
         </div>
-        {mockPosts.slice(1).map((post: any) => (
+        {performances.map((post: Post) => (
           <div key={post.id} className="mt-5 flex w-full items-center gap-3">
             <Skeleton className="size-[58px] shrink-0 rounded-lg bg-white-200 dark:bg-dark-700" />
 
@@ -35,7 +36,7 @@ const PerformanceCard = () => {
               <p className="flex flex-col   justify-center text-start capitalize text-white-400 dark:text-white-300">
                 comments
                 <span className="paragraph-3-medium text-dark-800 dark:text-white-200">
-                  {post.comments.length}
+                  34
                 </span>
               </p>
             </div>

@@ -1,6 +1,7 @@
-import React from "react";
+import { getServerSession } from "next-auth";
 
 import ProfilePage from "@/components/profile";
+import { authOptions } from "@/lib/auth";
 
 const Page = async ({
   params,
@@ -9,8 +10,9 @@ const Page = async ({
   params: { id: string };
   searchParams: { postType: string | string[] | undefined };
 }) => {
+  const session = await getServerSession(authOptions);
   const resUser = await fetch(
-    `http://localhost:3005/api/user/${params?.id}`, // /api/user/id/info
+    `http://localhost:3005/api/user/${params?.id}?viewerId=${session?.user.id}`,
     {
       method: "GET",
       mode: "cors",
@@ -18,22 +20,44 @@ const Page = async ({
     }
   );
   const userData = await resUser.json();
-  console.log(searchParams.postType, "searchParams.postType");
+  if (!resUser.ok) throw new Error("Failed to fetch user data");
   let type = searchParams.postType ?? "standard";
   if (type instanceof Array) type = type[0];
-  if (!["standard", "meetup", "podcast"].some((t) => t === type))
+
+  if (!["standard", "meetup", "podcast", "group"].some((t) => t === type))
     type = "standard";
 
-  const resPosts = await fetch(
-    `http://localhost:3005/api/user/${params?.id}/posts?postType=${type}`, // /api/user/id/info
-    {
-      method: "GET",
-      mode: "cors",
-      headers: { "Content-Type": "application/json" },
-    }
-  );
+  let resPosts;
+  if (type !== "group") {
+    resPosts = await fetch(
+      `http://localhost:3005/api/user/${params?.id}/posts?postType=${type.toUpperCase()}`,
+      {
+        method: "GET",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  } else {
+    resPosts = await fetch(
+      `http://localhost:3005/api/user/${params?.id}/groups`,
+      {
+        method: "GET",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+
   const postsData = await resPosts.json();
-  return <ProfilePage user={userData} posts={postsData} type={type} />;
+
+  return (
+    <ProfilePage
+      user={userData}
+      posts={resPosts.ok ? postsData : null}
+      type={type}
+      isOwner={false}
+    />
+  );
 };
 
 export default Page;

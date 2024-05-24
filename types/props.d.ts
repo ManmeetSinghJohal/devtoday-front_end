@@ -13,39 +13,43 @@ interface NavIconProps {
   id: SelectedIcon;
   pending?: boolean;
 }
-interface PostProps {
+interface UserProfileProps {
+  user: UserProfile;
+  isOwner: boolean;
+}
+interface EditProfileProps {
+  user: UserProfile;
+}
+interface StandardCardProps {
+  user: UserProfile;
   key: string;
-  title: string;
-  content: string;
-  tags: any;
-  createdAt: Date;
-  image: string;
+  post: Post;
 }
-interface PostCardProps extends PostProps {
-  comments: any;
-  views: number;
-  createdAt: Date;
-  liked: boolean;
+interface TagProps {
+  key: string;
+  name: string;
 }
+interface GroupCardProps {
+  user: UserProfile;
+  key: string;
+  group: Post;
+}
+
 interface ProfilePageProps {
   user: UserProfile;
-  posts: PostCardProps[];
+  posts: Post[] | null;
   type: string;
+  isOwner: boolean;
 }
 
-interface MeetupCardProps extends PostProps {
-  meetDay: Date;
+interface RecentPostsProps {
+  user: UserProfile;
 }
-interface PodcastCardProps extends PostProps {
-  podcastLength?: string;
+interface PerformancesCardProps {
+  posts: Post[];
 }
-
-interface GroupCardProps extends PostProps {
-  members?: [
-    {
-      id: string;
-      username: string;
-      image: string;
-    },
-  ];
+interface InfiniteScrollProps {
+  user: UserProfile;
+  type: string;
+  initialPosts: Post[];
 }

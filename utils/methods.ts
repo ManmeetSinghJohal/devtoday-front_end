@@ -1,4 +1,5 @@
-export function timeDifference(dateValue: Date): string {
+export function timeDifference(date: string): string {
+  const dateValue = new Date(date);
   const now: number = Date.now();
   const differenceInMs: number = now - dateValue.getTime();
   const second: number = 1000;
@@ -35,8 +36,11 @@ export function timeDifference(dateValue: Date): string {
   return "just now";
 }
 
-export function getMeetDayInfo(meetDay: Date): { month: string; day: number } {
-  // Array of month names
+export function getMeetDayInfo(meetDay: string): {
+  month: string;
+  day: number;
+} {
+  const dateValue = new Date(meetDay);
   const monthNames: string[] = [
     "Jan",
     "Feb",
@@ -51,8 +55,8 @@ export function getMeetDayInfo(meetDay: Date): { month: string; day: number } {
     "Nov",
     "Dec",
   ];
-  const monthIndex: number = meetDay.getMonth();
-  const day: number = meetDay.getDate();
+  const monthIndex: number = dateValue.getMonth();
+  const day: number = dateValue.getDate();
 
   const month: string = monthNames[monthIndex];
 

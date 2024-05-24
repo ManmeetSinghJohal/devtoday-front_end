@@ -1,101 +1,33 @@
 import React from "react";
 
-import { mockPosts } from "@/constants/mockposts";
-
-import GroupCard from "../shared/cards/GroupCard";
-import MeetUpCard from "../shared/cards/MeetupCard";
 import PerformanceCard from "../shared/cards/PerformancesCard";
-import PodcastCard from "../shared/cards/PodcastCard";
-import PostCard from "../shared/cards/PostCard";
 import RecentPosts from "../shared/cards/RecentsCard";
-import RightSidebar from "../shared/rightsidebar/RightSidebar";
 
+import InfiniteScroll from "./InfiniteScroll";
 import ProfileCard from "./ProfileCard";
 import ProfileNavbar from "./ProfileNavbar";
 
-const ProfilePage = ({ user, posts, type }: ProfilePageProps) => {
-  console.log(posts, "posts");
-  console.log(type, "type"); // ask mateo how to get the type from the query params
+const ProfilePage = ({ user, type, isOwner, posts }: ProfilePageProps) => {
   return (
-    <div className="flex flex-col gap-5 md:flex-row">
-      <ProfileCard user={user} />
-      <div className="flex w-full flex-col gap-5 ">
-        <ProfileNavbar />
-        {type === "standard" && (
-          <div className="grid grid-cols-1 gap-3.5">
-            {mockPosts.map((post: any) => {
-              return (
-                <PostCard
-                  key={post.id}
-                  title={post.title}
-                  content={post.content}
-                  tags={post.tags}
-                  comments={post.comments}
-                  views={post.views}
-                  createdAt={post.createdAt}
-                  liked={post.liked}
-                  image={post.image}
-                />
-              );
-            })}
+    <div className="flex flex-col gap-5 lg:flex-row">
+      <aside className="relative flex shrink-0 flex-col items-end gap-5 border-0 lg:sticky lg:left-0 lg:top-0 lg:min-w-[210px]">
+        <ProfileCard user={user} isOwner={isOwner} />
+      </aside>
+      <div className="flex size-full flex-col gap-5 ">
+        <ProfileNavbar type={type} />
+        {posts === null ? (
+          <div>
+            <p className="text-center text-3xl">No posts found</p>
           </div>
-        )}
-        {type === "meetup" && (
-          <div className="grid grid-cols-1 gap-3.5">
-            {mockPosts.map((post: any) => {
-              return (
-                <MeetUpCard
-                  key={post.id}
-                  title={post.title}
-                  content={post.content}
-                  tags={post.tags}
-                  createdAt={post.createdAt}
-                  meetDay={post.meetDay}
-                  image={post.image}
-                />
-              );
-            })}
-          </div>
-        )}
-        {type === "podcast" && (
-          <div className="grid grid-cols-1 gap-3.5">
-            {mockPosts.map((post: any) => {
-              return (
-                <PodcastCard
-                  key={post.id}
-                  title={post.title}
-                  content={post.content}
-                  tags={post.tags}
-                  image={post.image}
-                  createdAt={post.createdAt}
-                />
-              );
-            })}
-          </div>
-        )}
-        {type === "group" && (
-          <div className="grid grid-cols-1 gap-3.5 lg:grid-cols-2">
-            {mockPosts.map((post: any) => {
-              return (
-                <GroupCard
-                  key={post.id}
-                  title={post.title}
-                  content={post.content}
-                  image="/assets/group.png"
-                  tags={post.tags}
-                  createdAt={post.createdAt}
-                />
-              );
-            })}
-            hola;
-          </div>
+        ) : (
+          <InfiniteScroll type={type} user={user} initialPosts={posts} />
         )}
       </div>
 
-      <RightSidebar>
-        <RecentPosts />
+      <aside className="relative flex flex-col items-end gap-5 dark:bg-dark-900 lg:sticky lg:right-0 lg:top-0 lg:min-w-[325px]">
+        <RecentPosts user={user} />
         <PerformanceCard />
-      </RightSidebar>
+      </aside>
     </div>
   );
 };
