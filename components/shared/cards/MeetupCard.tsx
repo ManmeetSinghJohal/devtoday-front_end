@@ -27,7 +27,7 @@ const MeetUpCard = ({ post }: StandardCardProps) => {
             <p className="paragraph-3-bold lg:paragraph-1-bold h-[40px] w-full truncate text-dark-800 dark:text-white-100 lg:h-[22px]">
               {title}
             </p>
-            <div className="flex flex-col items-center justify-center gap-2 rounded-md bg-white-200 px-4 py-1.5 text-white-300 dark:bg-dark-700 dark:text-primary1-500">
+            <div className="ml-5 flex flex-col items-center justify-center gap-2 rounded-md bg-white-200 px-4 py-1.5 text-white-300 dark:bg-dark-700 dark:text-primary1-500">
               <p className="uppercase text-dark-900 dark:text-white-200">
                 {meetDate ? month : "TBD"}
               </p>
@@ -39,7 +39,7 @@ const MeetUpCard = ({ post }: StandardCardProps) => {
         </div>
         <div className="flex flex-col justify-between gap-4 lg:gap-6 ">
           <div className="flex flex-col items-start gap-3  lg:gap-4">
-            <p className="paragraph-3-regular line-clamp-2 w-full break-all text-white-400 dark:text-white-200">
+            <p className="paragraph-3-regular line-clamp-2 w-full break-all pr-10 text-white-400 dark:text-white-200">
               {content}
             </p>
             <div className="flex w-full gap-2.5">

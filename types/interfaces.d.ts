@@ -29,10 +29,9 @@ interface Post {
   comments: any;
   views: number;
   createdAt: string;
-  liked: boolean;
   meetDate?: string;
   podcastLength?: string;
-  liked: boolean;
+  likes: Like[];
   members?: [
     {
       id: string;
