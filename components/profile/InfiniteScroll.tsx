@@ -52,7 +52,14 @@ const InfiniteScroll = ({ user, type, initialPosts }: InfiniteScrollProps) => {
       }
     };
   }, [posts, observerRef.current]);
-  if (!posts.length) return null;
+  if (!posts.length)
+    return (
+      <div className="w-full items-center justify-center">
+        <p className="display-1-bold text-center  text-dark-800 dark:text-white-100 ">
+          No posts found
+        </p>
+      </div>
+    );
   return (
     <div>
       {type === "standard" && (
