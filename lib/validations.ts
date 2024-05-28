@@ -22,3 +22,16 @@ export const signUpSchema = z
   });
 
 export type TSignUpSchema = z.infer<typeof signUpSchema>;
+
+export const createPostSchema = z.object({
+  title: z
+    .string()
+    .min(4, { message: "Title must be between 4 and 20 characters" })
+    .max(20),
+  createType: z.enum(["Post", "Meetup", "Podcast"]),
+  group: z.string(),
+  tinyContent: z.string(),
+  tags: z.string(),
+});
+
+export type TCreatePostSchema = z.infer<typeof createPostSchema>;
