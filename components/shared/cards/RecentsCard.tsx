@@ -6,7 +6,7 @@ const RecentPosts = ({ user }: RecentPostsProps) => {
 
   return (
     <section className="w-full">
-      <div className="w-[325px] rounded-2xl bg-white-100 p-5 dark:bg-dark-800">
+      <div className="rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:w-[325px]">
         <div className="paragraph-2-bold flex items-center gap-0.5 text-dark-800  dark:text-white-200">
           <p>Recent Posts</p>
           <ArrowRightIcon />

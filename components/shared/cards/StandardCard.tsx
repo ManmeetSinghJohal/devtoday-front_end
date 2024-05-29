@@ -1,14 +1,27 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
-import { timeDifference } from "@/utils/methods";
+import { likePost, timeDifference, unlikePost } from "@/utils/methods";
 
 import LikeIcon from "../icons/LikeIcon";
 import PostTags from "../tags/PostTags";
 
 const PostCard = ({ post, user }: StandardCardProps) => {
-  const { title, content, tags, comments, views, createdAt, liked } = post;
-
+  const { title, content, tags, comments, views, createdAt, likes } = post;
+  const [liked, setLiked] = useState(
+    likes.some((like: Like) => like.userId === user.id)
+  );
+  const handleLike = () => {
+    if (liked) {
+      unlikePost(post.id, user.id);
+      setLiked(false);
+    }
+    if (!liked) {
+      likePost(post.id, user.id);
+      setLiked(true);
+    }
+  };
   return (
     <div className="flex flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
       <Image
@@ -19,7 +32,7 @@ const PostCard = ({ post, user }: StandardCardProps) => {
         style={{ borderRadius: "10px", width: "165px", height: "165px" }}
         className="hidden lg:block"
       />
-      <div className=" flex  size-full flex-col justify-between gap-3 overflow-hidden lg:gap-2">
+      <div className="flex size-full flex-col justify-between gap-3 overflow-hidden lg:gap-2">
         <div className="flex gap-2">
           <Image
             alt="post image"
@@ -30,19 +43,20 @@ const PostCard = ({ post, user }: StandardCardProps) => {
             className="block lg:hidden"
           />
 
-          <div className="flex w-full lg:items-center lg:gap-5 ">
-            <p className="paragraph-3-bold lg:paragraph-1-bold truncate text-dark-800 dark:text-white-100 lg:h-[22px]">
+          <div className="flex w-full items-center overflow-hidden lg:gap-5">
+            <p className="paragraph-3-bold lg:paragraph-1-bold inline-block truncate text-dark-800 dark:text-white-100 lg:h-[22px]">
               {title}
             </p>
-            <p
-              className={`flex h-[30px] items-center justify-center rounded-full bg-primary1-100 p-1 ${liked ? "text-primary1-500" : "text-white-300"} dark:bg-dark-700`}
+            <div
+              onClick={handleLike}
+              className={`flex h-[30px] cursor-pointer items-center justify-center rounded-full bg-primary1-100 p-1 ${liked ? "text-primary1-500" : "text-white-300"} dark:bg-dark-700`}
             >
               <LikeIcon />
-            </p>
+            </div>
           </div>
         </div>
         <div className="flex flex-col justify-between gap-4 md:gap-6 ">
-          <div className="flex flex-col items-start gap-3 overflow-hidden md:gap-4">
+          <div className="flex flex-col items-start gap-3 overflow-hidden pr-10 md:gap-4">
             <p className="paragraph-3-regular line-clamp-2 max-w-full break-all text-white-400 dark:text-white-200">
               {content}
             </p>

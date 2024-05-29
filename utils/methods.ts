@@ -62,3 +62,45 @@ export function getMeetDayInfo(meetDay: string): {
 
   return { month, day };
 }
+
+export const likePost = async (postId: string, userId: string) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3005/api/post/${postId}/like`,
+      {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ likerId: userId }),
+      },
+    );
+    const data = await response.json();
+    console.log(data);
+    if (response.ok) {
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+};
+
+export const unlikePost = async (postId: string, userId: string) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3005/api/post/${postId}/unlike`,
+      {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ likerId: userId }),
+      },
+    );
+    const data = await response.json();
+    console.log(data);
+    if (response.ok) {
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+};
