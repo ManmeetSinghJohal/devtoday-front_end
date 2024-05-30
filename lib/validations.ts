@@ -31,7 +31,9 @@ export const createPostSchema = z.object({
   createType: z.enum(["Post", "Meetup", "Podcast"]),
   group: z.string(),
   tinyContent: z.string(),
-  tags: z.string(),
+  interestTech: z
+    .array(z.string())
+    .max(7, { message: "You can only add 7 tags" }),
 });
 
 export type TCreatePostSchema = z.infer<typeof createPostSchema>;

@@ -3,7 +3,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const RecentPosts = ({ user }: RecentPostsProps) => {
   const recentPosts = user.posts;
-
   return (
     <section className="w-full">
       <div className="rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:w-[325px]">
