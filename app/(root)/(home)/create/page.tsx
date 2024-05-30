@@ -50,6 +50,8 @@ const Create = () => {
       createType: "Post",
       group: "",
       coverImage: undefined,
+      audioFile: undefined,
+      audioTitle: "",
       meetupLocation: "",
       meetupDate: new Date(),
       tinyContent: "",
@@ -57,23 +59,32 @@ const Create = () => {
     },
   });
 
-  // const { register, setValue} = form;
+  const { register, handleSubmit, setValue, watch } = form;
 
   async function onSubmit(values: TCreatePostSchema) {
     console.log(values);
   }
 
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0];
-  //   if (file) {
-  //     setValue("coverImage", file);
-  //   }
-  // };
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setValue("coverImage", file);
+    }
+  };
+  const handleAudioFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setValue("audioFile", file);
+    }
+  };
+
+  // const changeCoverImage = watch("coverImage"); // Watch for changes in coverImage
+
 
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
             name="title"
@@ -160,10 +171,10 @@ const Create = () => {
             />
           </div>
 
-          {/* <FormField
+          <FormField
             control={form.control}
             name="coverImage"
-            render={({ field }) => (
+            render={() => (
               <FormItem className="mt-6 md:mt-8">
                 <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
                   Upload a cover image
@@ -172,14 +183,55 @@ const Create = () => {
                   <Input
                     type="file"
                     className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
-                    {...field}
+                    {...register}
                     onChange={handleFileChange}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
-          /> */}
+          />
+          <FormField
+            control={form.control}
+            name="audioFile"
+            render={() => (
+              <FormItem className="mt-6 md:mt-8">
+                <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
+                  Podcast audio file
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="file"
+                    className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
+                    {...register}
+                    onChange={handleAudioFileChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="audioTitle"
+            render={({ field }) => (
+              <FormItem className="mt-6 md:mt-8">
+                <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
+                  Audio Title
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="Ex: Codetime | Episode 8"
+                    className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <FormField
             control={form.control}
