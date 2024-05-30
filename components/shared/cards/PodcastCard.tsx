@@ -1,14 +1,26 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
-import { timeDifference } from "@/utils/methods";
+import { likePost, timeDifference, unlikePost } from "@/utils/methods";
 
 import LikeIcon from "../icons/LikeIcon";
 import PostTags from "../tags/PostTags";
 
 const PodcastCard = ({ post, user }: StandardCardProps) => {
-  const { title, content, tags, createdAt, liked } = post;
-
+  const { title, content, tags, createdAt, likes } = post;
+  const [liked, setLiked] = useState(
+    likes.some((like: Like) => like.userId === user.id)
+  );
+  const handleLike = () => {
+    if (liked) {
+      unlikePost(post.id, user.id);
+      setLiked(false);
+    }
+    if (!liked) {
+      likePost(post.id, user.id);
+      setLiked(true);
+    }
+  };
   return (
     <div className="flex min-h-[205px] flex-col items-center gap-3 rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
       <div className="flex size-full flex-col justify-between gap-[18px]">
@@ -48,7 +60,8 @@ const PodcastCard = ({ post, user }: StandardCardProps) => {
               </div>
             </div>
             <div
-              className={`flex h-[30px] items-center justify-center rounded-full bg-primary1-100 p-1 ${liked ? "text-primary1-500" : "text-white-300"} dark:bg-dark-700`}
+              className={`flex h-[30px] cursor-pointer items-center justify-center rounded-full bg-primary1-100 p-1 ${liked ? "text-primary1-500" : "text-white-300"} dark:bg-dark-700`}
+              onClick={handleLike}
             >
               <LikeIcon />
             </div>

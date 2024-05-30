@@ -49,3 +49,9 @@ type GroupUser = {
   isCreator: boolean;
   user: UserProfile;
 };
+type Like = {
+  userId: string;
+  user: UserProfile;
+  postId: string;
+  post: Post;
+};
