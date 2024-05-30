@@ -2,15 +2,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 // import { useRouter } from "next/navigation";
 import { Editor } from "@tinymce/tinymce-react";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Editor as TinyMCEEditor } from "tinymce";
 
-import CalendarIcon from "@/components/shared/icons/CalendarIcon";
+import CalendarIconSVG from "@/components/shared/icons/CalendarIcon";
 import CrossIcon from "@/components/shared/icons/CrossIcon";
 import HeadphonesIcon from "@/components/shared/icons/HeadphonesIcon";
 import HomeIcon from "@/components/shared/icons/HomeIcon";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
@@ -21,16 +24,23 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { TCreatePostSchema, createPostSchema } from "@/lib/validations";
 
 const Create = () => {
   // const router = useRouter();
+
   const editorRef = useRef<TinyMCEEditor | null>(null);
 
   const form = useForm<TCreatePostSchema>({
@@ -39,14 +49,26 @@ const Create = () => {
       title: "",
       createType: "Post",
       group: "",
+      coverImage: undefined,
+      meetupLocation: "",
+      meetupDate: new Date(),
       tinyContent: "",
       interestTech: [],
     },
   });
 
+  // const { register, setValue} = form;
+
   async function onSubmit(values: TCreatePostSchema) {
     console.log(values);
   }
+
+  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     setValue("coverImage", file);
+  //   }
+  // };
 
   return (
     <>
@@ -95,7 +117,7 @@ const Create = () => {
                         </SelectItem>
                         <SelectItem value="Meetup">
                           <div className="flex gap-2.5">
-                            <CalendarIcon />
+                            <CalendarIconSVG />
                             <div className="text-sm capitalize">Meetup</div>
                           </div>
                         </SelectItem>
@@ -137,6 +159,89 @@ const Create = () => {
               )}
             />
           </div>
+
+          {/* <FormField
+            control={form.control}
+            name="coverImage"
+            render={({ field }) => (
+              <FormItem className="mt-6 md:mt-8">
+                <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
+                  Upload a cover image
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="file"
+                    className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
+                    {...field}
+                    onChange={handleFileChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          /> */}
+
+          <FormField
+            control={form.control}
+            name="meetupLocation"
+            render={({ field }) => (
+              <FormItem className="mt-6 md:mt-8">
+                <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
+                  Meetup location
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="Write a location for this meetup"
+                    className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="meetupDate"
+            render={({ field }) => (
+              <FormItem className="mt-6 flex flex-col gap-2.5 lg:mt-8">
+                <FormLabel>Meetup date</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-full pl-3 text-left font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className="ml-auto size-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) => date < new Date()}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <FormField
             control={form.control}
@@ -218,7 +323,7 @@ const Create = () => {
                       ))}
                     </div>
                     <Input
-                      className="m-0 size-full  border border-none
+                      className="m-0 size-full border border-none
                        bg-transparent p-1 focus-visible:ring-transparent focus-visible:ring-offset-transparent"
                       placeholder="Add a tag ..."
                       onKeyDown={async (
