@@ -32,6 +32,8 @@ export const createPostSchema = z.object({
   group: z.string(),
   meetupLocation: z.string().optional(),
   coverImage: z.instanceof(File).optional(),
+  audioFile: z.instanceof(File).optional(),
+  audioTitle: z.string().optional(),
   meetupDate: z
     .date({
       required_error: "A date for the meetup is required.",
