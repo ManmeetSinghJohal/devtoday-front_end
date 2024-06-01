@@ -2,8 +2,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Editor } from "@tinymce/tinymce-react";
 import { format } from "date-fns";
-import { CalendarIcon} from "lucide-react";
-import React, { useRef} from "react";
+import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
+import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Editor as TinyMCEEditor } from "tinymce";
 
@@ -13,6 +13,14 @@ import HeadphonesIcon from "@/components/shared/icons/HeadphonesIcon";
 import HomeIcon from "@/components/shared/icons/HomeIcon";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
@@ -37,8 +45,22 @@ import {
 import { cn } from "@/lib/utils";
 import { TCreatePostSchema, createPostSchema } from "@/lib/validations";
 
-const CreatePostForm = ({groupNames}: {groupNames: string[]}) => {
+const groupNames = [
+  { label: "English", value: "en" },
+  { label: "French", value: "fr" },
+  { label: "German", value: "de" },
+  { label: "Spanish", value: "es" },
+  { label: "Portuguese", value: "pt" },
+  { label: "Russian", value: "ru" },
+  { label: "Japanese", value: "ja" },
+  { label: "Korean", value: "ko" },
+  { label: "Chinese", value: "zh" },
+];
+
+// const CreatePostForm = ({groupNames}: {groupNames: string[]}) => {
+const CreatePostForm = () => {
   const editorRef = useRef<TinyMCEEditor | null>(null);
+  console.log(groupNames);
 
   const form = useForm<TCreatePostSchema>({
     resolver: zodResolver(createPostSchema),
@@ -56,7 +78,9 @@ const CreatePostForm = ({groupNames}: {groupNames: string[]}) => {
     },
   });
 
-  const { register, handleSubmit, setValue } = form;
+  const { register, handleSubmit, setValue, watch } = form;
+
+  const isCreateType = watch("createType");
 
   async function onSubmit(values: TCreatePostSchema) {
     console.log(values);
@@ -68,7 +92,9 @@ const CreatePostForm = ({groupNames}: {groupNames: string[]}) => {
       setValue("coverImage", file);
     }
   };
-  const handleAudioFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAudioFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       setValue("audioFile", file);
@@ -140,7 +166,7 @@ const CreatePostForm = ({groupNames}: {groupNames: string[]}) => {
               )}
             />
 
-            <FormField
+            {/* <FormField
               control={form.control}
               name="group"
               render={({ field }) => (
@@ -157,6 +183,66 @@ const CreatePostForm = ({groupNames}: {groupNames: string[]}) => {
                       {groupNames.map((item, index) => <SelectItem key={index} value={item}>{item}</SelectItem>)}
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            /> */}
+
+            <FormField
+              control={form.control}
+              name="group"
+              render={({ field }) => (
+                <FormItem className="flex flex-col md:flex-1">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            " justify-between",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value
+                            ? groupNames.find(
+                                (group) => group.value === field.value
+                              )?.label
+                            : "Select group"}
+                          <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[200px] p-0">
+                      <Command>
+                        <CommandInput placeholder="Search group..." />
+                        <CommandList>
+                          <CommandEmpty>No language found.</CommandEmpty>
+                          <CommandGroup>
+                            {groupNames.map((group) => (
+                              <CommandItem
+                                value={group.label}
+                                key={group.value}
+                                onSelect={() => {
+                                  form.setValue("group", group.value);
+                                }}
+                              >
+                                <Check
+                                  className={cn(
+                                    "mr-2 h-4 w-4",
+                                    group.value === field.value
+                                      ? "opacity-100"
+                                      : "opacity-0"
+                                  )}
+                                />
+                                {group.label}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                   <FormMessage />
                 </FormItem>
               )}
@@ -183,109 +269,118 @@ const CreatePostForm = ({groupNames}: {groupNames: string[]}) => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="audioFile"
-            render={() => (
-              <FormItem className="mt-6 md:mt-8">
-                <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
-                  Podcast audio file
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    type="file"
-                    className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
-                    {...register}
-                    onChange={handleAudioFileChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
 
-          <FormField
-            control={form.control}
-            name="audioTitle"
-            render={({ field }) => (
-              <FormItem className="mt-6 md:mt-8">
-                <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
-                  Audio Title
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    type="text"
-                    placeholder="Ex: Codetime | Episode 8"
-                    className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="meetupLocation"
-            render={({ field }) => (
-              <FormItem className="mt-6 md:mt-8">
-                <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
-                  Meetup location
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    type="text"
-                    placeholder="Write a location for this meetup"
-                    className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="meetupDate"
-            render={({ field }) => (
-              <FormItem className="mt-6 flex flex-col gap-2.5 lg:mt-8">
-                <FormLabel>Meetup date</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
+          {isCreateType === "Podcast" && (
+            <>
+              <FormField
+                control={form.control}
+                name="audioFile"
+                render={() => (
+                  <FormItem className="mt-6 md:mt-8">
+                    <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
+                      Podcast audio file
+                    </FormLabel>
                     <FormControl>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-full pl-3 text-left font-normal",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                        <CalendarIcon className="ml-auto size-4 opacity-50" />
-                      </Button>
+                      <Input
+                        type="file"
+                        className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
+                        {...register}
+                        onChange={handleAudioFileChange}
+                      />
                     </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      disabled={(date) => date < new Date()}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+              <FormField
+                control={form.control}
+                name="audioTitle"
+                render={({ field }) => (
+                  <FormItem className="mt-6 md:mt-8">
+                    <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
+                      Audio Title
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="Ex: Codetime | Episode 8"
+                        className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </>
+          )}
+
+          {isCreateType === "Meetup" && (
+            <>
+              <FormField
+                control={form.control}
+                name="meetupLocation"
+                render={({ field }) => (
+                  <FormItem className="mt-6 md:mt-8">
+                    <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
+                      Meetup location
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="Write a location for this meetup"
+                        className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="meetupDate"
+                render={({ field }) => (
+                  <FormItem className="mt-6 flex flex-col gap-2.5 lg:mt-8">
+                    <FormLabel>Meetup date</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto size-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) => date < new Date()}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </>
+          )}
 
           <FormField
             control={form.control}
