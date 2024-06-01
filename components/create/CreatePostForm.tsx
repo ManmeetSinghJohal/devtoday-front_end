@@ -45,20 +45,7 @@ import {
 import { cn } from "@/lib/utils";
 import { TCreatePostSchema, createPostSchema } from "@/lib/validations";
 
-const groupNames = [
-  { label: "English", value: "en" },
-  { label: "French", value: "fr" },
-  { label: "German", value: "de" },
-  { label: "Spanish", value: "es" },
-  { label: "Portuguese", value: "pt" },
-  { label: "Russian", value: "ru" },
-  { label: "Japanese", value: "ja" },
-  { label: "Korean", value: "ko" },
-  { label: "Chinese", value: "zh" },
-];
-
-// const CreatePostForm = ({groupNames}: {groupNames: string[]}) => {
-const CreatePostForm = () => {
+const CreatePostForm: React.FC<GroupNamesProps> = ({groupNames}) => {
   const editorRef = useRef<TinyMCEEditor | null>(null);
   console.log(groupNames);
 
@@ -166,28 +153,6 @@ const CreatePostForm = () => {
               )}
             />
 
-            {/* <FormField
-              control={form.control}
-              name="group"
-              render={({ field }) => (
-                <FormItem className="md:flex-1">
-                  <Select
-                    onValueChange={field.onChange}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select Group" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent> 
-                      {groupNames.map((item, index) => <SelectItem key={index} value={item}>{item}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
-
             <FormField
               control={form.control}
               name="group"
@@ -206,8 +171,8 @@ const CreatePostForm = () => {
                         >
                           {field.value
                             ? groupNames.find(
-                                (group) => group.value === field.value
-                              )?.label
+                                (group) => group.name === field.value
+                              )?.name
                             : "Select group"}
                           <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
                         </Button>
@@ -221,21 +186,21 @@ const CreatePostForm = () => {
                           <CommandGroup>
                             {groupNames.map((group) => (
                               <CommandItem
-                                value={group.label}
-                                key={group.value}
+                                value={group.name}
+                                key={group.id}
                                 onSelect={() => {
-                                  form.setValue("group", group.value);
+                                  form.setValue("group", group.name);
                                 }}
                               >
                                 <Check
                                   className={cn(
                                     "mr-2 h-4 w-4",
-                                    group.value === field.value
+                                    group.name === field.value
                                       ? "opacity-100"
                                       : "opacity-0"
                                   )}
                                 />
-                                {group.label}
+                                {group.name}
                               </CommandItem>
                             ))}
                           </CommandGroup>
