@@ -6,21 +6,22 @@ import { authOptions } from "@/lib/auth";
 
 
 const CreatePost = async () => {
-      const session = await getServerSession(authOptions);
-    const resGroups = await fetch(
-      `http://localhost:3005/api/group/user/${session?.user.id}`,
-      {
-        method: "GET",
-        mode: "cors",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    //   const session = await getServerSession(authOptions);
+    // const resGroups = await fetch(
+    //   `http://localhost:3005/api/group/user/${session?.user.id}`,
+    //   {
+    //     method: "GET",
+    //     mode: "cors",
+    //     headers: { "Content-Type": "application/json" },
+    //   }
+    // );
 
-    const groupNames = await resGroups.json()
-    console.log("groupNames", groupNames)
+    // const groupNames = await resGroups.json()
+    // console.log("groupNames", groupNames)
     
   return (
-    <CreatePostForm  groupNames={resGroups.ok ? groupNames : null} />
+    // <CreatePostForm  groupNames={resGroups.ok ? groupNames : null} />
+    <CreatePostForm />
   )
 }
 
