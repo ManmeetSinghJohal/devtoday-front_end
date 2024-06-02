@@ -206,7 +206,12 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
                                       className="size-full rounded-full"
                                     />
                                   </div>
-                                  <span className="ml-2">{group.name}</span>
+                                  <div className="ml-2">
+                                    <div className="paragraph-4-medium text-dark-800">
+                                      {group.name}
+                                    </div>
+                                    <div className="subtitle-small">{group.bio}</div>
+                                  </div>
                                 </CommandItem>
                               </div>
                             ))}
