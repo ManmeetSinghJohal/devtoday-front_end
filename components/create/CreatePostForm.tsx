@@ -60,7 +60,7 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
       audioFile: undefined,
       audioTitle: "",
       meetupLocation: "",
-      meetupDate: new Date(),
+      meetupDate: undefined,
       tinyContent: "",
       interestTech: [],
     },
@@ -124,26 +124,32 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
-                      <SelectTrigger className="paragraph-3-regular w-full border-none text-xs text-muted-foreground">
+                      <SelectTrigger className="paragraph-3-regular w-full border-none text-xs text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100">
                         <SelectValue placeholder="Select type" />
                       </SelectTrigger>
-                      <SelectContent className="border-none">
+                      <SelectContent className="border-none text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100">
                         <SelectItem value="Post">
                           <div className="flex gap-2.5">
                             <HomeIcon />
-                            <div className="text-sm capitalize">Post</div>
+                            <div className="text-sm capitalize hover:text-primary1-500">
+                              Post
+                            </div>
                           </div>
                         </SelectItem>
                         <SelectItem value="Meetup">
                           <div className="flex gap-2.5">
                             <CalendarIconSVG />
-                            <div className="text-sm capitalize">Meetup</div>
+                            <div className="text-sm capitalize hover:text-primary1-500">
+                              Meetup
+                            </div>
                           </div>
                         </SelectItem>
                         <SelectItem value="Podcast">
                           <div className="flex gap-2.5">
                             <HeadphonesIcon />
-                            <div className="text-sm capitalize">Podcast</div>
+                            <div className="text-sm capitalize hover:text-primary1-500">
+                              Podcast
+                            </div>
                           </div>
                         </SelectItem>
                       </SelectContent>
@@ -166,7 +172,7 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
                           variant="outline"
                           role="combobox"
                           className={cn(
-                            " justify-between",
+                            "justify-between text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100",
                             !field.value && "text-muted-foreground"
                           )}
                         >
@@ -180,11 +186,11 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
                       </FormControl>
                     </PopoverTrigger>
                     <PopoverContent className="w-[456px] p-0 lg:w-[732px]">
-                      <Command>
+                      <Command className="text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100">
                         <CommandInput placeholder="Search group..." />
                         <CommandList>
                           <CommandEmpty>No language found.</CommandEmpty>
-                          <CommandGroup className="px-[14px] py-[18px]">
+                          <CommandGroup className="px-[14px] py-[18px] ">
                             {groupNames.map((group, index) => (
                               <div
                                 key={group.id}
@@ -195,7 +201,7 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
                                   onSelect={() => {
                                     form.setValue("group", group.name);
                                   }}
-                                  className="flex size-full items-center pl-0"
+                                  className="flex size-full cursor-pointer items-center pl-0"
                                 >
                                   <div className="relative size-[34px] rounded-full">
                                     <Image
@@ -207,10 +213,12 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
                                     />
                                   </div>
                                   <div className="ml-2">
-                                    <div className="paragraph-4-medium text-dark-800">
+                                    <div className="paragraph-4-medium text-dark-800 dark:text-white-200">
                                       {group.name}
                                     </div>
-                                    <div className="subtitle-small">{group.bio}</div>
+                                    <div className="subtitle-small dark:text-white-400">
+                                      {group.bio}
+                                    </div>
                                   </div>
                                 </CommandItem>
                               </div>
@@ -328,16 +336,18 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
                           <Button
                             variant={"outline"}
                             className={cn(
-                              "w-full pl-3 text-left font-normal",
+                              "w-full pl-3 text-left paragraph-3-regular h-11 rounded-lg border-white-border text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100",
                               !field.value && "text-muted-foreground"
                             )}
                           >
+                            <CalendarIcon className="mr-2.5 size-4 opacity-50" />
                             {field.value ? (
                               format(field.value, "PPP")
                             ) : (
-                              <span>Pick a date</span>
+                              <span className="mr-auto">
+                                Pick date of the meetup
+                              </span>
                             )}
-                            <CalendarIcon className="ml-auto size-4 opacity-50" />
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
