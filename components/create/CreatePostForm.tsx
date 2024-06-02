@@ -2,7 +2,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Editor } from "@tinymce/tinymce-react";
 import { format } from "date-fns";
-import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
+import { CalendarIcon, ChevronsUpDown } from "lucide-react";
+import Image from "next/image";
 import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Editor as TinyMCEEditor } from "tinymce";
@@ -45,7 +46,7 @@ import {
 import { cn } from "@/lib/utils";
 import { TCreatePostSchema, createPostSchema } from "@/lib/validations";
 
-const CreatePostForm: React.FC<GroupNamesProps> = ({groupNames}) => {
+const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
   const editorRef = useRef<TinyMCEEditor | null>(null);
   console.log(groupNames);
 
@@ -178,30 +179,36 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({groupNames}) => {
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0">
+                    <PopoverContent className="w-[456px] p-0 lg:w-[732px]">
                       <Command>
                         <CommandInput placeholder="Search group..." />
                         <CommandList>
                           <CommandEmpty>No language found.</CommandEmpty>
-                          <CommandGroup>
-                            {groupNames.map((group) => (
-                              <CommandItem
-                                value={group.name}
+                          <CommandGroup className="px-[14px] py-[18px]">
+                            {groupNames.map((group, index) => (
+                              <div
                                 key={group.id}
-                                onSelect={() => {
-                                  form.setValue("group", group.name);
-                                }}
+                                className={`flex h-[40px] items-center ${index < groupNames.length - 1 ? "mb-5" : ""}`}
                               >
-                                <Check
-                                  className={cn(
-                                    "mr-2 h-4 w-4",
-                                    group.name === field.value
-                                      ? "opacity-100"
-                                      : "opacity-0"
-                                  )}
-                                />
-                                {group.name}
-                              </CommandItem>
+                                <CommandItem
+                                  value={group.name}
+                                  onSelect={() => {
+                                    form.setValue("group", group.name);
+                                  }}
+                                  className="flex size-full items-center pl-0"
+                                >
+                                  <div className="relative size-[34px] rounded-full">
+                                    <Image
+                                      src={group.coverImage}
+                                      alt={group.name}
+                                      width={34}
+                                      height={34}
+                                      className="size-full rounded-full"
+                                    />
+                                  </div>
+                                  <span className="ml-2">{group.name}</span>
+                                </CommandItem>
+                              </div>
                             ))}
                           </CommandGroup>
                         </CommandList>
