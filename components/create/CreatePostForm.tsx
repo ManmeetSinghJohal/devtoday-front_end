@@ -46,6 +46,8 @@ import {
 import { cn } from "@/lib/utils";
 import { TCreatePostSchema, createPostSchema } from "@/lib/validations";
 
+import ImageUpload from "../ImageUpload";
+
 const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
   const editorRef = useRef<TinyMCEEditor | null>(null);
   console.log(groupNames);
@@ -56,7 +58,7 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
       title: "",
       createType: "Post",
       group: "",
-      coverImage: undefined,
+      coverImage: "",
       audioFile: undefined,
       audioTitle: "",
       meetupLocation: "",
@@ -237,18 +239,16 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
           <FormField
             control={form.control}
             name="coverImage"
-            render={() => (
+            render={({field}) => (
               <FormItem className="mt-6 md:mt-8">
                 <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
                   Upload a cover image
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    type="file"
-                    className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
-                    {...register}
-                    onChange={handleFileChange}
-                  />
+                  <>
+                  <ImageUpload value={field.value} setValue={field.onChange}/>
+                  {console.log(field)}
+                  </>
                 </FormControl>
                 <FormMessage />
               </FormItem>
