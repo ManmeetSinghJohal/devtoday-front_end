@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Sans as IBMPlexSans } from "next/font/google";
 import "./globals.css";
+import "@uploadthing/react/styles.css";
 import Head from "next/head";
 import React from "react";
 
