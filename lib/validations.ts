@@ -31,8 +31,8 @@ export const createPostSchema = z.object({
   createType: z.enum(["Post", "Meetup", "Podcast"]),
   group: z.string(),
   meetupLocation: z.string().optional(),
-  coverImage: z.instanceof(File).optional(),
-  audioFile: z.instanceof(File).optional(),
+  coverImage: z.string().optional(),
+  audioFile: z.string().optional(),
   audioTitle: z.string().optional(),
   meetupDate: z
     .date({
