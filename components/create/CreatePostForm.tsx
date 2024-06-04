@@ -46,11 +46,11 @@ import {
 import { cn } from "@/lib/utils";
 import { TCreatePostSchema, createPostSchema } from "@/lib/validations";
 
+import AudioUpload from "../AudioUpload";
 import ImageUpload from "../ImageUpload";
 
 const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
   const editorRef = useRef<TinyMCEEditor | null>(null);
-  console.log(groupNames);
 
   const form = useForm<TCreatePostSchema>({
     resolver: zodResolver(createPostSchema),
@@ -59,7 +59,7 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
       createType: "Post",
       group: "",
       coverImage: "",
-      audioFile: undefined,
+      audioFile: "",
       audioTitle: "",
       meetupLocation: "",
       meetupDate: undefined,
@@ -68,28 +68,13 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
     },
   });
 
-  const { register, handleSubmit, setValue, watch } = form;
+  const { handleSubmit, watch } = form;
 
   const isCreateType = watch("createType");
 
   async function onSubmit(values: TCreatePostSchema) {
-    console.log(values);
+    console.log("form values", values);
   }
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setValue("coverImage", file);
-    }
-  };
-  const handleAudioFileChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setValue("audioFile", file);
-    }
-  };
 
   return (
     <>
@@ -245,10 +230,7 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
                   Upload a cover image
                 </FormLabel>
                 <FormControl>
-                  <>
                   <ImageUpload value={field.value} setValue={field.onChange}/>
-                  {console.log(field)}
-                  </>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -260,18 +242,13 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
               <FormField
                 control={form.control}
                 name="audioFile"
-                render={() => (
+                render={({field}) => (
                   <FormItem className="mt-6 md:mt-8">
                     <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
                       Podcast audio file
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        type="file"
-                        className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
-                        {...register}
-                        onChange={handleAudioFileChange}
-                      />
+                      <AudioUpload value={field.value} setValue={field.onChange}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
