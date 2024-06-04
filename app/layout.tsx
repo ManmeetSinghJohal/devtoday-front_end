@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Sans as IBMPlexSans } from "next/font/google";
 import "./globals.css";
-import "@uploadthing/react/styles.css";
 import Head from "next/head";
 import React from "react";
 
 import NextAuthProvider from "@/components/NextAuthProvider";
+import { Toaster } from "@/components/ui/toaster";
 import { ThemeLoader } from "@/context/ThemeLoader";
 
 const inter = Inter({
@@ -41,6 +41,7 @@ export default function RootLayout({
         <main className="custom-scrollbar mx-auto min-h-screen w-full flex-auto">
           <NextAuthProvider>
             <ThemeLoader />
+            <Toaster />
             {children}
           </NextAuthProvider>
         </main>
