@@ -1,21 +1,40 @@
 "use client";
 
+import { Loader2, XCircle } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
 import { useToast } from "@/components/ui/use-toast";
+import { handleFileDelete } from "@/utils/fileUtils";
 import { UploadButton } from "@/utils/uploadthing";
+
+import { Button } from "./ui/button";
 
 const AudioUpload = ({ value, setValue }) => {
   const { toast } = useToast();
   const [audioFileName, setAudioFileName] = useState("");
+  const [fileIsDeleting, setFileIsDeleting] = useState(false);
+
+   const deleteFile = (value) => {
+     handleFileDelete(value, setFileIsDeleting, setValue, toast);
+   };
+
 
   return (
     <>
       {value.length ? (
-        <div className="flex h-11 w-full items-center rounded-lg border-white-border bg-white-100 pl-2.5">
+        <div className="relative flex h-11 w-full items-center rounded-lg border-white-border bg-white-100 pl-2.5">
           <div className="subtitle-small rounded-lg bg-white-200 p-2.5">
             {audioFileName}
+            <Button
+              onClick={() => deleteFile(value)}
+              type="button"
+              size="icon"
+              variant="ghost"
+              className="absolute -right-px top-0"
+            >
+              {fileIsDeleting ? <Loader2 /> : <XCircle />}
+            </Button>
           </div>
         </div>
       ) : (
