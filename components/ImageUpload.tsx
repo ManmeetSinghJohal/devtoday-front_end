@@ -4,46 +4,20 @@ import Image from "next/image";
 import { useState } from "react";
 
 import { useToast } from "@/components/ui/use-toast";
+import { handleFileDelete } from "@/utils/fileUtils";
 import { UploadDropzone } from "@/utils/uploadthing";
 
 import { Button } from "./ui/button";
 
 const ImageUpload = ({ value, setValue }) => {
   const { toast } = useToast();
-  const [imageIsDeleting, setImageIsDeleting] = useState(false);
+  const [fileIsDeleting, setFileIsDeleting] = useState(false);
 
-  const handleImageDelete = (value: string) => {
-    setImageIsDeleting(true);
-    const imageKey = value.substring(value.lastIndexOf("/") + 1);
 
-    fetch("/api/uploadthing/delete", {
-      method: "POST",
-      mode: "cors",
-      headers: { "Content-Type": "applicaton/json" },
-      body: JSON.stringify({ imageKey }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          setValue("");
-          toast({
-            variant: "success",
-            description: "Image removed",
-          });
-        } else {
-          throw new Error("Deletion failed");
-        }
-      })
-      .catch(() => {
-        toast({
-          variant: "destructive",
-          description: "Something went wrong",
-        });
-      })
-      .finally(() => {
-        setImageIsDeleting(false);
-      });
-  };
+ const deleteFile = (value) => {
+   handleFileDelete(value, setFileIsDeleting, setValue, toast);
+ };
+
 
   return (
     <>
@@ -51,13 +25,13 @@ const ImageUpload = ({ value, setValue }) => {
         <div className="relative h-[250px] overflow-hidden">
           <Image src={value} alt="my image" layout="fill" objectFit="cover" />
           <Button
-            onClick={() => handleImageDelete(value)}
+            onClick={() => deleteFile(value)}
             type="button"
             size="icon"
             variant="ghost"
             className="absolute -right-px top-0"
           >
-            {imageIsDeleting ? <Loader2 /> : <XCircle />}
+            {fileIsDeleting ? <Loader2 /> : <XCircle />}
           </Button>
         </div>
       ) : (
