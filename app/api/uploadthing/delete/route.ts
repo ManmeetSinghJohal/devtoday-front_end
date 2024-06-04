@@ -10,10 +10,10 @@ export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session) return new NextResponse("Unauthorized", { status: 401 });
 
-  const { imageKey } = await req.json();
+  const { fileKey } = await req.json();
 
   try {
-    const res = await utapi.deleteFiles(imageKey);
+    const res = await utapi.deleteFiles(fileKey);
     return NextResponse.json(res);
   } catch (error) {
     console.log("error at uploadthing/delete", error);
