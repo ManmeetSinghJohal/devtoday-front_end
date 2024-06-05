@@ -38,13 +38,15 @@ const ImageUpload = ({ value, setValue }) => {
         <UploadDropzone
           appearance={{
             container: "border-white-300",
+            button: "bg-primary1-500 text-white-100",
+            label: "text-primary1-500"
           }}
           endpoint="imageUploader"
           onClientUploadComplete={(res) => {
             setValue(res[0].url);
             toast({
               variant: "success",
-              description: "🎉 Upload Completed",
+              description: "🎉  Upload Completed",
             });
           }}
           onUploadError={(error: Error) => {
