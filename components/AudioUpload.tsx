@@ -55,7 +55,6 @@ const AudioUpload = ({ value, setValue }) => {
             }}
             endpoint="audioUploader"
             onClientUploadComplete={(res) => {
-              console.log(res);
               setValue(res[0].url);
               setAudioFileName(res[0].name);
               toast({
