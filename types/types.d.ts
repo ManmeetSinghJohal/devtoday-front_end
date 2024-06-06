@@ -64,6 +64,7 @@ interface GroupNames {
   bio: string;
 }
 
-interface GroupNamesProps {
+interface CreatePostFormProps {
   groupNames: GroupNames[];
+  authorId?: string;
 }
