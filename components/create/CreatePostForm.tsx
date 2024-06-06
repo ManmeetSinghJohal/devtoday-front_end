@@ -4,6 +4,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { format } from "date-fns";
 import { CalendarIcon, ChevronsUpDown } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Editor as TinyMCEEditor } from "tinymce";
@@ -49,14 +50,19 @@ import { TCreatePostSchema, createPostSchema } from "@/lib/validations";
 import AudioUpload from "../AudioUpload";
 import ImageUpload from "../ImageUpload";
 
-const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
+const CreatePostForm: React.FC<CreatePostFormProps> = ({
+  groupNames,
+  authorId,
+}) => {
   const editorRef = useRef<TinyMCEEditor | null>(null);
+
+  const router = useRouter();
 
   const form = useForm<TCreatePostSchema>({
     resolver: zodResolver(createPostSchema),
     defaultValues: {
       title: "",
-      createType: "Post",
+      createType: "STANDARD",
       group: "",
       coverImage: "",
       audioFile: "",
@@ -64,7 +70,7 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
       meetupLocation: "",
       meetupDate: undefined,
       tinyContent: "",
-      interestTech: [],
+      interestTechTags: [],
     },
   });
 
@@ -73,7 +79,29 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
   const isCreateType = watch("createType");
 
   async function onSubmit(values: TCreatePostSchema) {
-    console.log("form values", values);
+    const getGroup = groupNames.find((group) => group.name === values.group);
+    const groupId = getGroup?.id;
+    if (values.meetupDate) values.meetupDate.toISOString();
+    const valuesCopy = { ...values, authorId, groupId };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { group, ...postDetails } = valuesCopy;
+    console.log("postDetails", postDetails);
+
+    try {
+      const res = await fetch("http://localhost:3005/api/post", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postDetails),
+      });
+      if (res.ok) {
+        router.push("profile");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -115,7 +143,7 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
                         <SelectValue placeholder="Select type" />
                       </SelectTrigger>
                       <SelectContent className="border-none text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100">
-                        <SelectItem value="Post">
+                        <SelectItem value="STANDARD">
                           <div className="flex gap-2.5">
                             <HomeIcon />
                             <div className="text-sm capitalize hover:text-primary1-500">
@@ -123,7 +151,7 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
                             </div>
                           </div>
                         </SelectItem>
-                        <SelectItem value="Meetup">
+                        <SelectItem value="MEETUP">
                           <div className="flex gap-2.5">
                             <CalendarIconSVG />
                             <div className="text-sm capitalize hover:text-primary1-500">
@@ -131,7 +159,7 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
                             </div>
                           </div>
                         </SelectItem>
-                        <SelectItem value="Podcast">
+                        <SelectItem value="PODCAST">
                           <div className="flex gap-2.5">
                             <HeadphonesIcon />
                             <div className="text-sm capitalize hover:text-primary1-500">
@@ -224,31 +252,34 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
           <FormField
             control={form.control}
             name="coverImage"
-            render={({field}) => (
+            render={({ field }) => (
               <FormItem className="mt-6 md:mt-8">
                 <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
                   Upload a cover image
                 </FormLabel>
                 <FormControl>
-                  <ImageUpload value={field.value} setValue={field.onChange}/>
+                  <ImageUpload value={field.value} setValue={field.onChange} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          {isCreateType === "Podcast" && (
+          {isCreateType === "PODCAST" && (
             <>
               <FormField
                 control={form.control}
                 name="audioFile"
-                render={({field}) => (
+                render={({ field }) => (
                   <FormItem className="mt-6 md:mt-8">
                     <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
                       Podcast audio file
                     </FormLabel>
                     <FormControl>
-                      <AudioUpload value={field.value} setValue={field.onChange}/>
+                      <AudioUpload
+                        value={field.value}
+                        setValue={field.onChange}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -278,7 +309,7 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
             </>
           )}
 
-          {isCreateType === "Meetup" && (
+          {isCreateType === "MEETUP" && (
             <>
               <FormField
                 control={form.control}
@@ -395,7 +426,7 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
 
           <FormField
             control={form.control}
-            name="interestTech"
+            name="interestTechTags"
             render={({ field }) => (
               <FormItem className="mt-6 md:mt-8">
                 <FormLabel className="paragraph-3-medium text-dark-800 dark:text-white-200">
@@ -439,7 +470,7 @@ const CreatePostForm: React.FC<GroupNamesProps> = ({ groupNames }) => {
                           if (!field.value.includes(inputValue)) {
                             field.onChange([...field.value, inputValue]);
                             target.value = "";
-                            await form.trigger("interestTech");
+                            await form.trigger("interestTechTags");
                           }
                         }
                       }}
