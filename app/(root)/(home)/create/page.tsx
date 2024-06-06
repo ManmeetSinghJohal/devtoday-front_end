@@ -1,27 +1,24 @@
 import { getServerSession } from "next-auth";
-import React from 'react';
+import React from "react";
 
-import CreatePostForm from '@/components/create/CreatePostForm';
+import CreatePostForm from "@/components/create/CreatePostForm";
 import { authOptions } from "@/lib/auth";
 
-
 const CreatePost = async () => {
-      const session = await getServerSession(authOptions);
-    const resGroups = await fetch(
-      `http://localhost:3005/api/user/${session?.user.id}/groups`,
-      {
-        method: "GET",
-        mode: "cors",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+  const session = await getServerSession(authOptions);
+  const userId = session?.user.id
+  const resGroups = await fetch(
+    `http://localhost:3005/api/user/${userId}/groups`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 
-    const groupNames = await resGroups.json()
-    console.log("groupNames", groupNames)
-    
-  return (
-    <CreatePostForm  groupNames={resGroups.ok ? groupNames : null} />
-  )
-}
+  const groupNames = await resGroups.json();
+
+  return <CreatePostForm groupNames={resGroups.ok ? groupNames : null} authorId={userId}/>;
+};
 
 export default CreatePost;
