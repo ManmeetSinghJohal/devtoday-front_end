@@ -49,6 +49,7 @@ import { TCreatePostSchema, createPostSchema } from "@/lib/validations";
 
 import AudioUpload from "../AudioUpload";
 import ImageUpload from "../ImageUpload";
+import ParseHTML from "../ParseHTML";
 
 const CreatePostForm: React.FC<CreatePostFormProps> = ({
   groupNames,
@@ -83,6 +84,8 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
 
   const isCreateType = watch("createType");
   const isCoverImage = watch("coverImage");
+  const isTinyContent = watch("tinyContent");
+  const isTitle = watch("title");
 
   async function onSubmit(values: TCreatePostSchema) {
     const getGroup = groupNames.find((group) => group.name === values.group);
@@ -132,15 +135,18 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
           </div>
 
           {isCoverImage && (
-            <div className="relative h-[270px] overflow-hidden">
+            <div className="relative mb-5 h-[270px] overflow-hidden">
               <Image
                 src={isCoverImage}
                 alt="my image"
                 layout="fill"
-                objectFit="cover"
+                objectFit="cover rounded-2xl"
               />
             </div>
           )}
+
+          {isTitle && <div className="display-2-bold mb-5">{isTitle}</div>}
+          {isTinyContent && <ParseHTML data={isTinyContent} />}
         </>
       )}
       {!isPreview && (
