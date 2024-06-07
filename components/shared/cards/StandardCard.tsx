@@ -8,7 +8,15 @@ import LikeIcon from "../icons/LikeIcon";
 import PostTags from "../tags/PostTags";
 
 const PostCard = ({ post, user }: StandardCardProps) => {
-  const { title, content, tags, comments, views, createdAt, likes } = post;
+  const {
+    title,
+    tinyContent,
+    interestTechTags,
+    comments,
+    views,
+    createdAt,
+    likes,
+  } = post;
   const [liked, setLiked] = useState(
     likes.some((like: Like) => like.userId === user.id)
   );
@@ -58,11 +66,11 @@ const PostCard = ({ post, user }: StandardCardProps) => {
         <div className="flex flex-col justify-between gap-4 md:gap-6 ">
           <div className="flex flex-col items-start gap-3 overflow-hidden pr-10 md:gap-4">
             <p className="paragraph-3-regular line-clamp-2 max-w-full break-all text-white-400 dark:text-white-200">
-              {content}
+              {tinyContent}
             </p>
             <div className="flex w-full flex-wrap gap-2.5">
-              {tags &&
-                tags.map((tag: Tag) => {
+              {interestTechTags &&
+                interestTechTags.map((tag: Tag) => {
                   return <PostTags key={tag.name} name={tag.name} />;
                 })}
             </div>
