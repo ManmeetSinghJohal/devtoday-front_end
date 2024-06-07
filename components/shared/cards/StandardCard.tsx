@@ -2,7 +2,12 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-import { likePost, timeDifference, unlikePost } from "@/utils/methods";
+import {
+  likePost,
+  timeDifference,
+  unlikePost,
+  removeHtmlTags,
+} from "@/utils/methods";
 
 import LikeIcon from "../icons/LikeIcon";
 import PostTags from "../tags/PostTags";
@@ -66,7 +71,7 @@ const PostCard = ({ post, user }: StandardCardProps) => {
         <div className="flex flex-col justify-between gap-4 md:gap-6 ">
           <div className="flex flex-col items-start gap-3 overflow-hidden pr-10 md:gap-4">
             <p className="paragraph-3-regular line-clamp-2 max-w-full break-all text-white-400 dark:text-white-200">
-              {tinyContent}
+              {removeHtmlTags(tinyContent)}
             </p>
             <div className="flex w-full flex-wrap gap-2.5">
               {interestTechTags &&
