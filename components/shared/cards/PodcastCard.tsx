@@ -9,7 +9,7 @@ import PostTags from "../tags/PostTags";
 const PodcastCard = ({ post, user }: StandardCardProps) => {
   const { title, tinyContent, interestTechTags, createdAt, likes } = post;
   const [liked, setLiked] = useState(
-    likes.some((like: Like) => like.userId === user.id)
+    likes?.some((like: Like) => like.userId === user.id)
   );
   const handleLike = () => {
     if (liked) {
