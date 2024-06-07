@@ -23,7 +23,7 @@ const ImageUpload = ({ value, setValue }) => {
     <>
       {value.length ? (
         <div className="relative h-[250px] overflow-hidden">
-          <Image src={value} alt="my image" layout="fill" objectFit="cover" />
+          <Image src={value} alt="my image" layout="fill" objectFit="cover rounded-2xl" />
           <Button
             onClick={() => deleteFile(value)}
             type="button"
