@@ -7,7 +7,7 @@ import LikeIcon from "../icons/LikeIcon";
 import PostTags from "../tags/PostTags";
 
 const PodcastCard = ({ post, user }: StandardCardProps) => {
-  const { title, content, tags, createdAt, likes } = post;
+  const { title, tinyContent, interestTechTags, createdAt, likes } = post;
   const [liked, setLiked] = useState(
     likes.some((like: Like) => like.userId === user.id)
   );
@@ -29,15 +29,15 @@ const PodcastCard = ({ post, user }: StandardCardProps) => {
             {title}
           </p>
           <p className="paragraph-3-regular line-clamp-5 w-full break-all text-white-400 dark:text-white-200">
-            {content}
+            {tinyContent}
           </p>
         </div>
 
         <div className="flex flex-col justify-between gap-[18px]">
           <div className="flex flex-col items-start gap-[18px]">
             <div className="flex w-full  flex-wrap gap-2.5">
-              {tags &&
-                tags.map((tag: Tag) => {
+              {interestTechTags &&
+                interestTechTags.map((tag: Tag) => {
                   return <PostTags key={tag.name} name={tag.name} />;
                 })}
             </div>
