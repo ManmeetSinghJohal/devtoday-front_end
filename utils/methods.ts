@@ -104,3 +104,7 @@ export const unlikePost = async (postId: string, userId: string) => {
     return false;
   }
 };
+
+export function removeHtmlTags(text: string) {
+  return text.replace(/<.*?>/g, "");
+}
