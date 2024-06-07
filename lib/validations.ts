@@ -27,7 +27,7 @@ export const createPostSchema = z.object({
   title: z
     .string()
     .min(4, { message: "Title must be between 4 and 20 characters" })
-    .max(20),
+    .max(120),
   createType: z.enum(["STANDARD", "MEETUP", "PODCAST"]),
   group: z.string(),
   coverImage: z.string().optional(),
