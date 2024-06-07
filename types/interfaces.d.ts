@@ -22,14 +22,14 @@ interface Post {
   id: string;
   key: string;
   title: string;
-  content: string;
-  tags: Tag[];
+  tinyContent: string;
+  interestTechTags: Tag[];
   createdAt: string;
-  image: string;
+  coverImage: string;
   comments: any;
   views: number;
   createdAt: string;
-  meetDate?: string;
+  meetupDate?: string;
   podcastLength?: string;
   likes: Like[];
   members?: [
