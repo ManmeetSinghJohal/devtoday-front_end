@@ -22,8 +22,8 @@ const ImageUpload = ({ value, setValue }) => {
   return (
     <>
       {value.length ? (
-        <div className="relative h-[250px] overflow-hidden">
-          <Image src={value} alt="my image" layout="fill" objectFit="cover rounded-2xl" />
+        <div className="relative h-[250px] overflow-hidden rounded-2xl">
+          <Image src={value} alt="my image" layout="fill" objectFit="cover" />
           <Button
             onClick={() => deleteFile(value)}
             type="button"
@@ -39,7 +39,7 @@ const ImageUpload = ({ value, setValue }) => {
           appearance={{
             container: "border-white-300",
             button: "bg-primary1-500 text-white-100",
-            label: "text-primary1-500"
+            label: "text-primary1-500",
           }}
           endpoint="imageUploader"
           onClientUploadComplete={(res) => {
