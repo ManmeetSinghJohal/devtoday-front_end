@@ -28,8 +28,8 @@ export const NavIcons: NavIcon[] = [
     icon: GroupsIcon,
   },
   {
-    id: "create",
-    href: "/create",
+    id: "post",
+    href: "/post",
     icon: CreateIcon,
   },
 ];
