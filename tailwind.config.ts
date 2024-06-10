@@ -43,6 +43,7 @@ export default withUt({
           200: "#FDF4EA",
           300: "#EBF2FC",
           400: "#E7FAF4",
+          500: "#5D95E8",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
