@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-import { getMeetDayInfo } from "@/utils/methods";
+import { getMeetDayInfo, removeHtmlTags } from "@/utils/methods";
 
 import PostTags from "../tags/PostTags";
 
@@ -20,7 +20,6 @@ const MeetUpCard = ({ post }: StandardCardProps) => {
             width={72}
             height={72}
             style={{ borderRadius: "10px", width: "72px", height: "72px" }}
-            className=""
           />
 
           <div className="flex w-full overflow-hidden lg:gap-5">
@@ -40,7 +39,7 @@ const MeetUpCard = ({ post }: StandardCardProps) => {
         <div className="flex flex-col justify-between gap-4 lg:gap-6 ">
           <div className="flex flex-col items-start gap-3  lg:gap-4">
             <p className="paragraph-3-regular line-clamp-2 w-full break-all pr-10 text-white-400 dark:text-white-200">
-              {tinyContent}
+              {removeHtmlTags(tinyContent)}
             </p>
             <div className="flex w-full gap-2.5">
               {interestTechTags?.map((tag: Tag) => {
