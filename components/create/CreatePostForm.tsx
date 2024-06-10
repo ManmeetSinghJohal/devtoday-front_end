@@ -50,6 +50,7 @@ import { TCreatePostSchema, createPostSchema } from "@/lib/validations";
 import AudioUpload from "../AudioUpload";
 import ImageUpload from "../ImageUpload";
 import ParseHTML from "../ParseHTML";
+import PostTags from "../shared/tags/PostTags";
 
 const CreatePostForm: React.FC<CreatePostFormProps> = ({
   groupNames,
@@ -86,6 +87,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
   const isCoverImage = watch("coverImage");
   const isTinyContent = watch("tinyContent");
   const isTitle = watch("title");
+  const isInterestTechTags = watch("interestTechTags");
 
   async function onSubmit(values: TCreatePostSchema) {
     const getGroup = groupNames.find((group) => group.name === values.group);
@@ -135,17 +137,24 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
           </div>
 
           {isCoverImage && (
-            <div className="relative mb-5 h-[270px] overflow-hidden">
+            <div className="relative mb-5 h-[270px] overflow-hidden rounded-2xl">
               <Image
                 src={isCoverImage}
                 alt="my image"
                 layout="fill"
-                objectFit="cover rounded-2xl"
+                objectFit="cover"
               />
             </div>
           )}
 
           {isTitle && <div className="display-2-bold mb-5">{isTitle}</div>}
+          {isInterestTechTags && (
+            <div className="mb-5 flex w-full gap-2.5">
+              {isInterestTechTags.map((tag) => {
+                return <PostTags key={tag} name={tag} />;
+              })}
+            </div>
+          )}
           {isTinyContent && <ParseHTML data={isTinyContent} />}
         </>
       )}
