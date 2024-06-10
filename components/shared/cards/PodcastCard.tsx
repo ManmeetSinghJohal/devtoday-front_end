@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-import { likePost, timeDifference, unlikePost } from "@/utils/methods";
+import { likePost, timeDifference, unlikePost, removeHtmlTags } from "@/utils/methods";
 
 import LikeIcon from "../icons/LikeIcon";
 import PostTags from "../tags/PostTags";
@@ -29,7 +29,7 @@ const PodcastCard = ({ post, user }: StandardCardProps) => {
             {title}
           </p>
           <p className="paragraph-3-regular line-clamp-5 w-full break-all text-white-400 dark:text-white-200">
-            {tinyContent}
+            {removeHtmlTags(tinyContent)}
           </p>
         </div>
 
