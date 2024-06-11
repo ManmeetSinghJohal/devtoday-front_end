@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { getMeetDayInfo, removeHtmlTags } from "@/utils/methods";
@@ -23,9 +24,13 @@ const MeetUpCard = ({ post }: StandardCardProps) => {
           />
 
           <div className="flex w-full overflow-hidden lg:gap-5">
-            <p className="paragraph-3-bold lg:paragraph-1-bold h-[40px] w-full truncate text-dark-800 dark:text-white-100 lg:h-[22px]">
-              {title}
-            </p>
+            <Link
+              href={`/details/${post.id}`}
+            >
+              <p className="paragraph-3-bold lg:paragraph-1-bold h-[40px] w-full truncate text-dark-800 dark:text-white-100 lg:h-[22px]">
+                {title}
+              </p>
+            </Link>
             <div className="ml-5 flex flex-col items-center justify-center gap-2 rounded-md bg-white-200 px-4 py-1.5 text-white-300 dark:bg-dark-700 dark:text-primary1-500">
               <p className="uppercase text-dark-900 dark:text-white-200">
                 {meetupDate ? month : "TBD"}

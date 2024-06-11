@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 
 import {
@@ -57,9 +58,13 @@ const PostCard = ({ post, user }: StandardCardProps) => {
           />
 
           <div className="flex w-full items-center overflow-hidden lg:gap-5">
-            <p className="paragraph-3-bold lg:paragraph-1-bold inline-block truncate text-dark-800 dark:text-white-100 lg:h-[22px]">
-              {title}
-            </p>
+            <Link 
+              href={`/details/${post.id}`}
+            >
+              <p className="paragraph-3-bold lg:paragraph-1-bold inline-block truncate text-dark-800 dark:text-white-100 lg:h-[22px]">
+                {title}
+              </p>
+            </Link>
             <div
               onClick={handleLike}
               className={`flex h-[30px] cursor-pointer items-center justify-center rounded-full bg-primary1-100 p-1 ${liked ? "text-primary1-500" : "text-white-300"} dark:bg-dark-700`}
