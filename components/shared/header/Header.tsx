@@ -14,7 +14,9 @@ const Header = () => {
       <Link href="/">
         <Logo />
       </Link>
+      <div className="hidden md:flex">
       <Navigation />
+      </div>
       <div className="flex gap-2.5">
         <SearchModal />
         <NotificationModal />
