@@ -1,42 +1,75 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
+import DeletePost from "../DeletePost";
+import ParseHTML from "../ParseHTML";
 import PostTags from "../shared/tags/PostTags";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Separator } from "../ui/separator";
 
-const interestTechTags = [{ name: "html" }, { name: "javaScript" }];
+import Comments from "./Comments";
+import PostStats from "./PostStats";
 
-const PostDetails = () => {
+const PostDetails = ({ postData }) => {
+  console.log("postData", postData);
+  const { title, coverImage, tinyContent, interestTechTags } = postData;
   return (
     <div>
       <div className="relative mb-5 h-[270px] overflow-hidden rounded-2xl">
         <Image
-          src="/assets/coverimg.png"
+          src={coverImage}
           alt="post image"
           layout="fill"
           objectFit="cover"
         />
       </div>
-      <div className="display-2-bold mb-5">
-        GitHub: The Heart of Developer Collaboration
+      <div className="mb-5 flex items-center justify-between">
+        <div className="display-2-bold ">{title}</div>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Image
+              src="/assets/more-vertical.svg"
+              width={20}
+              height={20}
+              alt="avatar"
+              className="hover:cursor-pointer hover:opacity-70 "
+            />
+          </PopoverTrigger>
+          <PopoverContent className="mr-[150px] mt-[10px] w-[180px] bg-white-200">
+            <div className="space-y-[14px] py-4 pl-5">
+              <div className="flex space-x-2.5 bg-white-200">
+                <Image
+                  src="/assets/edit.svg"
+                  alt="update"
+                  width={18}
+                  height={18}
+                />
+                <Link href={`/post/${postData.id}`} className="paragraph-3-medium">
+                  Edit Post
+                </Link>
+              </div>
+              <DeletePost deletePostId={postData.id}/>
+            </div>
+          </PopoverContent>
+        </Popover>
       </div>
       <div className="mb-5 flex w-full gap-2.5">
-        {interestTechTags?.map((tag: Tag) => {
+        {interestTechTags?.map((tag) => {
           return <PostTags key={tag.name} name={tag.name} />;
         })}
       </div>
       <div className="paragraph-2-regular text-white-400">
-        In the ever-evolving landscape of software development, collaboration
-        and version control stand as the pillars supporting innovation and
-        efficiency. GitHub, a platform that needs no introduction in the
-        developer world, emerges as the beating heart of this collaborative
-        ecosystem.
+        <ParseHTML data={tinyContent} />
       </div>
       <Separator className="mb-9 mt-12 bg-white-border dark:bg-dark-700" />
-      <div>
-        <div>Comments</div>
-        <div></div>
+      <div className="mb-[30px] lg:hidden">
+        <PostStats />
       </div>
+      <div>
+        <Comments />
+      </div>
+      <Separator className="my-[30px] bg-white-border dark:bg-dark-700 lg:hidden" />
     </div>
   );
 };
