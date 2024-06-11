@@ -108,3 +108,29 @@ export const unlikePost = async (postId: string, userId: string) => {
 export function removeHtmlTags(text: string) {
   return text?.replace(/<.*?>/g, "");
 }
+
+export const deletePost = async (deletePostId: string, toast) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3005/api/post/${deletePostId}`,
+      {
+        method: "DELETE",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+      },
+    );
+    const resData = await response.json();
+    console.log("resData", resData);
+    if (resData.ok) {
+      toast({
+        variant: "success",
+        description: "Post Deleted",
+      });
+    }
+  } catch (error) {
+    toast({
+      variant: "destructive",
+      description: "Something went wrong",
+    });
+  }
+};
