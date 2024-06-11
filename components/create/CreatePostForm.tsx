@@ -55,9 +55,17 @@ import PostTags from "../shared/tags/PostTags";
 const CreatePostForm: React.FC<CreatePostFormProps> = ({
   groupNames,
   authorId,
+  postData
 }) => {
   const [isPreview, setIsPreview] = useState(false);
   const editorRef = useRef<TinyMCEEditor | null>(null);
+  const selectedPost = postData;
+
+  const postsGroupId = selectedPost?.groupId;
+  const postGroup = groupNames.find((group) => group.id === postsGroupId);
+  const postInterestTechTags = postData?.interestTechTags.map(tag => tag.name)
+  
+
 
   const router = useRouter();
 
@@ -68,16 +76,16 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
   const form = useForm<TCreatePostSchema>({
     resolver: zodResolver(createPostSchema),
     defaultValues: {
-      title: "",
-      createType: "STANDARD",
-      group: "",
-      coverImage: "",
-      audioFile: "",
-      audioTitle: "",
-      meetupLocation: "",
-      meetupDate: undefined,
-      tinyContent: "",
-      interestTechTags: [],
+      title: selectedPost?.title || "",
+      createType: selectedPost?.createType || "STANDARD",
+      group: postGroup?.name || "",
+      coverImage: selectedPost?.coverImage || "",
+      audioFile: selectedPost?.audioFile || "",
+      audioTitle: selectedPost?.audioTitle || "",
+      meetupLocation: selectedPost?.meetupLocation || "",
+      meetupDate: selectedPost?.meetupDate || undefined,
+      tinyContent: selectedPost?.tinyContent || "",
+      interestTechTags: postInterestTechTags || [],
     },
   });
 
@@ -96,7 +104,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
     const valuesCopy = { ...values, authorId, groupId };
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { group, ...postDetails } = valuesCopy;
-    console.log("postDetails", postDetails);
+    // console.log("postDetails", postDetails);
 
     try {
       const res = await fetch("http://localhost:3005/api/post", {
@@ -107,8 +115,9 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
         },
         body: JSON.stringify(postDetails),
       });
+      const newPost = await res.json();
       if (res.ok) {
-        router.push("profile");
+        router.push(`details/${newPost.id}`);
       }
     } catch (error) {
       console.log(error);
@@ -458,7 +467,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
                       }}
                       onBlur={field.onBlur}
                       onEditorChange={field.onChange}
-                      initialValue=""
+                      initialValue={selectedPost?.tinyContent}
                       init={{
                         height: 376,
                         menubar: false,
