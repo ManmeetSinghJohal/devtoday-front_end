@@ -67,4 +67,5 @@ interface GroupNames {
 interface CreatePostFormProps {
   groupNames: GroupNames[];
   authorId?: string;
+  postData?: any;
 }
