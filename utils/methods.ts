@@ -109,7 +109,7 @@ export function removeHtmlTags(text: string) {
   return text?.replace(/<.*?>/g, "");
 }
 
-export const deletePost = async (deletePostId: string, toast) => {
+export const deletePost = async (deletePostId: string) => {
   try {
     const response = await fetch(
       `http://localhost:3005/api/post/${deletePostId}`,
@@ -121,16 +121,12 @@ export const deletePost = async (deletePostId: string, toast) => {
     );
     const resData = await response.json();
     console.log("resData", resData);
-    if (resData.ok) {
-      toast({
-        variant: "success",
-        description: "Post Deleted",
-      });
-    }
+    return {
+      ok: true,
+    };
   } catch (error) {
-    toast({
-      variant: "destructive",
-      description: "Something went wrong",
-    });
+    return {
+      ok: false,
+    };
   }
 };
