@@ -9,7 +9,7 @@ export const NavigationMobile = () => {
   const pathname = usePathname();
 
   return (
-    <div className="mx-auto flex justify-between gap-2.5 bg-white-100 px-5 py-[18px]">
+    <div className="fixed inset-x-0 bottom-0 mx-auto flex justify-between gap-2.5 bg-white-100 px-5 py-[18px]">
       {NavIcons.map(({ id, href, icon: Icon, exact }) => {
         return (
           <Link
