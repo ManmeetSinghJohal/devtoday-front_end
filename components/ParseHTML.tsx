@@ -7,9 +7,11 @@ interface Props {
 }
 
 const ParseHTML = ({ data }: Props) => {
-  
-
-  return <div>{parse(data)}</div>;
+  return (
+    <div className="paragraph-2-regular text-white-400 dark:text-white-300">
+      {parse(data)}
+    </div>
+  );
 };
 
 export default ParseHTML;
