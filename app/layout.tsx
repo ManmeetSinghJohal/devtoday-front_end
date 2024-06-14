@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Sans as IBMPlexSans } from "next/font/google";
 import "./globals.css";
-import Head from "next/head";
 import React from "react";
 
 import NextAuthProvider from "@/components/NextAuthProvider";
+import { Toaster } from "@/components/ui/toaster";
 import { ThemeLoader } from "@/context/ThemeLoader";
 
 const inter = Inter({
@@ -31,15 +31,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <link rel="shortcut icon" href="/next.svg" />
-      </Head>
       <body
         className={`${inter.className} ${ibmPlexSans.className} bg-white-200 dark:bg-dark-900`}
       >
         <main className="custom-scrollbar mx-auto min-h-screen w-full flex-auto">
           <NextAuthProvider>
             <ThemeLoader />
+            <Toaster />
             {children}
           </NextAuthProvider>
         </main>

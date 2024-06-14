@@ -30,7 +30,7 @@ const Account = () => {
               <Image
                 width={34}
                 height={34}
-                className="cursor-pointer rounded-[6px]  border border-primary1-500 p-0.5"
+                className="cursor-pointer rounded-[6px] border border-primary1-500 p-0.5"
                 alt="profile image"
                 src="/assets/icons/profilepic.svg"
               />

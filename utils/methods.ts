@@ -104,3 +104,29 @@ export const unlikePost = async (postId: string, userId: string) => {
     return false;
   }
 };
+
+export function removeHtmlTags(text: string) {
+  return text?.replace(/<.*?>/g, "");
+}
+
+export const deletePost = async (deletePostId: string) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3005/api/post/${deletePostId}`,
+      {
+        method: "DELETE",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+      },
+    );
+    const resData = await response.json();
+    console.log("resData", resData);
+    return {
+      ok: true,
+    };
+  } catch (error) {
+    return {
+      ok: false,
+    };
+  }
+};

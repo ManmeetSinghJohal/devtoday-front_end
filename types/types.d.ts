@@ -49,9 +49,23 @@ type GroupUser = {
   isCreator: boolean;
   user: UserProfile;
 };
+
 type Like = {
   userId: string;
   user: UserProfile;
   postId: string;
   post: Post;
 };
+
+interface GroupNames {
+  id: string;
+  name: string;
+  coverImage: string;
+  bio: string;
+}
+
+interface CreatePostFormProps {
+  groupNames: GroupNames[];
+  authorId?: string;
+  postData?: any;
+}

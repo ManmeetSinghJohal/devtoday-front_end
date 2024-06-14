@@ -30,6 +30,7 @@ const InfiniteScroll = ({ user, type, initialPosts }: InfiniteScrollProps) => {
   useEffect(() => {
     setPosts(initialPosts);
   }, [initialPosts]);
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {

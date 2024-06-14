@@ -9,7 +9,7 @@ export const Navigation = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="hidden items-center gap-2.5 md:flex">
+    <nav className="flex items-center gap-2.5">
       {NavIcons.map(({ id, href, icon: Icon, exact }) => {
         return (
           <Link

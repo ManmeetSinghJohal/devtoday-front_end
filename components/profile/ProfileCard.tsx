@@ -38,8 +38,7 @@ const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
               alt="Profile"
               width={110}
               height={110}
-              className="w-[110px] shrink-0
-        rounded-full border border-primary1-500"
+              className="w-[110px] shrink-0 rounded-full border border-primary1-500"
               style={{ height: "110px", width: "110px" }}
             />
             <div className="flex flex-col">
