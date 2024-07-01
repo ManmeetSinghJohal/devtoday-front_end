@@ -31,7 +31,7 @@ const CreateUserForm = () => {
 
   async function onSubmit(values: TSignUpSchema) {
     try {
-      const res = await fetch("http://localhost:3005/api/auth/register", {
+      const res = await fetch(`${process.env.SERVER_URL}/api/auth/register`, {
         method: "POST",
         mode: "cors",
         headers: {

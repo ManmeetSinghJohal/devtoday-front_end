@@ -17,7 +17,7 @@ const FollowButton = ({
   const session = useSession();
 
   async function handleFollow() {
-    const url = `http://localhost:3005/api/user/${id}/follow?viewerId=${session?.data?.user.id}`;
+    const url = `${process.env.SERVER_URL}/api/user/${id}/follow?viewerId=${session?.data?.user.id}`;
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -45,7 +45,7 @@ const FollowButton = ({
   const handleUnfollow = async () => {
     setIsLoading(true);
     const unfollowRes = await fetch(
-      `http://localhost:3005/api/user/${id}/unfollow?viewerId=${session?.data?.user.id}`,
+      `${process.env.SERVER_URL}/api/user/${id}/unfollow?viewerId=${session?.data?.user.id}`,
       {
         method: "POST",
         mode: "cors",

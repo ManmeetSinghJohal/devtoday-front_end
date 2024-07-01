@@ -13,7 +13,7 @@ const InfiniteScroll = ({ user, type, initialPosts }: InfiniteScrollProps) => {
 
   const fetchMorePosts = async () => {
     const response = await fetch(
-      `http://localhost:3005/api/user/${user.id}/posts?postType=${type.toUpperCase()}&page=${currentPage}`,
+      `${process.env.SERVER_URL}/api/user/${user.id}/posts?postType=${type.toUpperCase()}&page=${currentPage}`,
       {
         method: "GET",
         mode: "cors",

@@ -7,7 +7,7 @@ import { authOptions } from "@/lib/auth";
 const Page = async ({ searchParams }: { searchParams: any }) => {
   const session = await getServerSession(authOptions);
   const resUser = await fetch(
-    `http://localhost:3005/api/user/${session?.user.id}`,
+    `${process.env.SERVER_URL}/api/user/${session?.user.id}`,
     {
       method: "GET",
       mode: "cors",
@@ -25,7 +25,7 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
   let resPosts;
   if (type !== "group") {
     resPosts = await fetch(
-      `http://localhost:3005/api/user/${session?.user.id}/posts?postType=${type.toUpperCase()}`,
+      `${process.env.SERVER_URL}/api/user/${session?.user.id}/posts?postType=${type.toUpperCase()}`,
       {
         method: "GET",
         mode: "cors",
@@ -34,7 +34,7 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
     );
   } else {
     resPosts = await fetch(
-      `http://localhost:3005/api/user/${session?.user.id}/groups`,
+      `${process.env.SERVER_URL}/api/user/${session?.user.id}/groups`,
       {
         method: "GET",
         mode: "cors",

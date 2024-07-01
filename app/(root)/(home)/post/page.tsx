@@ -8,7 +8,7 @@ const CreatePost = async () => {
   const session = await getServerSession(authOptions);
   const userId = session?.user.id
   const resGroups = await fetch(
-    `http://localhost:3005/api/user/${userId}/groups`,
+    `${process.env.SERVER_URL}/api/user/${userId}/groups`,
     {
       method: "GET",
       mode: "cors",

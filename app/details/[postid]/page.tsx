@@ -13,11 +13,14 @@ interface ParamsProps {
 
 
 const DetailsPage = async ({params}: ParamsProps) => {
-  const post = await fetch(`http://localhost:3005/api/post/${params.postid}`, {
-    method: "GET",
-    mode: "cors",
-    headers: { "Content-Type": "application/json" },
-  });
+  const post = await fetch(
+    `${process.env.SERVER_URL}/api/post/${params.postid}`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
   const postData = await post.json();
   return (
     <div className="flex flex-col gap-5 lg:flex-row lg:pb-[86px]">
