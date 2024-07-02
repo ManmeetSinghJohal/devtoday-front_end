@@ -66,7 +66,7 @@ export function getMeetDayInfo(meetDay: string): {
 export const likePost = async (postId: string, userId: string) => {
   try {
     const response = await fetch(
-      `${process.env.SERVER_URL}/api/post/${postId}/like`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/${postId}/like`,
       {
         method: "POST",
         mode: "cors",
@@ -87,7 +87,7 @@ export const likePost = async (postId: string, userId: string) => {
 export const unlikePost = async (postId: string, userId: string) => {
   try {
     const response = await fetch(
-      `${process.env.SERVER_URL}/api/post/${postId}/unlike`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/${postId}/unlike`,
       {
         method: "POST",
         mode: "cors",
@@ -112,7 +112,7 @@ export function removeHtmlTags(text: string) {
 export const deletePost = async (deletePostId: string) => {
   try {
     const response = await fetch(
-      `${process.env.SERVER_URL}/api/post/${deletePostId}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/${deletePostId}`,
       {
         method: "DELETE",
         mode: "cors",

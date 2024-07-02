@@ -20,6 +20,7 @@ import DropdownIcon from "../icons/DropdownIcon";
 
 const Account = () => {
   const { data } = useSession();
+  const domainUrl = process.env.NEXT_PUBLIC_DOMAIN_URL;
 
   return (
     <div className="flex items-center justify-between ">
@@ -44,7 +45,7 @@ const Account = () => {
             </div>
           </MenubarTrigger>
           <MenubarContent className="paragraph-3-medium mr-5 mt-3.5 flex w-[174px] flex-col gap-3.5 border-white-border p-5 shadow-none dark:border-dark-700 dark:bg-dark-800 md:rounded-t-none md:border-t-0">
-            <Link href={`${process.env.DOMAIN_URL}/profile?postType=standard`}>
+            <Link href={`${domainUrl}/profile?postType=standard`}>
               <MenubarItem className="flex cursor-pointer gap-2.5 px-0 dark:text-white-200">
                 <ProfileIcon />
                 <p>Profile</p>

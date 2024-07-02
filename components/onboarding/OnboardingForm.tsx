@@ -68,20 +68,17 @@ const OnboardingForm = ({
   const router = useRouter();
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
-      const res = await fetch(
-        `${process.env.SERVER_URL}/api/profile/onboarding`,
-        {
-          method: "POST",
-          mode: "cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...data,
-            id: session.data?.user?.id,
-            tech: data.tech.map((tech) => tech.techName),
-            ambitions: data.ambitions.map((ambition) => ambition.ambitionName),
-          }),
-        }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profile/onboarding`, {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...data,
+          id: session.data?.user?.id,
+          tech: data.tech.map((tech) => tech.techName),
+          ambitions: data.ambitions.map((ambition) => ambition.ambitionName),
+        }),
+      });
       if (res.ok) {
         router.push("/profile");
       }

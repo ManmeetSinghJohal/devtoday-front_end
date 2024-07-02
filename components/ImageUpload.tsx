@@ -9,19 +9,25 @@ import { UploadDropzone } from "@/utils/uploadthing";
 
 import { Button } from "./ui/button";
 
-const ImageUpload = ({ value, setValue }) => {
+
+interface ImageUploadProps {
+  value: string | undefined;
+  setValue: (value: string) => void;
+}
+
+const ImageUpload: React.FC<ImageUploadProps> = ({ value, setValue }) => {
   const { toast } = useToast();
   const [fileIsDeleting, setFileIsDeleting] = useState(false);
 
 
- const deleteFile = (value) => {
+ const deleteFile = (value: string) => {
    handleFileDelete(value, setFileIsDeleting, setValue, toast);
  };
 
 
   return (
     <>
-      {value.length ? (
+      {value?.length ? (
         <div className="relative h-[250px] overflow-hidden rounded-2xl">
           <Image src={value} alt="my image" layout="fill" objectFit="cover" />
           <Button

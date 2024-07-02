@@ -4,7 +4,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { format } from "date-fns";
 import { CalendarIcon, ChevronsUpDown } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Editor as TinyMCEEditor } from "tinymce";
@@ -54,19 +54,25 @@ import LeftArrowIcon from "../shared/icons/LeftArrowIcon";
 import PreviewIcon from "../shared/icons/PreviewIcon";
 import PostTagsPreview from "../shared/tags/PostTagsPreview";
 
+function isEmptyObj(obj: Record<string, unknown>): boolean {
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
 const CreatePostForm: React.FC<CreatePostFormProps> = ({
   groupNames,
   authorId,
   postData,
 }) => {
   const [isPreview, setIsPreview] = useState(false);
+  const params = useParams<{ postid: string }>();
+  console.log("params", params);
   const editorRef = useRef<TinyMCEEditor | null>(null);
   const selectedPost = postData;
-
+  console.log("selectedPost", selectedPost);
   const postsGroupId = selectedPost?.groupId;
   const postGroup = groupNames.find((group) => group.id === postsGroupId);
-  const postInterestTechTags = postData?.interestTechTags.map(
-    (tag) => tag.name
+  const postInterestTechTags = selectedPost?.interestTechTags.map(
+    (tag: Tag) => tag.name
   );
 
   const router = useRouter();
@@ -90,7 +96,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
       interestTechTags: postInterestTechTags || [],
     },
   });
-  console.log("audio", selectedPost?.audioFile)
+  console.log("audio", selectedPost?.audioFile);
 
   const { handleSubmit, watch } = form;
 
@@ -113,14 +119,17 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
     // console.log("postDetails", postDetails);
 
     try {
-      const res = await fetch("http://localhost:3005/api/post", {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(postDetails),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post`,
+        {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postDetails),
+        }
+      );
       const newPost = await res.json();
       if (res.ok) {
         router.push(`details/${newPost.id}`);
@@ -523,7 +532,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
             control={form.control}
             name="tinyContent"
             render={({ field }) => (
-              <FormItem className="mt-6 flex w-full flex-col gap-3 md:mt-8">
+              <FormItem className="z-0 mt-6 flex w-full flex-col gap-3 md:mt-8">
                 <FormControl className="mt-3.5">
                   <Editor
                     apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
@@ -632,7 +641,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
                 type="submit"
                 disabled={form.formState.isSubmitting}
               >
-                Publish Post
+                {isEmptyObj(params) ? `Publish Post` : `Update Post`}
               </Button>
             </div>
 
