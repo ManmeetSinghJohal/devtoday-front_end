@@ -70,7 +70,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
   const selectedPost = postData;
   console.log("selectedPost", selectedPost);
   const postsGroupId = selectedPost?.groupId;
-  const postGroup = groupNames.find((group) => group.id === postsGroupId);
+  const postGroup = groupNames?.find((group) => group.id === postsGroupId);
   const postInterestTechTags = selectedPost?.interestTechTags.map(
     (tag: Tag) => tag.name
   );
@@ -350,7 +350,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
                         <CommandList>
                           <CommandEmpty>No language found.</CommandEmpty>
                           <CommandGroup className="px-[14px] py-[18px] ">
-                            {groupNames.map((group, index) => (
+                            {groupNames?.map((group, index) => (
                               <div
                                 key={group.id}
                                 className={`flex h-[40px] items-center ${index < groupNames.length - 1 ? "mb-5" : ""}`}
