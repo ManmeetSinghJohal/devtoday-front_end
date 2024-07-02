@@ -37,12 +37,15 @@ export const authOptions: AuthOptions = {
       async authorize(credentials) {
         if (!credentials || !credentials.email || !credentials.password)
           return null;
-        const res = await fetch("http://localhost:3005/api/auth/login", {
-          method: "POST",
-          mode: "cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(credentials),
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/login`,
+          {
+            method: "POST",
+            mode: "cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(credentials),
+          },
+        );
         if (!res.ok) {
           return null;
         }
@@ -56,12 +59,15 @@ export const authOptions: AuthOptions = {
     async session({ session }) {
       if (!session.user) return session;
 
-      const res = await fetch("http://localhost:3005/api/auth/user", {
-        method: "POST",
-        mode: "cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: session.user.email }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/user`,
+        {
+          method: "POST",
+          mode: "cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: session.user.email }),
+        },
+      );
       if (!res.ok) throw new Error("Failed to fetch user on session callback");
       const userRes = await res.json();
       session.user.id = userRes.id;
@@ -77,16 +83,19 @@ export const authOptions: AuthOptions = {
           if (!profile) return false;
           const { email, name } = profile;
           if (!email) return false;
-          const res = await fetch("http://localhost:3005/api/auth/user", {
-            method: "POST",
-            mode: "cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email }),
-          });
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/user`,
+            {
+              method: "POST",
+              mode: "cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email }),
+            },
+          );
           const userRes = await res.json();
           if (!userRes) {
             const userCreateRes = await fetch(
-              "http://localhost:3005/api/auth/register",
+              `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/register`,
               {
                 method: "POST",
                 mode: "cors",

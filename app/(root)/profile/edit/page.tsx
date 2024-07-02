@@ -6,7 +6,7 @@ import { authOptions } from "@/lib/auth";
 const Page = async () => {
   const session = await getServerSession(authOptions);
   const resUser = await fetch(
-    `http://localhost:3005/api/user/${session?.user.id}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/${session?.user.id}`,
     {
       method: "GET",
       mode: "cors",

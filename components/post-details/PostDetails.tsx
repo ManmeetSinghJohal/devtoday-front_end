@@ -11,7 +11,7 @@ import { Separator } from "../ui/separator";
 import Comments from "./Comments";
 import PostStats from "./PostStats";
 
-const PostDetails = ({ postData }) => {
+const PostDetails = ({ postData }: {postData: PostData}) => {
   console.log("postData", postData);
   const { title, coverImage, tinyContent, interestTechTags } = postData;
   return (

@@ -68,7 +68,7 @@ const OnboardingForm = ({
   const router = useRouter();
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
-      const res = await fetch("http://localhost:3005/api/profile/onboarding", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profile/onboarding`, {
         method: "POST",
         mode: "cors",
         headers: { "Content-Type": "application/json" },

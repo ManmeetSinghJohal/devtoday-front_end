@@ -11,13 +11,15 @@ interface ParamsProps {
   params: { postid: string };
 }
 
-
-const DetailsPage = async ({params}: ParamsProps) => {
-  const post = await fetch(`http://localhost:3005/api/post/${params.postid}`, {
-    method: "GET",
-    mode: "cors",
-    headers: { "Content-Type": "application/json" },
-  });
+const DetailsPage = async ({ params }: ParamsProps) => {
+  const post = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/${params.postid}`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
   const postData = await post.json();
   return (
     <div className="flex flex-col gap-5 lg:flex-row lg:pb-[86px]">
@@ -29,7 +31,7 @@ const DetailsPage = async ({params}: ParamsProps) => {
         <AuthorInfo />
       </aside>
       <div className="flex size-full flex-col gap-5 ">
-        <PostDetails postData={postData}/>
+        <PostDetails postData={postData} />
       </div>
 
       <aside className="relative flex flex-col items-end gap-5 dark:bg-dark-900 lg:sticky lg:right-0 lg:top-0 lg:min-w-[325px]">

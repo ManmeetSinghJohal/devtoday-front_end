@@ -47,3 +47,24 @@ interface Post {
     groupUser: number;
   };
 }
+
+interface InterestTechTag {
+  name: string;
+}
+
+interface PostData {
+  id: string;
+  authorId: string;
+  title: string;
+  createType: "STANDARD" | "MEETUP" | "PODCAST";
+  groupId: string;
+  coverImage: string;
+  audioFile: string;
+  audioTitle: string;
+  meetupLocation: string;
+  meetupDate: Date | null;
+  tinyContent: string;
+  createdAt: string;
+  views: number;
+  interestTechTags: InterestTechTag[];
+}

@@ -10,22 +10,26 @@ import { UploadButton } from "@/utils/uploadthing";
 
 import { Button } from "./ui/button";
 
-const AudioUpload = ({ value, setValue }) => {
+interface AudioUploadProps {
+  value: string | undefined;
+  setValue: (value: string) => void;
+}
+
+const AudioUpload: React.FC<AudioUploadProps> = ({ value, setValue }) => {
   const { toast } = useToast();
   const [audioFileName, setAudioFileName] = useState("");
   const [fileIsDeleting, setFileIsDeleting] = useState(false);
 
-   const deleteFile = (value) => {
-     handleFileDelete(value, setFileIsDeleting, setValue, toast);
-   };
-
+  const deleteFile = (value: string) => {
+    handleFileDelete(value, setFileIsDeleting, setValue, toast);
+  };
 
   return (
     <>
-      {value.length ? (
+      {value?.length ? (
         <div className="relative flex h-11 w-full items-center rounded-lg border-white-border bg-white-100 pl-2.5">
           <div className="subtitle-small rounded-lg bg-white-200 p-2.5">
-            {audioFileName}
+            {audioFileName || value}
             <Button
               onClick={() => deleteFile(value)}
               type="button"

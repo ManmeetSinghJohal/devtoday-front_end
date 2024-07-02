@@ -83,7 +83,7 @@ const EditProfile = ({ user }: EditProfileProps) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const editResponse = await fetch(
-        `http://localhost:3005/api/profile/${id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/profile/${id}`,
         {
           method: "PATCH",
           mode: "cors",

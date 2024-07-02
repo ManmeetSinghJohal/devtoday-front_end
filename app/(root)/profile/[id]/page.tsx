@@ -12,7 +12,7 @@ const Page = async ({
 }) => {
   const session = await getServerSession(authOptions);
   const resUser = await fetch(
-    `http://localhost:3005/api/user/${params?.id}?viewerId=${session?.user.id}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/${params?.id}?viewerId=${session?.user.id}`,
     {
       method: "GET",
       mode: "cors",
@@ -30,7 +30,7 @@ const Page = async ({
   let resPosts;
   if (type !== "group") {
     resPosts = await fetch(
-      `http://localhost:3005/api/user/${params?.id}/posts?postType=${type.toUpperCase()}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/${params?.id}/posts?postType=${type.toUpperCase()}`,
       {
         method: "GET",
         mode: "cors",
@@ -39,7 +39,7 @@ const Page = async ({
     );
   } else {
     resPosts = await fetch(
-      `http://localhost:3005/api/user/${params?.id}/groups`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/${params?.id}/groups`,
       {
         method: "GET",
         mode: "cors",

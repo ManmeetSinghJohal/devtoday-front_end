@@ -31,14 +31,17 @@ const CreateUserForm = () => {
 
   async function onSubmit(values: TSignUpSchema) {
     try {
-      const res = await fetch("http://localhost:3005/api/auth/register", {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/register`,
+        {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
 
       if (res.ok) {
         router.push("/signin");

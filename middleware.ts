@@ -1,17 +1,14 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { getSession } from "next-auth/react";
+import { getToken } from "next-auth/jwt";
 
 export async function middleware(request: NextRequest) {
-  // return NextResponse.next();
-  const requestForNextAuth: any = {
-    headers: {
-      cookie: request.headers.get("cookie"),
-    },
-  };
-  const session = await getSession({ req: requestForNextAuth });
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
 
   if (
-    !session?.user &&
+    !token &&
     !request.url.includes("signin") &&
     !request.url.includes("signup")
   ) {
@@ -19,22 +16,24 @@ export async function middleware(request: NextRequest) {
   }
 
   if (
-    session?.user &&
-    session?.user.onboardingCompleted === false &&
+    token &&
+    token.onboardingCompleted === false &&
     !request.url.includes("onboarding")
-  )
+  ) {
     return NextResponse.redirect(new URL("/onboarding", request.url));
+  }
 
   if (
-    session?.user &&
-    session?.user.onboardingCompleted === true &&
+    token &&
+    token.onboardingCompleted === true &&
     request.url.includes("onboarding")
-  )
+  ) {
     return NextResponse.redirect(new URL("/", request.url));
+  }
 
   if (
-    session?.user &&
-    session?.user.onboardingCompleted === true &&
+    token &&
+    token.onboardingCompleted === true &&
     (request.url.includes("signin") || request.url.includes("signup"))
   ) {
     return NextResponse.redirect(new URL("/", request.url));

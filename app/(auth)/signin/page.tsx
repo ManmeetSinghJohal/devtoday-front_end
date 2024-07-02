@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getProviders } from "next-auth/react";
-import React from "react";
+import React, { Suspense } from "react";
 
 import LoginButton from "@/components/auth/LoginButton";
 import LoginForm from "@/components/auth/LoginForm";
@@ -10,6 +10,7 @@ import Logo from "@/components/shared/Logo";
 
 const SignIn = async () => {
   const providers = await getProviders();
+  console.log(providers);
 
   return (
     <div className="mx-auto lg:grid lg:grid-cols-2">
@@ -57,7 +58,9 @@ const SignIn = async () => {
           <Theme />
         </div>
         <div className="lg:mt-[160px]">
-          <LoginForm />
+          <Suspense>
+            <LoginForm />
+          </Suspense>
           <div className="mt-6 text-center">
             <Link
               className="paragraph-3-regular text-dark-700 dark:text-white-300"
