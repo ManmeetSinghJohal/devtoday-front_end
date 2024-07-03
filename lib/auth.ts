@@ -78,7 +78,11 @@ export const authOptions: AuthOptions = {
       return session;
     },
 
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
+      if (trigger === "update") {
+        token.onboardingCompleted = true;
+      }
+
       if (user) {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/user`,
