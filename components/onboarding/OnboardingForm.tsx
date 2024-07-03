@@ -44,7 +44,8 @@ const OnboardingForm = ({
     resolver: zodResolver(FormSchema),
   });
 
-  const session = useSession();
+  // const session = useSession();
+  const { data: session, update } = useSession();
   const {
     fields: techFields,
     append: techAppend,
@@ -66,6 +67,7 @@ const OnboardingForm = ({
   const { setValue, watch } = form;
   const selectedJourney = watch("journey");
   const router = useRouter();
+
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profile/onboarding`, {
@@ -74,13 +76,16 @@ const OnboardingForm = ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...data,
-          id: session.data?.user?.id,
+          id: session?.user?.id,
           tech: data.tech.map((tech) => tech.techName),
           ambitions: data.ambitions.map((ambition) => ambition.ambitionName),
         }),
       });
       if (res.ok) {
-        router.push("/profile");
+        update();
+        setTimeout(() => {
+          router.push("/profile");
+        }, 2000); 
       }
     } catch (error) {
       console.log(error);

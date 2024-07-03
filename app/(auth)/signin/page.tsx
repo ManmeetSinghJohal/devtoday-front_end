@@ -10,7 +10,6 @@ import Logo from "@/components/shared/Logo";
 
 const SignIn = async () => {
   const providers = await getProviders();
-  console.log(providers);
 
   return (
     <div className="mx-auto lg:grid lg:grid-cols-2">

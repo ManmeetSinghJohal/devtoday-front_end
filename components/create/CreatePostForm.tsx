@@ -89,7 +89,9 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
       audioFile: selectedPost?.audioFile || "",
       audioTitle: selectedPost?.audioTitle || "",
       meetupLocation: selectedPost?.meetupLocation || "",
-      meetupDate: selectedPost?.meetupDate || undefined,
+      meetupDate: selectedPost?.meetupDate
+        ? new Date(selectedPost.meetupDate)
+        : undefined,
       tinyContent: selectedPost?.tinyContent || "",
       interestTechTags: postInterestTechTags || [],
     },
