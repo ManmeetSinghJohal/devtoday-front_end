@@ -65,16 +65,14 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
 }) => {
   const [isPreview, setIsPreview] = useState(false);
   const params = useParams<{ postid: string }>();
-  console.log("params", params);
   const editorRef = useRef<TinyMCEEditor | null>(null);
   const selectedPost = postData;
-  console.log("selectedPost", selectedPost);
   const postsGroupId = selectedPost?.groupId;
   const postGroup = groupNames?.find((group) => group.id === postsGroupId);
   const postInterestTechTags = selectedPost?.interestTechTags.map(
     (tag: Tag) => tag.name
   );
-
+  const initialTinyContent = selectedPost?.tinyContent;
   const router = useRouter();
 
   const togglePreview = () => {
@@ -96,7 +94,6 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
       interestTechTags: postInterestTechTags || [],
     },
   });
-  console.log("audio", selectedPost?.audioFile);
 
   const { handleSubmit, watch } = form;
 
@@ -132,7 +129,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
       );
       const newPost = await res.json();
       if (res.ok) {
-        router.push(`details/${newPost.id}`);
+        router.push(`/details/${newPost.id}`);
       }
     } catch (error) {
       console.log(error);
@@ -336,7 +333,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
                           )}
                         >
                           {field.value
-                            ? groupNames.find(
+                            ? groupNames?.find(
                                 (group) => group.name === field.value
                               )?.name
                             : "Select group"}
@@ -541,7 +538,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
                     }}
                     onBlur={field.onBlur}
                     onEditorChange={field.onChange}
-                    initialValue={field.value}
+                    initialValue={initialTinyContent}
                     value={field.value}
                     init={{
                       height: 376,
