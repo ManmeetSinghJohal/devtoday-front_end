@@ -1,47 +1,44 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { NextResponse } from "next/server";
+import { withAuth } from "next-auth/middleware";
 
-export async function middleware(request: NextRequest) {
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
+export default withAuth(
+  function middleware(request) {
+    console.log("request.nextauth.token", request.nextauth.token);
+    const { token } = request.nextauth;
+    const { pathname } = request.nextUrl;
 
-  if (
-    !token &&
-    !request.url.includes("signin") &&
-    !request.url.includes("signup")
-  ) {
-    return NextResponse.redirect(new URL("/signin", request.url));
-  }
+    if (!token) {
+      if (!pathname.includes("signin") && !pathname.includes("signup")) {
+        return NextResponse.redirect(new URL("/signin", request.url));
+      }
+    } else {
+      if (
+        token.onboardingCompleted === false &&
+        !pathname.includes("onboarding")
+      ) {
+        return NextResponse.redirect(new URL("/onboarding", request.url));
+      }
+      if (
+        token.onboardingCompleted === true &&
+        pathname.includes("onboarding")
+      ) {
+        return NextResponse.redirect(new URL("/", request.url));
+      }
+      if (pathname.includes("signin") || pathname.includes("signup")) {
+        return NextResponse.redirect(new URL("/", request.url));
+      }
+    }
 
-  if (
-    token &&
-    token.onboardingCompleted === false &&
-    !request.url.includes("onboarding")
-  ) {
-    return NextResponse.redirect(new URL("/onboarding", request.url));
-  }
-
-  if (
-    token &&
-    token.onboardingCompleted === true &&
-    request.url.includes("onboarding")
-  ) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-
-  if (
-    token &&
-    token.onboardingCompleted === true &&
-    (request.url.includes("signin") || request.url.includes("signup"))
-  ) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-
-  return NextResponse.next();
-}
+    return NextResponse.next();
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => !!token,
+    },
+  },
+);
 
 export const config = {
-  matcher: "/((?!api|_next/static|_next/image|assets|favicon.ico).*)",
+  matcher:
+    "/((?!api|_next/static|_next/image|assets|favicon.ico|signin|signup).*)",
 };

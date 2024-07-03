@@ -9,24 +9,29 @@ import { timeDifference } from "@/utils/methods";
 
 import FollowButton from "./FollowButton";
 
-const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
+const ProfileCard = ({ user, isOwner}  : {user: UserProfile, isOwner: boolean}) => {
   if (!user) return null;
+
   const {
-    username,
-    createdAt,
+    username = "",
+    createdAt = "",
     profile,
-    id,
-    profile: {
-      name,
-      githubLink,
-      xProfileLink,
-      linkedinLink,
-      instagramLink,
-      bio,
-    },
-    _count: { following, followers },
-    userIsFollowed,
+    id = "",
+    _count = { following: 0, followers: 0 },
+    userIsFollowed = false,
   } = user;
+
+  const {
+    name = "",
+    githubLink = "",
+    xProfileLink = "",
+    linkedinLink = "",
+    instagramLink = "",
+    bio = "",
+    tech= [],
+  } = profile;
+
+  const { following = 0, followers = 0 } = _count;
   return (
     <div className="flex w-full flex-col items-center justify-start gap-5 rounded-2xl bg-white-100 pb-[40px] dark:bg-dark-800 lg:w-[210px] lg:shrink-0  lg:pb-[111px]">
       <div className="flex w-full flex-col items-center justify-center gap-5">
@@ -71,7 +76,7 @@ const ProfileCard = ({ user, isOwner }: UserProfileProps) => {
               </p>
             </div>
             <div className="flex w-full flex-wrap items-center justify-center gap-1.5">
-              {profile.tech.map((tag: any) => (
+              {tech.map((tag: any) => (
                 <ProfileTags key={tag} label={tag} />
               ))}
             </div>

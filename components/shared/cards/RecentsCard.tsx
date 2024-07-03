@@ -10,7 +10,7 @@ const RecentPosts = ({ user }: RecentPostsProps) => {
           <p>Recent Posts</p>
           <ArrowRightIcon />
         </div>
-        {recentPosts.map((post: Post) => (
+        {recentPosts?.map((post: Post) => (
           <div key={post.id} className="mt-5 flex items-center gap-3">
             <Skeleton className="size-[58px] shrink-0 rounded-lg bg-white-200 dark:bg-dark-700" />
 
