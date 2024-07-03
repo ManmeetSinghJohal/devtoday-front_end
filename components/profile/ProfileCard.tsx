@@ -9,38 +9,13 @@ import { timeDifference } from "@/utils/methods";
 
 import FollowButton from "./FollowButton";
 
-interface Profile {
-  name?: string;
-  githubLink?: string;
-  xProfileLink?: string;
-  linkedinLink?: string;
-  instagramLink?: string;
-  bio?: string;
-  tech?: string[];
-}
-
-interface UserProfileProps {
-  user?: {
-    username?: string;
-    createdAt?: string;
-    profile?: Profile;
-    id?: string;
-    _count?: {
-      following?: number;
-      followers?: number;
-    };
-    userIsFollowed?: boolean;
-  };
-  isOwner?: boolean;
-}
-
-const ProfileCard: React.FC<UserProfileProps> = ({ user, isOwner }) => {
+const ProfileCard = ({ user, isOwner}  : {user: UserProfile, isOwner: boolean}) => {
   if (!user) return null;
 
   const {
     username = "",
     createdAt = "",
-    profile = {},
+    profile,
     id = "",
     _count = { following: 0, followers: 0 },
     userIsFollowed = false,
