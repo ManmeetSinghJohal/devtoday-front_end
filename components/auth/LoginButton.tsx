@@ -25,7 +25,7 @@ const LoginButton: React.FC<LoginButtonProps> = ({ providers }) => {
               className="h-11 w-full rounded-lg bg-white-100 dark:bg-dark-800"
               onClick={() => {
                 try {
-                  signIn(provider.id);
+                  signIn(provider.id, { callbackUrl: "/" });
                 } catch (error) {
                   console.log("Error signing in with provider", provider.id);
                 }
