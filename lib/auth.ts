@@ -84,21 +84,29 @@ export const authOptions: AuthOptions = {
       }
 
       if (user) {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/user`,
-          {
-            method: "POST",
-            mode: "cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: user.email }),
-          },
-        );
-        if (!res.ok) throw new Error("Failed to fetch user on JWT callback");
-        const userRes = await res.json();
-        token.id = userRes.id;
-        token.username = userRes.username;
-        token.name = userRes.name;
-        token.onboardingCompleted = userRes.profile.onBoardingCompleted;
+        try {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/user`,
+            {
+              method: "POST",
+              mode: "cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email: user.email }),
+            },
+          );
+
+          if (!res.ok) {
+            throw new Error("Failed to fetch user on JWT callback");
+          }
+
+          const userRes = await res.json();
+          token.id = userRes.id;
+          token.username = userRes.username;
+          token.name = userRes.name;
+          token.onboardingCompleted = userRes.profile.onBoardingCompleted;
+        } catch (error) {
+          console.error("JWT callback error:", error);
+        }
       }
 
       return token;
