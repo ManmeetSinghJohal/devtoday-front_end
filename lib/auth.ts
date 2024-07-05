@@ -130,7 +130,7 @@ export const authOptions: AuthOptions = {
           const userRes = await res.json();
           if (!userRes) {
             const userCreateRes = await fetch(
-              `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/register`,
+              `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/register/social`,
               {
                 method: "POST",
                 mode: "cors",
