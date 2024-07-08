@@ -56,34 +56,14 @@ export const authOptions: AuthOptions = {
   ],
 
   callbacks: {
-    async session({ session }) {
-      if (!session.user) return session;
-
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/user`,
-        {
-          method: "POST",
-          mode: "cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: session.user.email }),
-        },
-      );
-      if (!res.ok) throw new Error("Failed to fetch user on session callback");
-      const userRes = await res.json();
-      session.user.id = userRes.id;
-      session.user.username = userRes.username;
-      session.user.name = userRes.profile.name;
-      session.user.onboardingCompleted = userRes.profile.onBoardingCompleted;
-
-      return session;
-    },
-
     async jwt({ token, user, trigger }) {
       if (trigger === "update") {
         token.onboardingCompleted = true;
       }
 
       if (user) {
+        // console.log("user", user)
+        // console.log("token is running", token)
         try {
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/user`,
@@ -100,6 +80,16 @@ export const authOptions: AuthOptions = {
           }
 
           const userRes = await res.json();
+          // console.log("userRes", userRes);
+          if (
+            !userRes ||
+            !userRes.id ||
+            !userRes.username ||
+            !userRes.profile
+          ) {
+            throw new Error("Invalid user response structure");
+          }
+
           token.id = userRes.id;
           token.username = userRes.username;
           token.name = userRes.name;
@@ -112,12 +102,54 @@ export const authOptions: AuthOptions = {
       return token;
     },
 
+    async session({ session }) {
+      if (!session.user) return session;
+
+      try {
+        // console.log("session is running", session)
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/user`,
+          {
+            method: "POST",
+            mode: "cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: session.user.email }),
+          },
+        );
+
+        if (!res.ok)
+          throw new Error("Failed to fetch user on session callback");
+
+        const userRes = await res.json();
+        // console.log("userRes from session", userRes)
+
+        if (!userRes || !userRes.id || !userRes.username || !userRes.profile) {
+          throw new Error("Invalid user response structure");
+        }
+
+        session.user.id = userRes.id;
+        session.user.username = userRes.username;
+        session.user.name = userRes.profile.name;
+        session.user.onboardingCompleted = userRes.profile.onBoardingCompleted;
+      } catch (error) {
+        console.error("Session callback error:", error);
+      }
+
+      return session;
+    },
+
     async signIn({ account, profile }) {
       try {
+        // console.log("Signin is running")
+        // console.log("account is running", account)
+        // console.log("profile is running", profile)
+
         if (account?.provider === "github" || account?.provider === "google") {
           if (!profile) return false;
+
           const { email, name } = profile;
           if (!email) return false;
+
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/user`,
             {
@@ -127,20 +159,22 @@ export const authOptions: AuthOptions = {
               body: JSON.stringify({ email }),
             },
           );
+
           const userRes = await res.json();
+          // console.log("userRes from Signin", userRes)
           if (!userRes) {
             const userCreateRes = await fetch(
               `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/register/social`,
               {
                 method: "POST",
                 mode: "cors",
-                headers: {
-                  "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, name }),
               },
             );
+
             const newUser = await userCreateRes.json();
+            // console.log("newUser from Signin", newUser)
             if (!newUser) {
               return false;
             }
@@ -155,6 +189,7 @@ export const authOptions: AuthOptions = {
       }
     },
   },
+
   session: {
     strategy: "jwt",
   },
