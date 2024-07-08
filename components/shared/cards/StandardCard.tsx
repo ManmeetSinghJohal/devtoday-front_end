@@ -13,7 +13,7 @@ import {
 import LikeIcon from "../icons/LikeIcon";
 import PostTags from "../tags/PostTags";
 
-const PostCard = ({ post, user }: StandardCardProps) => {
+const StandardCard = ({ post, user }: StandardCardProps) => {
   const {
     title,
     tinyContent,
@@ -120,4 +120,4 @@ const PostCard = ({ post, user }: StandardCardProps) => {
   );
 };
 
-export default PostCard;
+export default StandardCard;
