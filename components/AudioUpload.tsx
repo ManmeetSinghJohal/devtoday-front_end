@@ -1,14 +1,13 @@
 "use client";
-
 import { Loader2, XCircle } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
+import { Button } from "./ui/button";
+
 import { useToast } from "@/components/ui/use-toast";
 import { handleFileDelete } from "@/utils/fileUtils";
 import { UploadButton } from "@/utils/uploadthing";
-
-import { Button } from "./ui/button";
 
 interface AudioUploadProps {
   value: string | undefined;
@@ -27,8 +26,8 @@ const AudioUpload: React.FC<AudioUploadProps> = ({ value, setValue }) => {
   return (
     <>
       {value?.length ? (
-        <div className="relative flex h-11 w-full items-center rounded-lg border-white-border bg-white-100 pl-2.5">
-          <div className="subtitle-small rounded-lg bg-white-200 p-2.5">
+        <div className="border-white-border bg-white-100 relative flex h-11 w-full items-center rounded-lg pl-2.5">
+          <div className="subtitle-small bg-white-200 rounded-lg p-2.5">
             {audioFileName || value}
             <Button
               onClick={() => deleteFile(value)}
@@ -42,7 +41,7 @@ const AudioUpload: React.FC<AudioUploadProps> = ({ value, setValue }) => {
           </div>
         </div>
       ) : (
-        <div className="flex h-11 flex-row justify-start rounded-lg border-white-border bg-white-100 pl-2.5">
+        <div className="border-white-border bg-white-100 flex h-11 flex-row justify-start rounded-lg pl-2.5">
           <Image
             src="/assets/microphone.svg"
             alt="microphone"
