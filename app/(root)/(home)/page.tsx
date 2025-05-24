@@ -15,12 +15,13 @@ const Page = async () => {
     }
   );
   const userData = await resUser.json();
-  const posts = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/STANDARD`, {
+  const posts = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/type/STANDARD`, {
     method: "GET",
     mode: "cors",
     headers: { "Content-Type": "application/json" },
   });
   const postsData = await posts.json();
+  console.log("postsData from Page£££££££££££££££££££££££££££££££££££££££", postsData);
 
   return (
     <div className="flex size-full flex-col gap-5 ">
