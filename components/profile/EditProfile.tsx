@@ -6,6 +6,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import ProfileImageUpload from "../ProfileImageUpload";
+
 import CrossIcon from "@/components/shared/icons/CrossIcon";
 import ImageIcon from "@/components/shared/icons/ImageIcon";
 import UploadFileIcon from "@/components/shared/icons/UploadFileIcon";
@@ -99,19 +101,25 @@ const EditProfile = ({ user }: EditProfileProps) => {
     }
   }
 
+  const handleClick = () => {
+   console.log("click");
+  };
+
   return (
     <div className="p-8 md:w-[840px]">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="flex items-center justify-start gap-2.5">
-            <div className="flex size-[60px] items-center justify-center rounded-full bg-white-100 text-white-400 dark:bg-dark-800 dark:text-white-300">
+            <div className="bg-white-100 text-white-400 dark:bg-dark-800 dark:text-white-300 flex size-[60px] items-center justify-center rounded-full">
               <ImageIcon />
             </div>
             <Button
-              className="flex gap-2 bg-white-100 text-white-400
-             hover:bg-white-100 dark:bg-dark-800 dark:text-white-300 dark:hover:bg-dark-700"
+            type="button" onClick={handleClick}
+              className="bg-white-100 text-white-400 hover:bg-white-100 dark:bg-dark-800
+             dark:text-white-300 dark:hover:bg-dark-700 flex gap-2"
             >
               <UploadFileIcon />
+              <ProfileImageUpload />
               <span>Set a profile photo</span>
             </Button>
           </div>
@@ -178,11 +186,11 @@ const EditProfile = ({ user }: EditProfileProps) => {
               <FormItem>
                 <FormLabel className="dark:text-white-200">Interest</FormLabel>
                 <FormControl>
-                  <div className="input-form flex min-h-10 flex-col gap-2 rounded-md border border-white-border p-1 dark:border-dark-border">
-                    <div className="input-form flex flex-row flex-wrap gap-2 rounded-md border-white-border p-1 dark:border-dark-border">
+                  <div className="input-form border-white-border dark:border-dark-border flex min-h-10 flex-col gap-2 rounded-md border p-1">
+                    <div className="input-form border-white-border dark:border-dark-border flex flex-row flex-wrap gap-2 rounded-md p-1">
                       {field.value.map((tag, index) => (
                         <div key={index} className="">
-                          <div className="caption-cap-10 flex items-center gap-1 rounded-xl bg-white-200 px-2 py-1 text-dark-700 dark:bg-dark-700 dark:text-white-300">
+                          <div className="caption-cap-10 bg-white-200 text-dark-700 dark:bg-dark-700 dark:text-white-300 flex items-center gap-1 rounded-xl px-2 py-1">
                             <p className="uppercase">{tag}</p>
                             <span
                               className="cursor-pointer"
