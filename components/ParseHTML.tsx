@@ -2,16 +2,15 @@
 import parse from "html-react-parser";
 import React from "react";
 
-interface Props {
-  data: string;
-}
+const ParseHTML = ({ data }: { data: string }) => {
+  if (typeof data !== "string") {
+    console.warn("ParseHTML expected a string, received:", data);
+    return null;
+  }
 
-const ParseHTML = ({ data }: Props) => {
-  return (
-    <div className="paragraph-2-regular text-white-400 dark:text-white-300">
-      {parse(data)}
-    </div>
-  );
+  const parsed = parse(data); 
+  return <>{parsed}</>;
 };
+
 
 export default ParseHTML;
