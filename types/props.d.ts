@@ -22,16 +22,13 @@ interface EditProfileProps {
 }
 interface StandardCardProps {
   user: UserProfile;
-  key: string;
   post: Post;
 }
 interface TagProps {
-  key: string;
   name: string;
 }
 interface GroupCardProps {
   user: UserProfile;
-  key: string;
   group: Post;
 }
 
