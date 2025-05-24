@@ -11,8 +11,7 @@ import { Separator } from "../ui/separator";
 import Comments from "./Comments";
 import PostStats from "./PostStats";
 
-const PostDetails = ({ postData }: {postData: PostData}) => {
-  console.log("postData", postData);
+const PostDetails = ({ postData }: { postData: PostData }) => {
   const { title, coverImage, tinyContent, interestTechTags } = postData;
   return (
     <div>
@@ -36,20 +35,23 @@ const PostDetails = ({ postData }: {postData: PostData}) => {
               className="hover:cursor-pointer hover:opacity-70 "
             />
           </PopoverTrigger>
-          <PopoverContent className="mr-[150px] mt-[10px] w-[180px] bg-white-200">
+          <PopoverContent className="bg-white-200 mr-[150px] mt-[10px] w-[180px]">
             <div className="space-y-[14px] py-4 pl-5">
-              <div className="flex space-x-2.5 bg-white-200">
+              <div className="bg-white-200 flex space-x-2.5">
                 <Image
                   src="/assets/edit.svg"
                   alt="update"
                   width={18}
                   height={18}
                 />
-                <Link href={`/post/${postData.id}`} className="paragraph-3-medium">
+                <Link
+                  href={`/post/${postData.id}`}
+                  className="paragraph-3-medium"
+                >
                   Edit Post
                 </Link>
               </div>
-              <DeletePost deletePostId={postData.id}/>
+              <DeletePost deletePostId={postData.id} />
             </div>
           </PopoverContent>
         </Popover>
@@ -62,14 +64,14 @@ const PostDetails = ({ postData }: {postData: PostData}) => {
       <div className="paragraph-2-regular text-white-400">
         <ParseHTML data={tinyContent} />
       </div>
-      <Separator className="mb-9 mt-12 bg-white-border dark:bg-dark-700" />
+      <Separator className="bg-white-border dark:bg-dark-700 mb-9 mt-12" />
       <div className="mb-[30px] lg:hidden">
         <PostStats />
       </div>
       <div>
         <Comments />
       </div>
-      <Separator className="my-[30px] bg-white-border dark:bg-dark-700 lg:hidden" />
+      <Separator className="bg-white-border dark:bg-dark-700 my-[30px] lg:hidden" />
     </div>
   );
 };
