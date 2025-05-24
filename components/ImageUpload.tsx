@@ -3,11 +3,12 @@ import { Loader2, XCircle } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
+import { Button } from "./ui/button";
+
 import { useToast } from "@/components/ui/use-toast";
 import { handleFileDelete } from "@/utils/fileUtils";
 import { UploadDropzone } from "@/utils/uploadthing";
 
-import { Button } from "./ui/button";
 
 
 interface ImageUploadProps {
