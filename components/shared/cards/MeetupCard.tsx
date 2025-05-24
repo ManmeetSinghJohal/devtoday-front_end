@@ -2,17 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import { getMeetDayInfo, removeHtmlTags } from "@/utils/methods";
-
 import PostTags from "../tags/PostTags";
+
+import { getMeetDayInfo, removeHtmlTags } from "@/utils/methods";
 
 const MeetUpCard = ({ post }: StandardCardProps) => {
   const { title, tinyContent, interestTechTags, meetupDate } = post;
-  const { day, month } = meetupDate
-    ? getMeetDayInfo(meetupDate)
-    : getMeetDayInfo("");
+  const { day, month } = getMeetDayInfo(meetupDate);
+
   return (
-    <div className="flex flex-col items-center gap-3 overflow-hidden rounded-2xl bg-white-100 p-5 dark:bg-dark-800 lg:flex-row lg:gap-5">
+    <div className="bg-white-100 dark:bg-dark-800 flex flex-col items-center gap-3 overflow-hidden rounded-2xl p-5 lg:flex-row lg:gap-5">
       <div className="flex size-full flex-col gap-3 lg:gap-2">
         <div className="flex gap-2 overflow-hidden">
           <Image
@@ -24,15 +23,13 @@ const MeetUpCard = ({ post }: StandardCardProps) => {
           />
 
           <div className="flex w-full overflow-hidden lg:gap-5">
-            <Link
-              href={`/details/${post.id}`}
-            >
-              <p className="paragraph-3-bold lg:paragraph-1-bold h-[40px] w-full truncate text-dark-800 dark:text-white-100 lg:h-[22px]">
+            <Link href={`/details/${post.id}`}>
+              <p className="paragraph-3-bold lg:paragraph-1-bold text-dark-800 dark:text-white-100 h-[40px] w-full truncate lg:h-[22px]">
                 {title}
               </p>
             </Link>
-            <div className="ml-5 flex flex-col items-center justify-center gap-2 rounded-md bg-white-200 px-4 py-1.5 text-white-300 dark:bg-dark-700 dark:text-primary1-500">
-              <p className="uppercase text-dark-900 dark:text-white-200">
+            <div className="bg-white-200 text-white-300 dark:bg-dark-700 dark:text-primary1-500 ml-5 flex flex-col items-center justify-center gap-2 rounded-md px-4 py-1.5">
+              <p className="text-dark-900 dark:text-white-200 uppercase">
                 {meetupDate ? month : "TBD"}
               </p>
               <p className="display-2-bold text-primary1-500">
@@ -43,7 +40,7 @@ const MeetUpCard = ({ post }: StandardCardProps) => {
         </div>
         <div className="flex flex-col justify-between gap-4 lg:gap-6 ">
           <div className="flex flex-col items-start gap-3  lg:gap-4">
-            <p className="paragraph-3-regular line-clamp-2 w-full break-all pr-10 text-white-400 dark:text-white-200">
+            <p className="paragraph-3-regular text-white-400 dark:text-white-200 line-clamp-2 w-full break-all pr-10">
               {removeHtmlTags(tinyContent)}
             </p>
             <div className="flex w-full gap-2.5">
