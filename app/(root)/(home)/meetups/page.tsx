@@ -16,7 +16,7 @@ const Page = async () => {
   );
   const userData = await resUser.json();
   const posts = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/MEETUP`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/type/MEETUP`,
     {
       method: "GET",
       mode: "cors",
@@ -29,7 +29,7 @@ const Page = async () => {
     <div className="flex size-full flex-col gap-5 ">
       <div className="grid grid-cols-1 gap-3.5">
         {postsData.map((post: Post) => {
-          return <MeetUpCard user={userData} post={postsData} key={post.id} />;
+          return <MeetUpCard user={userData} post={post} key={post.id} />;
         })}
       </div>
     </div>
