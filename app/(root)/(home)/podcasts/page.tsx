@@ -16,7 +16,7 @@ const Page = async () => {
   );
   const userData = await resUser.json();
   const posts = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/PODCAST`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/post/type/PODCAST`,
     {
       method: "GET",
       mode: "cors",
