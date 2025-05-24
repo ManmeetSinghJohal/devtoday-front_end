@@ -15,6 +15,7 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
     }
   );
   const userData = await resUser.json();
+  console.log("userData", userData);
 
   let type = searchParams.postType ?? "standard";
   if (type instanceof Array) type = type[0];
