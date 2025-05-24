@@ -62,8 +62,6 @@ export const authOptions: AuthOptions = {
       }
 
       if (user) {
-        // console.log("user", user)
-        // console.log("token is running", token)
         try {
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/user`,
@@ -80,7 +78,6 @@ export const authOptions: AuthOptions = {
           }
 
           const userRes = await res.json();
-          // console.log("userRes", userRes);
           if (
             !userRes ||
             !userRes.id ||
@@ -103,7 +100,7 @@ export const authOptions: AuthOptions = {
     },
 
     async session({ session }) {
-      if (!session.user) return session;
+      if (!session.user?.email) return session;
 
       try {
         // console.log("session is running", session)
@@ -127,10 +124,13 @@ export const authOptions: AuthOptions = {
           throw new Error("Invalid user response structure");
         }
 
-        session.user.id = userRes.id;
-        session.user.username = userRes.username;
-        session.user.name = userRes.profile.name;
-        session.user.onboardingCompleted = userRes.profile.onBoardingCompleted;
+        session.user = {
+          ...session.user, // 🛡️ preserves name, email, image
+          id: userRes.id,
+          username: userRes.username,
+          onboardingCompleted: userRes.profile.onBoardingCompleted,
+          name: userRes.profile.name ?? session.user.name,
+        };
       } catch (error) {
         console.error("Session callback error:", error);
       }
