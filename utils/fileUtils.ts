@@ -1,8 +1,8 @@
 export const handleFileDelete = (
   value: any,
   setFileIsDeleting: any,
-  setValue: any,
   toast: any,
+  setValue?: any,
 ) => {
   setFileIsDeleting(true);
   const fileKey = value.substring(value.lastIndexOf("/") + 1);
