@@ -9,6 +9,13 @@ import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Editor as TinyMCEEditor } from "tinymce";
 
+import AudioUpload from "../AudioUpload";
+import ImageUpload from "../ImageUpload";
+import ParseHTML from "../ParseHTML";
+import LeftArrowIcon from "../shared/icons/LeftArrowIcon";
+import PreviewIcon from "../shared/icons/PreviewIcon";
+import PostTagsPreview from "../shared/tags/PostTagsPreview";
+
 import CalendarIconSVG from "@/components/shared/icons/CalendarIcon";
 import CrossIcon from "@/components/shared/icons/CrossIcon";
 import HeadphonesIcon from "@/components/shared/icons/HeadphonesIcon";
@@ -47,13 +54,6 @@ import {
 import { cn } from "@/lib/utils";
 import { TCreatePostSchema, createPostSchema } from "@/lib/validations";
 
-import AudioUpload from "../AudioUpload";
-import ImageUpload from "../ImageUpload";
-import ParseHTML from "../ParseHTML";
-import LeftArrowIcon from "../shared/icons/LeftArrowIcon";
-import PreviewIcon from "../shared/icons/PreviewIcon";
-import PostTagsPreview from "../shared/tags/PostTagsPreview";
-
 function isEmptyObj(obj: Record<string, unknown>): boolean {
   return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
@@ -69,9 +69,14 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
   const selectedPost = postData;
   const postsGroupId = selectedPost?.groupId;
   const postGroup = groupNames?.find((group) => group.id === postsGroupId);
-  const postInterestTechTags = selectedPost?.interestTechTags.map(
+  const postInterestTechTags = selectedPost?.interestTechTags?.map(
     (tag: Tag) => tag.name
   );
+  console.log(
+    "groupNames!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+    groupNames
+  );
+  console.log("selectedPost", selectedPost);
   const initialTinyContent = selectedPost?.tinyContent;
   const router = useRouter();
 
@@ -142,7 +147,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
     return (
       <div className="space-y-5">
         <div className="flex items-center gap-[5px]" onClick={togglePreview}>
-          <div className="mr-4 dark:text-white-100">
+          <div className="dark:text-white-100 mr-4">
             <LeftArrowIcon />
           </div>
           <div className="text-primary1-500">
@@ -163,7 +168,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
         )}
 
         {isCoverImage && isCreateType === "PODCAST" && (
-          <div className=" flex h-[190px] rounded-2xl  bg-white-100 p-5 dark:bg-dark-800">
+          <div className=" bg-white-100 dark:bg-dark-800 flex  h-[190px] rounded-2xl p-5">
             <div className="flex items-center">
               <Image
                 src={isCoverImage}
@@ -181,19 +186,19 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
               />
             </div>
             <div className="my-3.5 ml-[30px] grow">
-              <div className="paragraph-4-regular mb-[2px] dark:text-white-200">
+              <div className="paragraph-4-regular dark:text-white-200 mb-[2px]">
                 {isAudioTitle}
               </div>
-              <div className="paragraph-1-bold mb-4 dark:text-white-200">
+              <div className="paragraph-1-bold dark:text-white-200 mb-4">
                 by Liam Debloger
               </div>
               <div className="mb-[15px] flex items-center gap-5">
-                <div className="h-2.5 w-full rounded-md bg-white-300 dark:bg-dark-700"></div>
+                <div className="bg-white-300 dark:bg-dark-700 h-2.5 w-full rounded-md"></div>
                 <div className="paragraph-3-regular bg:text-white-200">
                   00:00|63:37
                 </div>
               </div>
-              <div className="paragraph-3-medium flex h-[36px] w-[105px] items-center space-x-[5px] rounded-md bg-primary1-500 px-[14px] py-2 text-white-100">
+              <div className="paragraph-3-medium bg-primary1-500 text-white-100 flex h-[36px] w-[105px] items-center space-x-[5px] rounded-md px-[14px] py-2">
                 <Image
                   src="/assets/play.svg"
                   alt="play"
@@ -238,7 +243,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
               width={16}
               alt="location"
             />
-            <div className="paragraph-2-medium ml-2.5 dark:text-white-200">
+            <div className="paragraph-2-medium dark:text-white-200 ml-2.5">
               {isMeetupLocation}
             </div>
           </div>
@@ -263,7 +268,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
                   <Input
                     type="text"
                     placeholder="Write a title of the post"
-                    className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
+                    className="paragraph-3-regular border-white-border text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100 h-11 rounded-lg px-3 py-3.5"
                     {...field}
                   />
                 </FormControl>
@@ -282,14 +287,14 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
-                      <SelectTrigger className="paragraph-3-regular w-full border-none text-xs text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100">
+                      <SelectTrigger className="paragraph-3-regular text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100 w-full border-none text-xs">
                         <SelectValue placeholder="Select type" />
                       </SelectTrigger>
-                      <SelectContent className="border-none text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100">
+                      <SelectContent className="text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100 border-none">
                         <SelectItem value="STANDARD">
                           <div className="flex gap-2.5">
                             <HomeIcon />
-                            <div className="text-sm capitalize hover:text-primary1-500">
+                            <div className="hover:text-primary1-500 text-sm capitalize">
                               Post
                             </div>
                           </div>
@@ -297,7 +302,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
                         <SelectItem value="MEETUP">
                           <div className="flex gap-2.5">
                             <CalendarIconSVG />
-                            <div className="text-sm capitalize hover:text-primary1-500">
+                            <div className="hover:text-primary1-500 text-sm capitalize">
                               Meetup
                             </div>
                           </div>
@@ -305,7 +310,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
                         <SelectItem value="PODCAST">
                           <div className="flex gap-2.5">
                             <HeadphonesIcon />
-                            <div className="text-sm capitalize hover:text-primary1-500">
+                            <div className="hover:text-primary1-500 text-sm capitalize">
                               Podcast
                             </div>
                           </div>
@@ -441,7 +446,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
                       <Input
                         type="text"
                         placeholder="Ex: Codetime | Episode 8"
-                        className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
+                        className="paragraph-3-regular border-white-border text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100 h-11 rounded-lg px-3 py-3.5"
                         {...field}
                       />
                     </FormControl>
@@ -466,7 +471,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
                       <Input
                         type="text"
                         placeholder="Write a location for this meetup"
-                        className="paragraph-3-regular h-11 rounded-lg border-white-border px-3 py-3.5 text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100"
+                        className="paragraph-3-regular border-white-border text-dark-900 dark:border-dark-border dark:bg-dark-800 dark:text-white-100 h-11 rounded-lg px-3 py-3.5"
                         {...field}
                       />
                     </FormControl>
@@ -585,11 +590,11 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
                   is about
                 </FormLabel>
                 <FormControl>
-                  <div className="input-form flex min-h-10 flex-col gap-2 rounded-md border border-white-border p-1 dark:border-dark-border">
-                    <div className="input-form flex flex-row flex-wrap gap-2 rounded-md border-white-border p-1 dark:border-dark-border">
+                  <div className="input-form border-white-border dark:border-dark-border flex min-h-10 flex-col gap-2 rounded-md border p-1">
+                    <div className="input-form border-white-border dark:border-dark-border flex flex-row flex-wrap gap-2 rounded-md p-1">
                       {field.value.map((tag, index) => (
                         <div key={index} className="">
-                          <div className="caption-cap-10 flex items-center gap-1 rounded-xl bg-white-200 px-2 py-1 text-dark-700 dark:bg-dark-700 dark:text-white-300">
+                          <div className="caption-cap-10 bg-white-200 text-dark-700 dark:bg-dark-700 dark:text-white-300 flex items-center gap-1 rounded-xl px-2 py-1">
                             <p className="uppercase">{tag}</p>
                             <span
                               className="cursor-pointer"
@@ -636,7 +641,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
           <div className="mt-6 md:mt-8 md:flex md:flex-row-reverse">
             <div className="py-1 md:ml-2.5 md:flex-1">
               <Button
-                className="paragraph-2-bold h-11 w-full rounded-lg bg-primary1-500 dark:text-white-200"
+                className="paragraph-2-bold bg-primary1-500 dark:text-white-200 h-11 w-full rounded-lg"
                 type="submit"
                 disabled={form.formState.isSubmitting}
               >
@@ -646,7 +651,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
 
             <div className="py-1 md:mr-2.5 md:flex-1">
               <Button
-                className="paragraph-2-bold h-11 w-full rounded-lg bg-white-100 text-dark-900 dark:bg-dark-800 dark:text-white-200"
+                className="paragraph-2-bold bg-white-100 text-dark-900 dark:bg-dark-800 dark:text-white-200 h-11 w-full rounded-lg"
                 type="button"
               >
                 Cancel
