@@ -36,12 +36,20 @@ export function timeDifference(date: string): string {
   return "just now";
 }
 
-export function getMeetDayInfo(meetDay: string): {
+export function getMeetDayInfo(meetDay?: string): {
   month: string;
   day: number;
 } {
-  const dateValue = new Date(meetDay);
-  const monthNames: string[] = [
+  if (!meetDay) {
+    return { month: "Invalid", day: 0 };
+  }
+
+  const date = new Date(meetDay);
+  if (isNaN(date.getTime())) {
+    return { month: "Invalid", day: 0 };
+  }
+
+  const monthNames = [
     "Jan",
     "Feb",
     "Mar",
@@ -50,17 +58,16 @@ export function getMeetDayInfo(meetDay: string): {
     "Jun",
     "Jul",
     "Aug",
-    "Sept",
+    "Sep",
     "Oct",
     "Nov",
     "Dec",
   ];
-  const monthIndex: number = dateValue.getMonth();
-  const day: number = dateValue.getDate();
 
-  const month: string = monthNames[monthIndex];
-
-  return { month, day };
+  return {
+    month: monthNames[date.getUTCMonth()],
+    day: date.getUTCDate(),
+  };
 }
 
 export const likePost = async (postId: string, userId: string) => {
